@@ -1,0 +1,1853 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Richwealth – Invest</title>
+<meta name="description" content="Richwealth new investor application – plans, calculator, Privé membership, official bank accounts and KYC.">
+<link rel="icon" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&text=0123456789%E2%82%B9%2C.%25%2B%E2%86%92&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700&family=Noto+Serif+Gujarati:wght@500;600;700&family=Noto+Serif+Devanagari:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#faf6ec; --cream2:#f3ecd9; --paper:#fffdf7;
+    --gold:#b08d2e; --gold-dk:#8a6d1f; --gold-lt:#f1dfa6; --line:#e2d5ae;
+    --navy:#14213d; --ink:#1f2433; --muted:#6b6553;
+    --esp:#2b1d14; --esp2:#3a281b;
+    --green:#5f8f22; --green-bg:#f2f7e8; --err:#b3261e; --err-bg:#fdf1f0;
+    --head:Montserrat,"Playfair Display",Georgia,serif; --body:Montserrat,Inter,system-ui,sans-serif;
+  }
+  html[lang=gu]{--head:Montserrat,"Noto Serif Gujarati","Playfair Display",serif; --body:Montserrat,"Noto Serif Gujarati",Montserrat,Inter,sans-serif}
+  html[lang=hi]{--head:Montserrat,"Noto Serif Devanagari","Playfair Display",serif; --body:Montserrat,"Noto Serif Devanagari",Montserrat,Inter,sans-serif}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  html,body{margin:0}
+  body{background:linear-gradient(180deg,var(--cream) 0%,var(--cream2) 100%) fixed; color:var(--ink); font:16.5px/1.6 var(--body); -webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px; margin:0 auto; padding:0 16px}
+  h1,h2,h3{font-family:var(--head); line-height:1.3; margin:0}
+  /* nicer line breaks: no lonely word on the last line */
+  h1,h2,h3,.sub,.intro,.esub,.hint,.lbl,legend,label,summary,.kicker,.eyebrow,.stat span,.pvstats span,.dwkstats span,.dwkhero span,.fee span,.tk em{text-wrap:balance}
+  p,li,.upsell,.note,.warn,.tmsg,.why,.ben span,.off p,.exits div,.caution li,.agree span,.chip span{text-wrap:pretty}
+  .num-f{font-family:Montserrat,Inter,system-ui,sans-serif; font-variant-numeric:tabular-nums}
+
+  /* language gate */
+  .gate{position:fixed; inset:0; z-index:50; background:rgba(20,33,61,.94); display:flex; align-items:center; justify-content:center; padding:16px}
+  .gate[hidden]{display:none}
+  .gatebox{background:var(--paper); border:2px solid var(--gold); border-radius:16px; padding:26px 22px; width:100%; max-width:360px; text-align:center}
+  .gatebox img{width:200px; height:auto}
+  .gatebox p{margin:10px 0 16px; color:var(--gold-dk); font:600 15px/1.6 "Noto Serif Gujarati",Montserrat,"Noto Serif Devanagari",Montserrat,Inter,sans-serif}
+  .gatebox button{display:block; width:100%; margin-top:10px; padding:14px; border-radius:10px; border:1.5px solid var(--gold); background:#fff; color:var(--navy); cursor:pointer; font:700 18px/1.2 "Noto Serif Gujarati",Montserrat,"Noto Serif Devanagari",Montserrat,Inter,sans-serif}
+  .gatebox button:hover,.gatebox button:focus{background:var(--gold); color:#fff; outline:none}
+
+
+  /* WhatsApp entry screen (before the page opens) */
+  .entry{position:fixed; inset:0; z-index:40; background:linear-gradient(180deg,var(--cream) 0%,var(--cream2) 100%); overflow-y:auto; display:flex; justify-content:center; align-items:flex-start; padding:16px}
+  .entry[hidden]{display:none}
+  .entrybox{width:100%; max-width:420px; margin:auto 0; background:#fff; border:1.5px solid var(--gold); border-radius:18px; padding:18px 18px 16px; text-align:center; box-shadow:0 10px 40px rgba(138,109,31,.15)}
+  .entrybox .langbar{justify-content:flex-end}
+  .elogo{width:190px; max-width:60%; height:auto; margin:2px 0 6px}
+  .entrybox h2{font-size:clamp(21px,5.6vw,26px); color:var(--navy); margin:4px 0 6px}
+  .esub{color:var(--muted); font-size:15px; margin:0 0 12px}
+  .eperks{display:flex; flex-wrap:wrap; justify-content:center; gap:6px; margin-bottom:14px}
+  .eperks span{background:var(--cream); border:1px solid var(--line); border-radius:999px; padding:4px 11px; font-size:13px; color:var(--gold-dk); font-weight:600}
+  .entrybox .otpbox{text-align:left}
+  .epriv{font-size:12.5px; color:var(--muted); margin:12px 0 0}
+  body.locked{overflow:hidden}
+
+  /* header */
+  header{padding:14px 0 0; text-align:center}
+  .langbar{display:flex; justify-content:flex-end; gap:6px; margin-bottom:4px}
+  .langbar button{background:transparent; border:1px solid var(--line); color:var(--gold-dk); border-radius:999px; padding:5px 12px; cursor:pointer; font:600 13px/1.2 "Noto Serif Gujarati",Montserrat,"Noto Serif Devanagari",Montserrat,Inter,sans-serif}
+  .langbar button[aria-pressed=true]{background:var(--gold); border-color:var(--gold); color:#fff}
+  .logo{width:230px; max-width:62%; height:auto}
+  .kicker{font:600 12px/1.4 Montserrat,Inter,sans-serif; letter-spacing:.22em; color:var(--gold-dk); text-transform:uppercase; margin-top:6px}
+  header h1{font-size:clamp(26px,6.4vw,38px); color:var(--navy); margin:8px 0 6px}
+  header .sub{color:var(--muted); margin:0 auto; max-width:560px}
+  .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:16px 0 0}
+  .stat{background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px 4px}
+  .stat b{display:block; font:800 clamp(19px,5.4vw,26px)/1.2 Montserrat,"Playfair Display",Georgia,serif; color:var(--gold-dk)}
+  .stat span{display:block; font-size:12px; color:var(--muted); line-height:1.3; margin-top:2px}
+  .nav{position:sticky; top:0; z-index:20; background:rgba(250,246,236,.94); backdrop-filter:blur(6px); margin:14px -16px 0; padding:8px 16px; border-bottom:1px solid var(--line); display:flex; gap:6px; overflow-x:auto; scrollbar-width:none}
+  .nav::-webkit-scrollbar{display:none}
+  .nav a{flex:none; text-decoration:none; color:var(--navy); background:#fff; border:1px solid var(--line); border-radius:999px; padding:6px 11px; font-size:13.5px; font-weight:600}
+  .nav{justify-content:safe center}
+  .nav a.go{background:var(--gold); border-color:var(--gold); color:#fff}
+
+  /* cards */
+  .card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 18px; margin-top:16px; box-shadow:0 2px 12px rgba(138,109,31,.07); scroll-margin-top:62px}
+  .card > h2{font-size:clamp(21px,4.8vw,26px); color:var(--navy); margin-bottom:4px}
+  .card > .intro{color:var(--muted); font-size:15px; margin:0 0 14px}
+  .eyebrow{font:700 11.5px/1.4 Montserrat,Inter,sans-serif; letter-spacing:.2em; color:var(--gold); text-transform:uppercase; margin-bottom:4px}
+  html[lang=hi] .eyebrow, html[lang=gu] .eyebrow{letter-spacing:0; font:700 13px/1.4 var(--body)}
+
+  /* calculator */
+  .plans{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+  .pl{position:relative; text-align:left; border:1.5px solid var(--line); background:var(--paper); border-radius:12px; padding:10px 12px; cursor:pointer; font:inherit; color:var(--ink)}
+  .pl b{display:block; font-size:14.5px; line-height:1.3; color:var(--navy)}
+  .pl span{display:block; font:800 21px/1.3 Montserrat,Inter,sans-serif; color:var(--gold-dk); margin-top:2px}
+  .pl small{font-size:12px; color:var(--muted)}
+  .pl.pv{background:linear-gradient(135deg,var(--esp),var(--esp2)); border-color:#5a4228}
+  .pl.pv b{color:var(--gold-lt)} .pl.pv span{color:#fff} .pl.pv small{color:#d8c79a}
+  .pl[aria-pressed=true]{border-color:var(--gold); box-shadow:0 0 0 3px rgba(176,141,46,.28)}
+  .pl[aria-pressed=true]::after{content:"✓"; position:absolute; top:8px; right:10px; width:20px; height:20px; border-radius:50%; background:var(--gold); color:#fff; font:700 12px/20px Montserrat,Inter,sans-serif; text-align:center}
+  .amt{margin:16px 0 6px}
+  .amt label{display:block; font-weight:600; margin-bottom:6px}
+  .amtrow{display:flex; align-items:center; gap:8px}
+  .amtrow button{flex:none; width:46px; height:46px; border-radius:10px; border:1.5px solid var(--gold); background:#fff; color:var(--gold-dk); font:700 22px/1 Montserrat,Inter,sans-serif; cursor:pointer}
+  .amtbox{flex:1; display:flex; align-items:center; border:1.5px solid #d9c98f; background:var(--paper); border-radius:10px; padding:0 12px; min-width:0}
+  .amtbox span{font:700 20px Montserrat,Inter,sans-serif; color:var(--gold-dk)}
+  .amtbox input{flex:1; min-width:0; border:0; background:transparent; font:700 22px Montserrat,Inter,sans-serif; color:var(--navy); padding:10px 8px; text-align:center}
+  .amtbox input[type=text]{border:0; background:transparent; box-shadow:none; border-radius:0; padding:10px 6px; font:800 24px Montserrat,Inter,sans-serif}
+  .amtbox input:focus{outline:none; box-shadow:none; background:transparent}
+  .amtbox em{font-style:normal; font-size:14px; color:var(--muted)}
+  input[type=range]{width:100%; accent-color:var(--gold-dk); margin:12px 0 4px}
+  .quick{display:flex; gap:6px; flex-wrap:wrap}
+  .quick button{border:1px solid var(--line); background:#fff; border-radius:999px; padding:4px 11px; font:600 13px Montserrat,Inter,sans-serif; color:var(--gold-dk); cursor:pointer}
+  .words{font-size:13.5px; color:var(--muted); margin-top:6px}
+  .res{margin-top:14px; border-radius:14px; background:var(--navy); color:#fff; padding:16px}
+  .res.pv{background:linear-gradient(135deg,var(--esp),#4a3220)}
+  .res .big{display:flex; justify-content:space-between; align-items:flex-end; gap:10px; padding-bottom:12px; border-bottom:1px solid rgba(241,223,166,.25)}
+  .res .big small{display:block; color:#cfd6e4; font-size:13px}
+  .res .big b{font:800 clamp(32px,9.4vw,44px)/1.1 Montserrat,Inter,sans-serif; color:var(--gold-lt)}
+  .res .big .tag{font-size:12px; border:1px solid rgba(241,223,166,.5); color:var(--gold-lt); border-radius:999px; padding:3px 10px; white-space:nowrap}
+  .rgrid{display:grid; grid-template-columns:1fr 1fr; gap:10px 14px; margin-top:12px}
+  .rgrid div small{display:block; color:#b9c2d4; font-size:12.5px}
+  .res.pv .rgrid div small{color:#d8c79a}
+  .rgrid div b{font:700 18px Montserrat,Inter,sans-serif}
+  .upsell{margin-top:12px; background:#fbf1d3; border:1px solid #ecd9a6; border-radius:12px; padding:12px 14px; font-size:14.5px; color:#4d3d12}
+  .upsell b{color:var(--esp)}
+  .upsell a{color:var(--gold-dk); font-weight:700}
+  .note{font-size:13.5px; color:var(--muted); margin:10px 0 0}
+  details.terms{margin-top:12px; border:1px solid var(--line); border-radius:10px; background:var(--paper)}
+  details.terms summary{cursor:pointer; padding:10px 14px; font-weight:600; color:var(--navy); font-size:15px}
+  details.terms ul{margin:0; padding:0 16px 12px 32px; font-size:14px; color:#3d3a30}
+  details.terms li{margin:4px 0}
+  .btn{display:block; width:100%; border:0; cursor:pointer; border-radius:12px; font:700 17px/1.2 var(--body); padding:16px 20px; margin-top:16px; background:var(--gold); color:#fff; text-align:center; text-decoration:none}
+  .btn:hover{background:var(--gold-dk)}
+  .btn:disabled{opacity:.6; cursor:wait}
+  .btn.ghost{background:#fff; color:var(--gold-dk); border:1.5px solid var(--gold)}
+
+  /* privé */
+  .prive{background:linear-gradient(160deg,var(--esp) 0%,#3d2a1c 60%,#2b1d14 100%); border:1px solid #5a4228; color:#efe6d2}
+  .prive > h2{color:var(--gold-lt)}
+  .prive > .intro{color:#d8c79a}
+  .pvmark{font:italic 600 clamp(30px,8vw,42px)/1 Montserrat,"Playfair Display",Georgia,serif; color:var(--gold-lt); letter-spacing:.02em}
+  .pvmark small{display:block; font:600 11px/1.6 Montserrat,Inter,sans-serif; font-style:normal; letter-spacing:.3em; color:#c9b27a; margin-top:6px}
+  .pvstats{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:14px 0}
+  .pvstats div{border:1px solid rgba(241,223,166,.3); border-radius:10px; padding:9px 4px; text-align:center}
+  .pvstats b{display:block; font:800 21px/1.2 Montserrat,Inter,sans-serif; color:var(--gold-lt)}
+  .pvstats span{font-size:11.5px; color:#d8c79a; line-height:1.3; display:block}
+  .bens{display:grid; gap:8px; grid-template-columns:1fr}
+  @media(min-width:560px){ .bens{grid-template-columns:1fr 1fr} }
+  .ben{display:flex; gap:10px; align-items:flex-start; background:rgba(255,255,255,.05); border:1px solid rgba(241,223,166,.18); border-radius:10px; padding:10px 12px}
+  .ben i{flex:none; width:32px; height:32px; border-radius:8px; background:rgba(241,223,166,.15); color:var(--gold-lt); display:flex; align-items:center; justify-content:center; font-style:normal; font-size:17px}
+  .ben b{display:block; color:#fff; font-size:15px; line-height:1.35}
+  .ben span{font-size:13.5px; color:#d8c79a}
+  .fees{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px}
+  .fee{border:1px solid rgba(241,223,166,.35); border-radius:12px; padding:12px; text-align:center; position:relative}
+  .fee.best{border-color:var(--gold-lt); background:rgba(241,223,166,.08)}
+  .fee .rib{position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:var(--gold); color:#fff; font:700 10.5px/1 Montserrat,Inter,sans-serif; letter-spacing:.12em; padding:5px 9px; border-radius:999px; white-space:nowrap}
+  .fee b{display:block; font:800 27px/1.2 Montserrat,Inter,sans-serif; color:var(--gold-lt)}
+  .fee span{font-size:13px; color:#d8c79a}
+  .pvnote{margin-top:12px; font-size:13.5px; color:#d8c79a; border-top:1px solid rgba(241,223,166,.2); padding-top:10px}
+  .pvnote p{margin:4px 0}
+  .pvnote b{color:var(--gold-lt)}
+
+  /* dwarka */
+  .dwk{background:linear-gradient(160deg,#0f2a2e 0%,#163c3f 60%,#0f2a2e 100%); border:1px solid #2c5a5c; color:#e6efe9}
+  .dwk > h2{color:#f1dfa6}
+  .dwk .eyebrow{color:#d9c27c}
+  .dwk > .intro{color:#c7d9d2}
+  .dwkstats{display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin:12px 0}
+  .dwkstats div{border:1px solid rgba(241,223,166,.3); border-radius:10px; padding:9px 4px; text-align:center}
+  .dwkstats b{display:block; font:800 clamp(14.5px,4.1vw,18px)/1.25 Montserrat,Inter,sans-serif; color:#f1dfa6}
+  .dwkstats span{font-size:11.5px; color:#c7d9d2; display:block; line-height:1.3}
+  .dwkcalc{background:rgba(255,255,255,.06); border:1px solid rgba(241,223,166,.25); border-radius:12px; padding:12px}
+  .dwkcalc label{display:block; font-weight:600; color:#fff; margin-bottom:6px; font-size:15px}
+  .dwkcalc .amtrow button{background:transparent; color:#f1dfa6; border-color:#d9c27c}
+  .dwkcalc .amtbox{background:rgba(255,255,255,.95)}
+  .dwkout{margin-top:12px}
+  .dwkout small{display:block; color:#c7d9d2; font-size:13px}
+  .dwkout b{font:700 clamp(24px,7vw,32px)/1.1 Montserrat,Inter,sans-serif; color:#f1dfa6}
+  .dwkpts{margin:12px 0 0; padding:0 0 0 18px; font-size:14px; color:#dce8e3}
+  .dwkpts li{margin:5px 0}
+  .dwkpts b{color:#fff}
+  .dwk .btn{background:#d9c27c; color:#0f2a2e}
+  .dwk .btn:hover{background:#f1dfa6}
+
+  .dwkhero{display:grid; grid-template-columns:1fr; gap:8px; margin:12px 0 4px}
+  @media(min-width:560px){ .dwkhero{grid-template-columns:1fr 1fr} }
+  .dwkhero div{background:rgba(241,223,166,.1); border:1px solid rgba(241,223,166,.45); border-radius:12px; padding:12px 10px; text-align:center}
+  .dwkhero b{display:block; font:800 clamp(20px,6vw,25px)/1.25 Montserrat,Inter,sans-serif; color:#f1dfa6}
+  .dwkhero span{font-size:12.5px; color:#d6e4de; line-height:1.35; display:block; margin-top:3px}
+  .dwkres{display:grid; grid-template-columns:1fr 1fr; gap:10px 12px; margin-top:12px; padding-top:10px; border-top:1px solid rgba(241,223,166,.2)}
+  .dwkres small{display:block; color:#c7d9d2; font-size:12.5px; line-height:1.3}
+  .dwkres b{font:800 19px Montserrat,Inter,sans-serif; color:#fff}
+  .dwkres .gold b{color:#f1dfa6}
+  .dwk h3.dsub{font:700 15.5px/1.4 var(--body); color:#f1dfa6; margin:16px 0 8px}
+  .whys{display:grid; gap:7px; grid-template-columns:1fr}
+  @media(min-width:520px){ .whys{grid-template-columns:1fr 1fr} }
+  .why{display:flex; gap:10px; align-items:flex-start; background:rgba(255,255,255,.05); border:1px solid rgba(241,223,166,.18); border-radius:10px; padding:9px 11px; font-size:14px; color:#dce8e3}
+  .why i{flex:none; font-style:normal; font-size:17px; line-height:1.3}
+  .why b{color:#fff}
+  .track2{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+  .tk{border:1px solid rgba(241,223,166,.3); border-radius:10px; padding:10px; text-align:center}
+  .tk em{display:block; font-style:normal; font-size:12.5px; color:#c7d9d2}
+  .tk b{display:block; font:700 15px/1.35 Montserrat,Inter,sans-serif; color:#fff; margin-top:4px}
+  .tk b span{color:#f1dfa6; font-size:18px}
+  .exits{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+  .exits div{background:rgba(255,255,255,.05); border:1px solid rgba(241,223,166,.18); border-radius:10px; padding:10px; font-size:13.5px; color:#dce8e3}
+  .exits b{display:block; color:#fff; font-size:14.5px; margin-bottom:2px}
+  .fine{font-size:12px; color:#a9c1b8; margin:12px 0 0; line-height:1.5}
+  .dwk .chip{background:transparent}
+
+  /* steps / tracker */
+  .steps{list-style:none; margin:14px 0 0; padding:0; text-align:left; counter-reset:st}
+  .steps li{position:relative; padding:0 0 14px 40px; color:#4d4838; font-size:15px; counter-increment:st}
+  .steps li::before{content:counter(st); position:absolute; left:0; top:0; width:28px; height:28px; border-radius:50%; background:#efe6cc; color:var(--gold-dk); font:700 14px/28px Montserrat,Inter,sans-serif; text-align:center}
+  .steps li::after{content:""; position:absolute; left:13px; top:30px; bottom:2px; width:2px; background:#eadfbf}
+  .steps li:last-child::after{display:none}
+  .steps li.ok{color:#3d5e14}
+  .steps li.ok::before{content:"✓"; background:var(--green); color:#fff}
+  .steps li.now{color:var(--navy); font-weight:700}
+  .steps li.now::before{background:var(--gold); color:#fff; box-shadow:0 0 0 4px rgba(176,141,46,.25)}
+  .tstat{margin-top:12px; background:var(--cream); border:1px solid var(--line); border-radius:12px; padding:12px 14px}
+  .tstat .who{font-size:14px; color:var(--muted)}
+  .tstat .who b{color:var(--navy)}
+  .tmsg{margin-top:10px; border-radius:9px; padding:10px 12px; font-size:14.5px}
+  .tmsg.ok{background:var(--green-bg); color:#3d5e14; border:1px solid #cfe3b2}
+  .tmsg.no{background:var(--err-bg); color:#4a1c18}
+  .tmsg.info{background:#fbf1d3; color:#4d3d12; border:1px solid #ecd9a6}
+
+  /* cautions */
+  .caution{background:#fff8f0; border:1px solid #f0d3b4; border-left:5px solid #c0662b; border-radius:12px; padding:12px 14px}
+  .caution h3{font:700 16px/1.4 var(--body); color:#7a3510; margin:0 0 6px}
+  .caution ul{margin:0; padding-left:18px; font-size:14.5px; color:#4a2a14}
+  .caution li{margin:5px 0}
+  .caution b{color:#5c240a}
+  .tlist{margin:0; padding:4px 14px 12px 34px; font-size:14px; color:#3d3a30}
+  .tlist li{margin:8px 0}
+  .tlist li b{color:#3d2f0a}
+  .tlist li > b:first-child{display:block; color:var(--navy); font-size:14.5px}
+  .avow{margin-top:12px; font-size:13.5px; color:var(--muted); background:var(--cream); border-radius:10px; padding:10px 12px}
+
+  #f-amt, #t-amt, #f-pamt{font:700 19px Montserrat,Inter,sans-serif !important; color:var(--navy); letter-spacing:.01em}
+  .res .big small, .pl small{text-wrap:balance}
+  .pl > small{display:block}
+  .rgrid div b{display:block; text-wrap:balance}
+  .field > label.drop{padding:10px 12px}
+  .refnote,.warn,.note,.upsell,.tmsg,.caution li,.dwkpts li,.why span,.ben span,.exits span,.hint,.esub,.epriv,.pvnote p,.avow{text-wrap:balance}
+
+  /* dropdowns */
+  select.in, .phone select{background-color:#fbf3dc; border-color:#cdb46a; font-weight:600; color:var(--navy); cursor:pointer}
+  select.in:focus{background-color:#fff6df}
+  #f-plan{font-weight:700; font-size:16px; border-width:2px}
+  #f-plan.k-std{background-color:#fff4d6; border-color:var(--gold); color:#5a4510}
+  #f-plan.k-pv{background-color:#3a281b; border-color:#b08d2e; color:#f1dfa6}
+  #f-plan.k-dwk{background-color:#163c3f; border-color:#2c5a5c; color:#f1dfa6}
+  #f-plan.k-fee{background-color:#5a4228; border-color:#b08d2e; color:#f1dfa6}
+  #f-plan option, #f-plan optgroup{font-weight:600}
+  #f-plan optgroup.g-std, #f-plan option.o-std{background:#fff4d6; color:#3d2f0a}
+  #f-plan optgroup.g-pv, #f-plan option.o-pv{background:#3a281b; color:#f1dfa6}
+  #f-plan optgroup.g-dwk, #f-plan option.o-dwk{background:#163c3f; color:#f1dfa6}
+  .plantag{display:inline-block; margin-top:6px; border-radius:999px; padding:3px 12px; font-size:13px; font-weight:700}
+  .plantag.k-std{background:#fff4d6; color:#5a4510; border:1px solid #e3c87a}
+  .plantag.k-pv,.plantag.k-fee{background:#3a281b; color:#f1dfa6}
+  .plantag.k-dwk{background:#163c3f; color:#f1dfa6}
+
+  /* offices */
+  .ogrid{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+  .off{border:1px solid var(--line); border-top:3px solid var(--gold); border-radius:10px; padding:10px 12px; background:var(--paper)}
+  .off h3{font:700 16px/1.3 var(--head); color:var(--navy)}
+  .off p{margin:4px 0 0; font-size:13px; color:#4d4838; line-height:1.45}
+  .soon{margin-top:10px; background:var(--navy); color:#fff; border-radius:10px; padding:10px 12px; display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px}
+  .soon b{font:700 12px/1.3 Montserrat,Inter,sans-serif; letter-spacing:.14em; color:#f1dfa6; text-transform:uppercase}
+  html[lang=hi] .soon b, html[lang=gu] .soon b{letter-spacing:0; font:700 14px/1.3 var(--body)}
+  .soon span{border:1px solid rgba(241,223,166,.45); border-radius:999px; padding:3px 11px; font-size:14px}
+  .namegrid{display:grid; gap:0 10px; grid-template-columns:1fr}
+  @media(min-width:520px){ .namegrid{grid-template-columns:1fr 1fr 1fr} }
+  .subh{font:700 14.5px/1.4 var(--body); color:var(--gold-dk); margin:6px 0 8px}
+
+  /* bank */
+  .bank{border:1.5px solid var(--line); border-radius:14px; padding:14px; margin-top:10px; background:var(--paper)}
+  .bank.on{border-color:var(--gold); box-shadow:0 0 0 3px rgba(176,141,46,.18)}
+  .bank h3{font:700 14px/1.4 var(--body); color:var(--gold-dk); text-transform:none; margin-bottom:8px}
+  .brow{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:7px 0; border-bottom:1px dashed #eadfbf}
+  .brow:last-child{border-bottom:0}
+  .brow small{color:var(--muted); font-size:13px; flex:none}
+  .brow b{font:600 15px Montserrat,Inter,sans-serif; color:var(--navy); text-align:right; margin-left:auto; overflow-wrap:anywhere}
+  .brow b.mono{white-space:nowrap; letter-spacing:0; font-size:15px; font-weight:700}
+  .brow{gap:6px}
+  .bank{padding:14px 12px}
+  .brow b.tbc{color:var(--err); font-weight:600; font-size:13.5px}
+  .cp{flex:none; border:1px solid var(--line); background:#fff; color:var(--gold-dk); border-radius:7px; padding:3px 8px; font:600 12px Montserrat,Inter,sans-serif; cursor:pointer}
+  .warn{margin-top:12px; background:var(--err-bg); border-left:4px solid var(--err); border-radius:8px; padding:10px 12px; font-size:14px; color:#4a1c18}
+
+  /* form */
+  .step{border-top:1px solid var(--line); padding-top:16px; margin-top:16px}
+  .step:first-of-type{border-top:0; margin-top:0; padding-top:0}
+  .step h3{font:700 17px/1.35 var(--body); color:var(--navy); display:flex; gap:10px; align-items:center; margin-bottom:10px}
+  .num{flex:none; width:28px; height:28px; border-radius:50%; background:var(--gold); color:#fff; font:700 14px/28px Montserrat,Inter,sans-serif; text-align:center}
+  .field{margin-bottom:14px; border:0; padding:0; min-width:0}
+  .field > label, .field > .lbl, .field legend{display:block; font-weight:600; font-size:15px; margin-bottom:5px; padding:0}
+  .req{color:var(--err)}
+  .hint{display:block; font-weight:400; color:var(--muted); font-size:13px; margin:0 0 5px}
+  input[type=text],input[type=tel],input[type=email],input[type=date],select.in,textarea{width:100%; font:16px var(--body); color:var(--ink); background:var(--paper); border:1.5px solid #d9c98f; border-radius:9px; padding:11px 12px}
+  textarea{min-height:76px; resize:vertical}
+  input:focus,textarea:focus,select:focus{outline:none; border-color:var(--gold); box-shadow:0 0 0 3px rgba(176,141,46,.2); background:#fff}
+  .up{text-transform:uppercase}
+  .row2{display:grid; gap:0 12px; grid-template-columns:1fr}
+  @media(min-width:520px){ .row2{grid-template-columns:1fr 1fr} }
+  .phone{display:flex; gap:8px}
+  .phone select{flex:none; width:92px; font:16px var(--body); background:var(--paper); border:1.5px solid #d9c98f; border-radius:9px; padding:11px 6px}
+  .phone input{flex:1 1 auto; min-width:0; width:auto !important}
+  .phone{flex-wrap:wrap}
+  .phone input{flex:1 1 160px}
+  .phone .sbtn{flex:1 1 100%; min-height:46px}
+  @media(min-width:560px){ .phone{flex-wrap:nowrap} .phone .sbtn{flex:none; padding:0 16px} }
+  .chips{display:flex; flex-wrap:wrap; gap:8px}
+  .chip{display:flex; align-items:center; gap:8px; border:1.5px solid #d9c98f; background:var(--paper); border-radius:10px; padding:9px 12px; cursor:pointer; font-size:15px}
+  .chip input{width:18px; height:18px; margin:0; accent-color:var(--gold-dk); flex:none}
+  .chip:has(input:checked){background:#fbf1d3; border-color:var(--gold)}
+  .chips.col{flex-direction:column}
+  .err{display:none; color:var(--err); font-size:13.5px; margin-top:4px}
+  .field.bad .err{display:block}
+  .field.bad input,.field.bad textarea,.field.bad select,.field.bad .chip,.field.bad .drop,.field.bad .agree{border-color:var(--err)}
+  .hide{display:none !important}
+
+  .otpbox{background:var(--cream); border:1px solid var(--line); border-radius:12px; padding:14px}
+  .otprow{display:flex; gap:8px}
+  .otprow input{letter-spacing:.4em; text-align:center; font:700 20px Montserrat,Inter,sans-serif !important}
+  .sbtn{flex:none; border:0; border-radius:9px; background:var(--navy); color:#fff; font:700 15px var(--body); padding:0 16px; cursor:pointer; min-height:46px}
+  .sbtn:disabled{opacity:.55; cursor:default}
+  .otpmsg{font-size:14px; margin-top:8px; color:var(--muted)}
+  .otpmsg.ok{color:var(--green); font-weight:600}
+  .otpmsg.no{color:var(--err)}
+  .verified{display:flex; align-items:center; gap:10px; background:var(--green-bg); border:1.5px solid var(--green); border-radius:10px; padding:11px 14px; font-weight:600; color:#3d5e14}
+  .verified button{margin-left:auto; background:none; border:0; color:var(--gold-dk); text-decoration:underline; cursor:pointer; font:600 13.5px var(--body)}
+  fieldset.lock{border:0; padding:0; margin:0; min-width:0}
+  fieldset.lock:disabled{opacity:.45; pointer-events:none}
+  .lockmsg{margin:12px 0 0; text-align:center; font-size:14px; color:var(--gold-dk); font-weight:600}
+
+  .drop{display:flex !important; align-items:center; gap:12px; border:1.5px dashed #cdb873; background:var(--paper); border-radius:10px; padding:10px 12px; cursor:pointer; margin:0 !important; font-weight:400 !important; position:relative}
+  .drop:hover{background:#fdf7e6}
+  .drop .ic{flex:none; width:40px; height:40px; border-radius:9px; background:#f3e8c6; display:flex; align-items:center; justify-content:center; color:var(--gold-dk)}
+  .drop .tx{font-size:13.5px; color:var(--muted)}
+  .drop .tx b{display:block; color:var(--ink); font-size:15px}
+  .drop input{position:absolute; width:1px; height:1px; opacity:0}
+  .drop.has{border-style:solid; border-color:var(--green); background:var(--green-bg)}
+  .drop.has .ic{background:var(--green); color:#fff}
+  .prev{display:flex; align-items:center; gap:10px; margin-top:6px}
+  .prev:empty{display:none}
+  .prev img{width:84px; height:56px; object-fit:cover; border-radius:6px; border:1px solid var(--line)}
+  .prev .pdf{width:84px; height:56px; display:flex; align-items:center; justify-content:center; font:700 14px Montserrat,Inter,sans-serif; color:var(--err); background:var(--err-bg); border-radius:6px}
+  .prev button{background:none; border:0; color:var(--err); text-decoration:underline; cursor:pointer; font:600 13.5px var(--body)}
+  .docgrid{display:grid; gap:0 12px; grid-template-columns:1fr}
+  @media(min-width:520px){ .docgrid{grid-template-columns:1fr 1fr} }
+
+  .summary{background:var(--cream); border:1px solid var(--line); border-left:4px solid var(--gold); border-radius:10px; padding:10px 12px; font-size:14.5px; margin-bottom:12px}
+  .summary b{color:var(--navy)}
+  .refnote{background:#fbf1d3; border:1px solid #ecd9a6; border-radius:10px; padding:10px 12px; font-size:14px; color:#4d3d12; margin-bottom:12px}
+  .agree{display:flex; gap:11px; align-items:flex-start; border:1.5px solid #d9c98f; background:var(--paper); border-radius:10px; padding:11px 13px; cursor:pointer; margin-top:8px; font-size:14.5px; font-weight:500 !important}
+  .agree input{width:20px; height:20px; margin-top:2px; flex:none; accent-color:var(--gold-dk)}
+  .field > label.agree{display:flex; margin:8px 0 0; padding:11px 13px; font-size:14.5px; font-weight:500}
+  .agree:has(input:checked){background:#fbf1d3; border-color:var(--gold)}
+  .formmsg{display:none; margin-top:14px; padding:12px 14px; border-radius:9px; background:var(--err-bg); color:#4a1c18; font-size:15px}
+  .formmsg.show{display:block}
+  .hp{position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden}
+  .preview{background:#14213d; color:#f1dfa6; text-align:center; font:600 13px/1.4 Montserrat,Inter,sans-serif; padding:7px 12px}
+
+  .done{display:none; background:#fff; border:2px solid var(--gold); border-radius:16px; padding:26px 20px; text-align:center; margin-top:16px}
+  .done .tick{width:64px; height:64px; border-radius:50%; background:var(--green-bg); color:var(--green); display:flex; align-items:center; justify-content:center; margin:0 auto 10px}
+  .done h2{color:var(--navy); font-size:clamp(23px,5.4vw,28px)}
+  .ref{display:inline-block; margin:12px 0 6px; background:var(--cream); border:1px dashed var(--gold); border-radius:8px; padding:8px 18px; font:800 22px Montserrat,Inter,sans-serif; color:var(--gold-dk); letter-spacing:.04em}
+  .done ol{text-align:left; margin:14px auto 0; max-width:460px; padding-left:22px; color:#3d3a30}
+  .done li{margin:6px 0}
+
+  footer{text-align:center; color:var(--muted); font-size:13.5px; padding:26px 0 34px}
+  footer img{width:120px; opacity:.9}
+  footer a{color:var(--gold-dk)}
+  footer p{margin:6px 0}
+  @media(max-width:400px){ .stat span,.pvstats span{font-size:11px} .rgrid div b{font-size:15px} }
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate" hidden>
+  <div class="gatebox">
+    <img src="logo-en.png" alt="Richwealth">
+    <p>ભાષા પસંદ કરો · भाषा चुनें · Choose language</p>
+    <button type="button" data-lang="gu">ગુજરાતી</button>
+    <button type="button" data-lang="hi">हिन्दी</button>
+    <button type="button" data-lang="en">English</button>
+  </div>
+</div>
+
+<div class="entry" id="entry" hidden>
+  <div class="entrybox">
+    <div class="langbar mini" role="group" aria-label="Language">
+      <button type="button" data-lang="gu">ગુજ</button>
+      <button type="button" data-lang="hi">हिं</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+    <img class="elogo" id="elogo" src="logo-en.png" alt="Richwealth">
+    <h2 data-t="en_h"></h2>
+    <p class="esub" data-t="en_p"></p>
+    <div class="eperks"><span data-t="en_k1"></span><span data-t="en_k2"></span><span data-t="en_k3"></span></div>
+    <div id="otpArea" class="otpbox">
+          <div class="field" data-k="mobile">
+            <label for="f-mob"><span data-t="mob"></span> <span class="req">*</span></label>
+            <span class="hint" data-t="mob_h"></span>
+            <div class="phone">
+              <select id="f-cc" aria-label="Country code">
+                <option value="+91">🇮🇳 +91</option><option value="+971">🇦🇪 +971</option><option value="+1">🇺🇸 +1</option>
+                <option value="+44">🇬🇧 +44</option><option value="+61">🇦🇺 +61</option><option value="+65">🇸🇬 +65</option>
+                <option value="+966">🇸🇦 +966</option><option value="+968">🇴🇲 +968</option><option value="+974">🇶🇦 +974</option>
+                <option value="+965">🇰🇼 +965</option><option value="+973">🇧🇭 +973</option><option value="+254">🇰🇪 +254</option>
+                <option value="+255">🇹🇿 +255</option><option value="+256">🇺🇬 +256</option><option value="+27">🇿🇦 +27</option>
+                <option value="+64">🇳🇿 +64</option><option value="+66">🇹🇭 +66</option><option value="+60">🇲🇾 +60</option>
+              </select>
+              <input type="tel" id="f-mob" inputmode="numeric" autocomplete="tel-national" maxlength="15">
+              <button type="button" class="sbtn" id="sendOtp" data-t="send"></button>
+            </div>
+            <span class="err" data-t="e_mob"></span>
+          </div>
+          <div class="field hide" id="otpField" data-k="otp" style="margin-bottom:0">
+            <label for="f-otp" data-t="otp_l"></label>
+            <div class="otprow">
+              <input type="text" id="f-otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6">
+              <button type="button" class="sbtn" id="verifyOtp" data-t="verify"></button>
+            </div>
+            <span class="err" data-t="e_otp"></span>
+          </div>
+          <div class="otpmsg" id="otpMsg"></div>
+        </div>
+    <p class="epriv" data-t="en_priv"></p>
+  </div>
+</div>
+
+<div class="preview hide" id="pvbar">PREVIEW MODE – nothing is saved. Demo OTP: 123456</div>
+
+<div class="wrap">
+  <header>
+    <div class="langbar" role="group" aria-label="Language">
+      <button type="button" data-lang="gu">ગુજ</button>
+      <button type="button" data-lang="hi">हिं</button>
+      <button type="button" data-lang="en">EN</button>
+    </div>
+    <img class="logo" id="logo" src="logo-en.png" alt="Richwealth">
+    <div class="kicker">Since 2011 · Jamnagar · Ahmedabad · Surat · Porbandar</div>
+    <h1 data-t="h1"></h1>
+    <p class="sub" data-t="sub"></p>
+    <div class="stats">
+      <div class="stat"><b>2011</b><span data-t="st1"></span></div>
+      <div class="stat"><b>15+</b><span data-t="st2"></span></div>
+      <div class="stat"><b>19</b><span data-t="st3"></span></div>
+      <div class="stat"><b>200+</b><span data-t="st4"></span></div>
+    </div>
+    <nav class="nav">
+      <a href="#calc" data-t="n1"></a>
+      <a href="#prive">Privé</a>
+      <a href="#dwarka" data-t="n5"></a>
+      <a href="#bank" data-t="n3"></a>
+      <a href="#offices" data-t="n6"></a>
+      <a href="#cautions" data-t="n8"></a>
+      <a href="#track" data-t="n7"></a>
+      <a href="#apply" class="go" data-t="n4"></a>
+    </nav>
+  </header>
+
+  <!-- ============ CALCULATOR ============ -->
+  <section class="card" id="calc">
+    <div class="eyebrow" data-t="c_eye"></div>
+    <h2 data-t="c_h"></h2>
+    <p class="intro" data-t="c_in" data-brk="1"></p>
+    <div class="plans" id="plans"></div>
+    <div class="amt">
+      <label for="amt" data-t="c_amt"></label>
+      <div class="amtrow">
+        <button type="button" id="minus" aria-label="minus">−</button>
+        <div class="amtbox"><span>₹</span><input id="amt" type="text" inputmode="numeric" value="10,00,000" maxlength="13" aria-describedby="words"></div>
+        <button type="button" id="plus" aria-label="plus">+</button>
+      </div>
+      <input type="range" id="rng" min="1" max="100" step="1" value="10" aria-label="amount">
+      <div class="quick" id="quick"></div>
+      <div class="words num-f" id="words"></div>
+    </div>
+    <div class="res" id="res"></div>
+    <div class="upsell hide" id="upsell"></div>
+    <p class="note" data-t="c_note"></p>
+    <details class="terms">
+      <summary data-t="t_h"></summary>
+      <ul id="terms"></ul>
+    </details>
+    <a class="btn" href="#apply" id="useplan" data-t="c_use"></a>
+  </section>
+
+  <!-- ============ PRIVÉ ============ -->
+  <section class="card prive" id="prive">
+    <div class="pvmark">Privé<small>RICHWEALTH EXCLUSIVE MEMBERSHIP</small></div>
+    <p class="intro" style="margin-top:12px" data-t="p_in"></p>
+    <div class="pvstats">
+      <div><b>2%</b><span data-t="p_s1"></span></div>
+      <div><b>26%</b><span data-t="p_s2"></span></div>
+      <div><b>1st</b><span data-t="p_s3"></span></div>
+      <div><b>10g</b><span data-t="p_s4"></span></div>
+    </div>
+    <div class="bens" id="bens"></div>
+    <div class="fees">
+      <div class="fee"><b class="num-f">₹2,500</b><span data-t="p_f1"></span></div>
+      <div class="fee best"><span class="rib" data-t="p_best"></span><b class="num-f">₹10,000</b><span data-t="p_f2"></span></div>
+    </div>
+    <div class="pvnote" id="pvnote"></div>
+  </section>
+
+  <!-- ============ DWARKA OPPORTUNITY LAND ============ -->
+  <section class="card dwk" id="dwarka">
+    <div class="eyebrow" data-t="dk_eye"></div>
+    <h2 data-t="dk_h"></h2>
+    <p class="intro" data-t="dk_in"></p>
+    <div class="dwkhero">
+      <div><b class="num-f">₹400 → ₹800</b><span data-t="dk_h1"></span></div>
+      <div><b class="num-f">₹4,00,000 → ₹8,00,000*</b><span data-t="dk_h2"></span></div>
+    </div>
+    <div class="dwkstats">
+      <div><b class="num-f">₹4,00,000</b><span data-t="dk_s2"></span></div>
+      <div><b class="num-f">1,000</b><span data-t="dk_s4"></span></div>
+      <div><b class="num-f">31-03-2027</b><span data-t="dk_s3"></span></div>
+    </div>
+    <div class="dwkcalc">
+      <label for="damt" data-t="dk_amt"></label>
+      <div class="amtrow">
+        <button type="button" id="dminus" aria-label="minus">−</button>
+        <div class="amtbox"><span>₹</span><input id="damt" type="text" inputmode="numeric" value="4,00,000" maxlength="13"></div>
+        <button type="button" id="dplus" aria-label="plus">+</button>
+      </div>
+      <div class="dwkres num-f" id="dres"></div>
+    </div>
+
+    <h3 class="dsub" data-t="dk_why"></h3>
+    <div class="whys" id="dwhys"></div>
+
+    <h3 class="dsub" data-t="dk_rec"></h3>
+    <div class="track2">
+      <div class="tk"><em data-t="dk_r1"></em><b class="num-f">₹400 → <span>₹10,000+</span></b></div>
+      <div class="tk"><em data-t="dk_r2"></em><b class="num-f">₹1,500 → <span>₹3,000+</span></b></div>
+    </div>
+
+    <h3 class="dsub" data-t="dk_exit"></h3>
+    <div class="exits">
+      <div><b data-t="dk_e1"></b><span data-t="dk_e1s"></span></div>
+      <div><b data-t="dk_e2"></b><span data-t="dk_e2s"></span></div>
+    </div>
+
+    <h3 class="dsub" data-t="dk_safe"></h3>
+    <ul class="dwkpts" id="dwkpts"></ul>
+    <a class="btn" href="#apply" id="usedwk" data-t="dk_use"></a>
+    <p class="fine" data-t="dk_fine"></p>
+  </section>
+
+  <!-- ============ BANK ============ -->
+  <section class="card" id="bank">
+    <div class="eyebrow" data-t="b_eye"></div>
+    <h2 data-t="b_h"></h2>
+    <p class="intro" data-t="b_in"></p>
+    <div id="banks"></div>
+    <div class="warn" data-t="b_warn"></div>
+  </section>
+
+  <!-- ============ OFFICES ============ -->
+  <section class="card" id="offices">
+    <div class="eyebrow" data-t="o_eye"></div>
+    <h2 data-t="o_h"></h2>
+    <div class="ogrid" id="ogrid"></div>
+    <div class="soon" id="soon"></div>
+  </section>
+
+  <!-- ============ IMPORTANT TERMS & CAUTIONS ============ -->
+  <section class="card" id="cautions">
+    <div class="eyebrow" data-t="cu_eye"></div>
+    <h2 data-t="cu_h"></h2>
+    <p class="intro" data-t="cu_in" data-brk="1"></p>
+    <div class="caution"><h3 data-t="cu_bh"></h3><ul id="cuList"></ul></div>
+    <details class="terms">
+      <summary data-t="cu_full"></summary>
+      <ol class="tlist" id="cuTerms"></ol>
+    </details>
+    <p class="avow" data-t="cu_avow"></p>
+  </section>
+
+  <!-- ============ APPLICATION ============ -->
+  <section class="card" id="apply">
+    <div class="eyebrow" data-t="f_eye"></div>
+    <h2 data-t="f_h"></h2>
+    <p class="intro" data-t="f_in"></p>
+
+    <form id="form" novalidate>
+      <div class="hp" aria-hidden="true"><label>Company <input type="text" id="f-hp" tabindex="-1" autocomplete="off"></label></div>
+
+      <!-- 1 WhatsApp OTP -->
+      <div class="step">
+        <h3><span class="num">1</span><span data-t="s1"></span></h3>
+        <div class="verified hide" id="verified"><span>✓</span><span id="verTxt"></span><button type="button" id="chgMob" data-t="change"></button></div>
+      </div>
+
+      <fieldset class="lock" id="lock">
+
+      <!-- 2 Personal -->
+      <div class="step">
+        <h3><span class="num">2</span><span data-t="s2"></span></h3>
+        <p class="hint" data-t="name_h" style="margin-top:-4px"></p>
+        <div class="namegrid">
+          <div class="field" data-k="fname">
+            <label for="f-fname"><span data-t="fname"></span> <span class="req">*</span></label>
+            <input type="text" id="f-fname" class="up" autocomplete="given-name" maxlength="40">
+            <span class="err" data-t="e_req"></span>
+          </div>
+          <div class="field" data-k="mname">
+            <label for="f-mname" data-t="mname"></label>
+            <input type="text" id="f-mname" class="up" autocomplete="additional-name" maxlength="40">
+          </div>
+          <div class="field" data-k="lname">
+            <label for="f-lname"><span data-t="lname"></span> <span class="req">*</span></label>
+            <input type="text" id="f-lname" class="up" autocomplete="family-name" maxlength="40">
+            <span class="err" data-t="e_req"></span>
+          </div>
+        </div>
+        <div class="summary hide" id="fullname" style="margin-top:-4px"></div>
+        <div class="row2">
+          <div class="field" data-k="dob">
+            <label for="f-dob"><span data-t="dob"></span> <span class="req">*</span></label>
+            <input type="date" id="f-dob" max="2010-12-31">
+            <span class="err" data-t="e_req"></span>
+          </div>
+          <div class="field" data-k="email">
+            <label for="f-email" data-t="email"></label>
+            <input type="email" id="f-email" autocomplete="email" maxlength="80">
+            <span class="err" data-t="e_email"></span>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field" data-k="pan">
+            <label for="f-pan"><span data-t="pan"></span> <span class="req">*</span></label>
+            <input type="text" id="f-pan" class="up" maxlength="10" placeholder="ABCDE1234F" autocomplete="off">
+            <span class="err" data-t="e_pan"></span>
+          </div>
+          <div class="field" data-k="aadhaar">
+            <label for="f-aad"><span data-t="aad"></span> <span class="req">*</span></label>
+            <input type="text" id="f-aad" inputmode="numeric" maxlength="14" placeholder="1234 5678 9012" autocomplete="off">
+            <span class="err" data-t="e_aad"></span>
+          </div>
+        </div>
+        <div class="subh" data-t="caddr_h"></div>
+        <div class="field" data-k="address">
+          <label for="f-addr"><span data-t="addr"></span> <span class="req">*</span></label>
+          <textarea id="f-addr" maxlength="300" autocomplete="street-address"></textarea>
+          <span class="err" data-t="e_req"></span>
+        </div>
+        <div class="row2">
+          <div class="field" data-k="city">
+            <label for="f-city"><span data-t="city"></span> <span class="req">*</span></label>
+            <input type="text" id="f-city" maxlength="60" autocomplete="address-level2">
+            <span class="err" data-t="e_req"></span>
+          </div>
+          <div class="field" data-k="pin">
+            <label for="f-pin"><span data-t="pin"></span> <span class="req">*</span></label>
+            <input type="text" id="f-pin" inputmode="numeric" maxlength="10" autocomplete="postal-code">
+            <span class="err" data-t="e_req"></span>
+          </div>
+        </div>
+        <div class="field" data-k="state">
+          <label for="f-state"><span data-t="state"></span> <span class="req">*</span></label>
+          <input type="text" id="f-state" maxlength="40" value="Gujarat" autocomplete="address-level1">
+          <span class="err" data-t="e_req"></span>
+        </div>
+        <div class="subh" data-t="paddr_h"></div>
+        <fieldset class="field" data-k="psame">
+          <div class="chips">
+            <label class="chip"><input type="radio" name="psame" value="Same" checked><span data-t="psame_y"></span></label>
+            <label class="chip"><input type="radio" name="psame" value="Different"><span data-t="psame_n"></span></label>
+          </div>
+        </fieldset>
+        <div id="pBox" class="hide">
+          <div class="field" data-k="paddr">
+            <label for="f-paddr"><span data-t="addr"></span> <span class="req">*</span></label>
+            <textarea id="f-paddr" maxlength="300"></textarea>
+            <span class="err" data-t="e_req"></span>
+          </div>
+          <div class="row2">
+            <div class="field" data-k="pcity">
+              <label for="f-pcity"><span data-t="city"></span> <span class="req">*</span></label>
+              <input type="text" id="f-pcity" maxlength="60">
+              <span class="err" data-t="e_req"></span>
+            </div>
+            <div class="field" data-k="ppin">
+              <label for="f-ppin"><span data-t="pin"></span> <span class="req">*</span></label>
+              <input type="text" id="f-ppin" inputmode="numeric" maxlength="10">
+              <span class="err" data-t="e_req"></span>
+            </div>
+          </div>
+          <div class="field" data-k="pstate">
+            <label for="f-pstate"><span data-t="state"></span> <span class="req">*</span></label>
+            <input type="text" id="f-pstate" maxlength="40">
+            <span class="err" data-t="e_req"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 Nominee -->
+      <div class="step">
+        <h3><span class="num">3</span><span data-t="s3"></span></h3>
+        <div class="row2">
+          <div class="field" data-k="nom">
+            <label for="f-nom"><span data-t="nom"></span> <span class="req">*</span></label>
+            <input type="text" id="f-nom" class="up" maxlength="80">
+            <span class="err" data-t="e_req"></span>
+          </div>
+          <div class="field" data-k="nomrel">
+            <label for="f-nomrel"><span data-t="nomrel"></span> <span class="req">*</span></label>
+            <select id="f-nomrel" class="in"></select>
+            <span class="err" data-t="e_req"></span>
+          </div>
+        </div>
+        <div class="field" data-k="nommob">
+          <label for="f-nommob" data-t="nommob"></label>
+          <input type="tel" id="f-nommob" inputmode="numeric" maxlength="15">
+        </div>
+      </div>
+
+      <!-- 4 Investment -->
+      <div class="step">
+        <h3><span class="num">4</span><span data-t="s4"></span></h3>
+        <div class="field" data-k="plan">
+          <label for="f-plan"><span data-t="plan"></span> <span class="req">*</span></label>
+          <select id="f-plan" class="in"></select>
+          <span class="plantag" id="plantag"></span>
+          <span class="err" data-t="e_req"></span>
+        </div>
+        <div class="row2">
+          <div class="field" data-k="famt">
+            <label for="f-amt"><span data-t="famt"></span> <span class="req">*</span></label>
+            <span class="hint" data-t="famt_h"></span>
+            <input type="text" id="f-amt" inputmode="numeric" maxlength="13">
+            <span class="err" data-t="e_amt"></span>
+          </div>
+          <div class="field">
+            <span class="lbl" data-t="est"></span>
+            <span class="hint" data-t="est_h"></span>
+            <div class="summary num-f" id="fsum" style="margin:0"></div>
+          </div>
+        </div>
+        <fieldset class="field hide" data-k="mship" id="mshipField">
+          <legend><span data-t="mship"></span> <span class="req">*</span></legend>
+          <span class="hint" data-t="mship_h"></span>
+          <div class="chips col">
+            <label class="chip"><input type="radio" name="mship" value="5-Year (Rs 10,000)"><span data-t="ms5"></span></label>
+            <label class="chip"><input type="radio" name="mship" value="Annual (Rs 2,500)"><span data-t="ms1"></span></label>
+            <label class="chip"><input type="radio" name="mship" value="Already a Privé member"><span data-t="ms0"></span></label>
+          </div>
+          <span class="err" data-t="e_pick"></span>
+        </fieldset>
+        <fieldset class="field hide" data-k="ins" id="insField">
+          <legend><span data-t="ins"></span> <span class="req">*</span></legend>
+          <span class="hint" data-t="ins_h"></span>
+          <div class="chips col">
+            <label class="chip"><input type="radio" name="ins" value="Yes - with 10% return insurance"><span data-t="ins_y"></span></label>
+            <label class="chip"><input type="radio" name="ins" value="No insurance"><span data-t="ins_n"></span></label>
+          </div>
+          <span class="err" data-t="e_pick"></span>
+        </fieldset>
+        <fieldset class="field" data-k="paid">
+          <legend><span data-t="paid"></span> <span class="req">*</span></legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="paid" value="Paid"><span data-t="paid_y"></span></label>
+            <label class="chip"><input type="radio" name="paid" value="Will pay"><span data-t="paid_n"></span></label>
+          </div>
+          <span class="err" data-t="e_pick"></span>
+        </fieldset>
+        <div id="payBox" class="hide">
+          <div class="row2">
+            <div class="field" data-k="mode">
+              <label for="f-mode"><span data-t="mode"></span> <span class="req">*</span></label>
+              <select id="f-mode" class="in"><option value=""></option><option>NEFT</option><option>RTGS</option><option>IMPS</option><option>UPI</option><option>Cheque</option></select>
+              <span class="err" data-t="e_req"></span>
+            </div>
+            <div class="field" data-k="pdate">
+              <label for="f-pdate"><span data-t="pdate"></span> <span class="req">*</span></label>
+              <input type="date" id="f-pdate">
+              <span class="err" data-t="e_req"></span>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field" data-k="utr">
+              <label for="f-utr" data-t="utr"></label>
+              <input type="text" id="f-utr" class="up" maxlength="40">
+              <span class="err" data-t="e_req"></span>
+            </div>
+            <div class="field" data-k="pamt">
+              <label for="f-pamt"><span data-t="pamt"></span> <span class="req">*</span></label>
+              <input type="text" id="f-pamt" inputmode="numeric" maxlength="12">
+              <span class="err" data-t="e_req"></span>
+            </div>
+          </div>
+          <div class="field" data-k="doc_payment" id="payDoc"></div>
+        </div>
+      </div>
+
+      <!-- 5 Payout bank -->
+      <div class="step">
+        <h3><span class="num">5</span><span data-t="s5"></span></h3>
+        <p class="hint" data-t="s5_h" data-brk="1" style="margin-top:-4px"></p>
+        <div class="row2">
+          <div class="field" data-k="bholder">
+            <label for="f-bholder"><span data-t="bholder"></span> <span class="req">*</span></label>
+            <input type="text" id="f-bholder" class="up" maxlength="80">
+            <span class="err" data-t="e_req"></span>
+          </div>
+          <div class="field" data-k="bname">
+            <label for="f-bname" data-t="bname"></label>
+            <input type="text" id="f-bname" class="up" maxlength="60">
+            <span class="err" data-t="e_req"></span>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field" data-k="bacc">
+            <label for="f-bacc"><span data-t="bacc"></span> <span class="req">*</span></label>
+            <input type="text" id="f-bacc" inputmode="numeric" maxlength="20" autocomplete="off">
+            <span class="err" data-t="e_acc"></span>
+          </div>
+          <div class="field" data-k="bacc2">
+            <label for="f-bacc2"><span data-t="bacc2"></span> <span class="req">*</span></label>
+            <input type="text" id="f-bacc2" inputmode="numeric" maxlength="20" autocomplete="off">
+            <span class="err" data-t="e_acc2"></span>
+          </div>
+        </div>
+        <div class="field" data-k="ifsc">
+          <label for="f-ifsc"><span data-t="ifsc"></span> <span class="req">*</span></label>
+          <input type="text" id="f-ifsc" class="up" maxlength="11" placeholder="SBIN0001234" autocomplete="off">
+          <span class="err" data-t="e_ifsc"></span>
+        </div>
+      </div>
+
+      <!-- 6 Documents -->
+      <div class="step">
+        <h3><span class="num">6</span><span data-t="s6"></span></h3>
+        <p class="hint" data-t="s6_h" style="margin-top:-4px"></p>
+        <div class="docgrid" id="docs"></div>
+      </div>
+
+      <!-- 7 Referral -->
+      <div class="step">
+        <h3><span class="num">7</span><span data-t="s7"></span></h3>
+        <div class="refnote" data-t="ref_note"></div>
+        <div class="field" data-k="rtype">
+          <label for="f-rtype"><span data-t="rtype"></span> <span class="req">*</span></label>
+          <select id="f-rtype" class="in"></select>
+          <span class="err" data-t="e_req"></span>
+        </div>
+        <div id="refBox" class="hide">
+          <div class="row2">
+            <div class="field" data-k="rname">
+              <label for="f-rname"><span data-t="rname"></span> <span class="req">*</span></label>
+              <input type="text" id="f-rname" class="up" maxlength="80">
+              <span class="err" data-t="e_req"></span>
+            </div>
+            <div class="field" data-k="rmob">
+              <label for="f-rmob"><span data-t="rmob"></span> <span class="req">*</span></label>
+              <input type="tel" id="f-rmob" inputmode="numeric" maxlength="15">
+              <span class="err" data-t="e_mob"></span>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-rid" data-t="rid"></label>
+            <span class="hint" data-t="rid_h"></span>
+            <input type="text" id="f-rid" class="up" maxlength="30">
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 Declaration -->
+      <div class="step">
+        <h3><span class="num">8</span><span data-t="s8"></span></h3>
+        <div class="field" data-k="decl">
+          <label class="agree"><input type="checkbox" name="decl"><span data-t="d1"></span></label>
+          <label class="agree"><input type="checkbox" name="decl"><span data-t="d2"></span></label>
+          <label class="agree"><input type="checkbox" name="decl"><span data-t="d3"></span></label>
+          <span class="err" data-t="e_decl"></span>
+        </div>
+        <button type="submit" class="btn" id="submit" data-t="submit"></button>
+        <div class="formmsg" id="formmsg"></div>
+      </div>
+      </fieldset>
+    </form>
+  </section>
+
+  <section class="done" id="done">
+    <div class="tick"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg></div>
+    <h2 data-t="ok_h"></h2>
+    <div class="ref" id="doneRef"></div>
+    <p data-t="ok_p" style="color:#3d3a30"></p>
+    <ol class="steps" id="doneSteps"></ol>
+    <a class="btn" href="#track" id="goProof" data-t="ok_proof"></a>
+  </section>
+
+  <!-- ============ TRACK / UPLOAD PROOF ============ -->
+  <section class="card" id="track">
+    <div class="eyebrow" data-t="tr_eye"></div>
+    <h2 data-t="tr_h"></h2>
+    <p class="intro" data-t="tr_in" data-brk="1"></p>
+    <div class="field" data-k="tref" style="margin-bottom:8px">
+      <label for="t-ref" data-t="tr_ref"></label>
+      <div class="otprow">
+        <input type="text" id="t-ref" class="up" maxlength="12" placeholder="RWINV-00001" autocomplete="off" style="letter-spacing:.04em; text-align:left; font:600 17px Inter,sans-serif !important">
+        <button type="button" class="sbtn" id="t-check" data-t="tr_check"></button>
+      </div>
+      <span class="err" data-t="tr_bad"></span>
+    </div>
+    <div id="t-out" class="hide">
+      <div class="tstat"><div class="who" id="t-who"></div><ol class="steps" id="t-steps"></ol></div>
+      <div class="tmsg hide" id="t-note"></div>
+      <div id="t-proof" class="hide">
+        <div class="step" style="margin-top:14px">
+          <h3><span class="num">↑</span><span data-t="tr_ph"></span></h3>
+          <p class="hint" data-t="tr_pin" style="margin-top:-4px"></p>
+          <div class="row2">
+            <div class="field" data-k="tmode">
+              <label for="t-mode"><span data-t="mode"></span> <span class="req">*</span></label>
+              <select id="t-mode" class="in"><option value=""></option><option>NEFT</option><option>RTGS</option><option>IMPS</option><option>UPI</option><option>Cheque</option></select>
+              <span class="err" data-t="e_req"></span>
+            </div>
+            <div class="field" data-k="tdate">
+              <label for="t-date"><span data-t="pdate"></span> <span class="req">*</span></label>
+              <input type="date" id="t-date">
+              <span class="err" data-t="e_req"></span>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field" data-k="tutr">
+              <label for="t-utr" data-t="utr"></label>
+              <input type="text" id="t-utr" class="up" maxlength="40">
+              <span class="err" data-t="e_req"></span>
+            </div>
+            <div class="field" data-k="tamt">
+              <label for="t-amt"><span data-t="pamt"></span> <span class="req">*</span></label>
+              <input type="text" id="t-amt" inputmode="numeric" maxlength="14">
+              <span class="err" data-t="e_req"></span>
+            </div>
+          </div>
+          <div class="field" data-k="doc_tproof" id="t-doc"></div>
+          <button type="button" class="btn" id="t-send" data-t="tr_send"></button>
+        </div>
+      </div>
+    </div>
+    <div class="tmsg hide" id="t-msg"></div>
+  </section>
+
+  <footer>
+    <img src="logo-en.png" alt="Richwealth">
+    <p data-t="foot1"></p>
+    <p>+91 99131 21121 · <a href="mailto:info@richwealth.in">info@richwealth.in</a> · <a href="https://richwealth.in">richwealth.in</a></p>
+    <p data-t="foot2"></p>
+  </footer>
+</div>
+
+<script>
+/* ===================== CONFIG ===================== */
+var ENDPOINT = "https://script.google.com/macros/s/AKfycbzSZUWjn-1WeG0ilSSMO5TmkfVSutau20UhknqMCtHrA5S9tdPhAFO3Y3RU4YHx8LU2Fw/exec";   // "Richwealth Invest Backend" on richwealth214 (deployed 17-Nov-2026, v1)
+/* Official receiving accounts. Leave a value "" to show "to be confirmed". */
+var BANKS = [
+  /* from YES Bank statements: RW Investments 10 May-10 Aug 2026.pdf / RW Prive 09 May-06 Aug 2026.pdf */
+  { k:"inv",   forPlans:["std_m","pre_m","std_a","pre_a","dwk"], name:"RICHWEALTH INVESTMENTS", bank:"YES Bank", acc:"053363700000537", ifsc:"YESB0000533", branch:"Jamnagar (Park Colony)" },
+  { k:"prive", forPlans:["prv_m","prv_a","fee"],          name:"RICHWEALTH PRIVE",       bank:"YES Bank", acc:"053327000000661", ifsc:"YESB0000533", branch:"Jamnagar (Park Colony)" }
+];
+var PLANS = {
+  std_m:{ m:true,  r:1.25,  ten:24, pay:"10th", roi:15 },
+  pre_m:{ m:true,  r:1.5,   ten:60, pay:"10th", roi:18 },
+  std_a:{ m:false, r:16.25, ten:24, pay:"yr",   roi:16.25 },
+  pre_a:{ m:false, r:19.5,  ten:60, pay:"yr",   roi:19.5 },
+  prv_m:{ m:true,  r:2,     ten:60, pay:"1st",  roi:24, pv:true },
+  prv_a:{ m:false, r:26,    ten:60, pay:"yr",   roi:26, pv:true }
+};
+var ORDER = ["std_m","pre_m","std_a","pre_a","prv_m","prv_a"];
+var DWK = { rate:400, min:400000, step:400000 };   // Dwarka Opportunity Land
+var OFFICES = [
+  { en:"Jamnagar",  hi:"जामनगर",  gu:"જામનગર",  a:"Opp. Ranmal Lake, Gate No. 1, Jamnagar – 361005" },
+  { en:"Ahmedabad", hi:"अहमदाबाद", gu:"અમદાવાદ", a:"A-2207, 22nd Floor, Privilon, Iscon Cross Roads, Ahmedabad – 380054" },
+  { en:"Surat",     hi:"सूरत",    gu:"સુરત",    a:"International Wealth Centre (IWC), VIP Road, Vesu, Surat – 395007" },
+  { en:"Porbandar", hi:"पोरबंदर", gu:"પોરબંદર", a:"R. D. Complex, 1st Floor, M. G. Road, Above Bajaj Finance, Porbandar – 360575" }
+];
+var SOON = [ { en:"Rajkot", hi:"राजकोट", gu:"રાજકોટ" }, { en:"Mumbai", hi:"मुंबई", gu:"મુંબઈ" }, { en:"Jaipur", hi:"जयपुर", gu:"જયપુર" } ];
+var TDS = 0.10, MAX_EDGE = 1700, JPEG_Q = 0.82, MAX_RAW = 6 * 1024 * 1024;
+
+/* ===================== TEXT ===================== */
+var T = {
+en:{
+  pg_std:"Regular plans (Standard & Premium)", pg_pv:"Privé plans (members only)", pg_dwk:"Dwarka Opportunity Land",
+  n8:"Terms",
+  cu_eye:"Before you invest",
+  cu_h:"Important terms & cautions",
+  cu_in:"Please read these points. They are the same terms printed on the back of your Certificate of Investment and in our company brochure.",
+  cu_bh:"⚠ Please note",
+  cu_b:["<b>Richwealth is not registered with SEBI and is not a bank.</b> This is not a bank deposit and there is no third-party guarantee.", "Investments in stocks, real estate and other business assets carry financial and market risks. <b>Values and returns can go up or down.</b>", "<b>Past payouts do not guarantee future results.</b> Example figures and models are based on stated assumptions; actual results may differ.", "Every investment needs KYC checks and acceptance by Richwealth. Your certificate is a mutual agreement between you and Richwealth — read it carefully.", "<b>Pay only into Richwealth's official bank accounts</b> shown on this page, and quote your certificate number in all communication.", "Richwealth is on track to launch as a SEBI-registered AIF by 2027."],
+  cu_full:"Full terms of investment (from the certificate)",
+  cu_t:["<b>Certificate</b>Official proof of your investment. It is non-transferable and cannot be pledged without Richwealth's written consent. Report any loss in writing to the head office.", "<b>Payouts</b>Monthly plans are paid on the 10th; Privé monthly plans on the 1st; annual plans on your investment anniversary date. In exceptional cases a payout may be delayed by up to 7 working days.", "<b>TDS</b>Deducted as per the Income Tax Act, 1961: 10% if PAN is linked with Aadhaar, 20% if not (Section 206AA). Deposited by the 7th of the next month; Form 16A is issued.", "<b>Maturity</b>Your full principal is returned to your registered bank account within 15 working days of maturity. Our team contacts you before maturity about renewal.", "<b>KYC & bank account</b>Keep valid PAN and Aadhaar on record. Bank changes must reach us in writing 15 days before the next payout. Richwealth is not liable for failed transfers due to incorrect details.", "<b>Early withdrawal</b>Before 12 months: no interest is payable — all interest already paid, including TDS, is recovered from the principal. After 12 months: interest is recalculated at 11% p.a. (simple) for the period held and the difference is adjusted. Paid within 30 working days.", "<b>Nominee & succession</b>Your nominee can claim the proceeds with the death certificate, this certificate and their own KYC. Claims are processed within 45 working days of complete documents; legal heirs need succession documents if no nominee is registered.", "<b>Privé membership</b>5-year commitment of ₹60,00,000 (own investments and/or eligible referrals); fee ₹2,500 a year or ₹10,000 for 5 years; at least ₹1,00,000 invested first. One-time 90-day cooling period at 1.5%. If the rules are not met the membership may become inactive; <b>membership fees are not refundable</b>, and restarting needs a new fee and a new cooling period.", "<b>Law & disputes</b>Governed by the laws of India; courts at Jamnagar, Gujarat have exclusive jurisdiction. Disputes are first settled amicably within 30 days of written notice, then by a sole arbitrator under the Arbitration and Conciliation Act, 1996, seated at Jamnagar.", "<b>Grievances</b>Write to the Grievance Officer, Richwealth Head Office, Jamnagar · info@richwealth.in · +91 9913 121 121. Acknowledged within 2 working days, resolved within 7 working days."],
+  cu_avow:"By applying you confirm that you invest of your own free will, after reading and understanding these terms, the plan details and the nature of this investment.",
+  n7:"Status", dk_h1:"per sq. ft. · 4-year land price target", dk_h2:"in 4 years with the optional return insurance",
+  dk_s4:"sq. ft. per ₹4,00,000",
+  dk_land:"Your land share", dk_val:"Value at ₹800 target", dk_pay:"You pay with insurance (+10%)", dk_get:"Proposed payment after 4 years",
+  dk_why:"Why this land", dk_w:["🛣️|<b>On NH-51 highway</b> — Dwarka–Porbandar road, guests drive straight in","🛕|<b>About 16 km</b> by road from Dwarkadhish Temple","🌊|<b>Near the sea</b> — close to Okha Madhi beach & the Turtle Conservation Centre","📐|<b>16,00,000 sq. ft.</b> — 10,00,000 sq. ft. reserved for investors"],
+  dk_rec:"We have done this before in Dwarka", dk_r1:"City Centre plot · bought 2022 · now (est.)", dk_r2:"Vishram Dwarka · bought 2025 · now (est.)",
+  dk_exit:"Two ways we can grow your money", dk_e1:"Sell the land", dk_e1s:"After approvals, sell all or part — you get your share of the sale.", dk_e2:"Build a resort", dk_e2s:"Resort, sea-view cottages & holiday villas near Dwarka.",
+  dk_safe:"Simple and safe",
+  dk_fine:"*With the optional return insurance (10% premium): Richwealth proposes to pay 2× after four years, subject to the final agreement and Richwealth's ability to pay. Without insurance you receive your share of the actual sale value. ₹800 is a target; land prices can rise or fall. Values of earlier plots are local-market estimates (Nov 2026). The land purchase is still pending; no individual plot is registered in your name.",
+  ins:"Return insurance (optional)", ins_h:"Pay 10% extra and Richwealth proposes to pay 2× your amount after 4 years.", ins_y:"Yes — add 10% insurance (₹4,00,000 → pay ₹4,40,000, proposed ₹8,00,000)", ins_n:"No — I take my share of the actual sale value",
+  st:["Application & KYC received","Transfer to the official Richwealth account","Upload a clear screenshot / bank slip of the transfer","We match it with our bank records","You receive your e-Certificate / receipt on WhatsApp","You reply OK — we send the original by courier"],
+  ok_proof:"Upload payment proof →",
+  tr_eye:"Track your application", tr_h:"Check status & upload payment proof", tr_in:"Enter the reference number you received (RWINV-…). We use your verified WhatsApp number.",
+  tr_ref:"Reference number", tr_check:"Check", tr_bad:"No application found for this reference and WhatsApp number.",
+  tr_who:"Application {r} · {p}", tr_ph:"Upload payment proof", tr_pin:"After you transfer, upload a clear screenshot, bank slip or cheque deposit slip so we can match it with our bank records.",
+  tr_send:"Submit payment proof", tr_sent:"Thank you! We received your proof. We will match it with our bank records and send your e-Certificate on WhatsApp.",
+  tr_fix:"Our team will call you to correct a few details.", tr_closed:"Please contact us on WhatsApp +91 99131 21121.", tr_cour:"Original sent by courier",
+  tr_okmsg:"Your e-Certificate has been sent on WhatsApp. Please check it and reply OK — we will then send the original by courier.",
+  n5:"Dwarka land", n6:"Offices",
+  dwk:"Dwarka Opportunity Land", dk_eye:"New opportunity · Dwarka", dk_h:"Dwarka Opportunity Land",
+  dk_in:"Own a share of 16,00,000 sq. ft. of resort land on the Dwarka–Porbandar highway, near the sea — at ₹400 per sq. ft.",
+  dk_s1:"per sq. ft.", dk_s2:"minimum", dk_s3:"last date to pay",
+  dk_amt:"Your amount (minimum ₹4,00,000, in multiples of ₹4,00,000)", dk_area:"Land area at ₹400 / sq. ft.", sqft:"sq. ft.",
+  dk_p:["<b>Pay only into the Richwealth Investments YES Bank account</b> — you get a receipt for your payment and your interest.", "<b>Your share is safe:</b> participation through shares in the company that will own the land (up to 200 investors; registration when 33% of the ₹40,00,00,000 target is received).", "<b>Fully refundable:</b> ask for a refund any time from 1 April 2027 — paid within 30 days. Richwealth may even refund earlier.", "<b>Every offer shared with you:</b> updates to all investors by 31 March 2027, and we discuss each buyer offer with you."],
+  dk_use:"Apply for Dwarka land →", dk_bank:"For Dwarka Opportunity Land — pay ONLY into this account",
+  dk_famt_h:"Minimum ₹4,00,000, in multiples of ₹4,00,000",
+  o_eye:"Visit us", o_h:"Our offices", o_soon:"Opening soon",
+  en_h:"See our plans & returns", en_p:"Enter your WhatsApp number to open the Richwealth plans, calculator and application.",
+  en_k1:"Since 2011", en_k2:"4 offices in Gujarat", en_k3:"200+ cities · 19 states",
+  en_priv:"🔒 Your number is safe with us. We use it only to verify you and to share plan details — never shared with anyone.",
+  h1:"Begin your investment journey", sub:"See your returns, choose your plan, pay into our official account and complete your application with KYC — all in one place, in 5 minutes.",
+  st1:"Established", st2:"Years of trust", st3:"States", st4:"Cities",
+  n1:"Calculator", n3:"Bank details", n4:"Apply now",
+  c_eye:"Plan calculator", c_h:"How much will you earn?", c_in:"Pick a plan and enter your amount. Figures are after 10% TDS.",
+  c_amt:"Investment amount (minimum ₹1,00,000, in multiples of ₹1,00,000)",
+  std_m:"Standard Monthly", pre_m:"Premium Monthly", std_a:"Standard Annual", pre_a:"Premium Annual", prv_m:"Privé Monthly", prv_a:"Privé Annual",
+  per_m:"/ month", per_y:"/ year", mo:"months",
+  r_month:"Net income every month", r_year:"Net income every year",
+  r_gross:"Before TDS", r_tds:"TDS (10%)", r_total:"Total net earnings", r_corpus:"Total value (principal + earnings)",
+  r_ten:"Tenure", r_pay:"Payout", r_mat:"Maturity (approx.)",
+  pay_10th:"10th of every month", pay_1st:"1st of every month (priority)", pay_yr:"Once a year",
+  up_txt:"With <b>Privé</b> the same amount earns <b>{x}</b> more over 5 years.", up_lnk:"See Privé benefits →",
+  pv_y1:"Privé Year 1 (new members): first 3 months earn 1.5%/month, then 2% — effective 24.5% in Year 1. Full rate from Year 2. Membership fee extra.",
+  c_note:"Indicative figures. Final terms are as printed on your Certificate of Investment. If PAN is not linked with Aadhaar, TDS is 20%.",
+  c_use:"Apply with this plan →",
+  t_h:"Key terms (please read)",
+  t1:"Minimum ₹1,00,000, in multiples of ₹1,00,000.",
+  t2:"10% TDS is deducted on every payout (20% if PAN is not linked with Aadhaar). Form 16A is issued.",
+  t3:"Early withdrawal before 12 months: all interest already paid (including TDS) is recovered from the principal.",
+  t4:"Early withdrawal after 12 months: interest is recalculated at 11% p.a. for the actual days; the difference is recovered from the principal.",
+  t5:"All withdrawals and processing take 30 working days.",
+  t6:"Your Certificate of Investment (or Privé Membership Receipt) is issued after your payment is verified.",
+  p_in:"Our premium membership for committed investors — the highest return rate, priority payouts and exclusive rewards.",
+  p_s1:"per month", p_s2:"annual ROI", p_s3:"priority payout", p_s4:"24K gold badge",
+  b1:"2% every month", b1s:"On all your investments after the 3-month cooling period — new and existing.",
+  b2:"Priority payout on the 1st", b2s:"Before all other plans (others are paid on the 10th).",
+  b3:"Bonus month every year", b3s:"Privé Annual earns 1 bonus month's interest each year — 26% ROI from Year 2.",
+  b4:"1% referral commission", b4s:"Earn when people you introduce invest. Referral bonus is for Privé members only.",
+  b5:"10 g 24K gold badge", b5s:"Legacy award for 5-year members who complete the ₹60,00,000 commitment.",
+  b6:"Birthday & Diwali gifts", b6s:"Personal gifts from Richwealth every year.",
+  p_f1:"per year · renew yearly", p_f2:"one time · 5 years covered · gold badge eligible", p_best:"BEST VALUE",
+  pn1:"<b>₹60,00,000 in 5 years:</b> Privé is a 5-year commitment — about ₹1,00,000 a month, through your own investments and/or investors you introduce on Standard/Premium plans.",
+  pn2:"<b>Cooling period (once):</b> first 3 months at 1.5%/month, then 2% on everything. Existing members adding funds get 2% straight away.",
+  pn3:"<b>Who can join:</b> an investor with at least ₹1,00,000 invested. First-time investors can invest and take membership in the same application.",
+  b_eye:"Official bank accounts", b_h:"Where to pay",
+  b_in:"Transfer by NEFT / RTGS / IMPS / cheque only to the account below that matches your plan, then upload the payment proof in the form.",
+  bk_inv:"For Standard & Premium plans", bk_prive:"For Privé plans & Privé membership fee",
+  bk_name:"Account name", bk_bank:"Bank", bk_acc:"Account no.", bk_ifsc:"IFSC", bk_branch:"Branch", tbc:"will be shared by your RM", copy:"Copy", copied:"Copied",
+  b_warn:"⚠ Pay ONLY into these Richwealth company accounts — never into any staff member's personal account or UPI. Richwealth never asks for your OTP or PIN.",
+  f_eye:"Application form", f_h:"Apply & complete your KYC", f_in:"We use these details exactly as they will appear on your Certificate of Investment / Privé receipt.",
+  s1:"Verify your WhatsApp number", mob:"WhatsApp number", mob_h:"A one-time password (OTP) will be sent on WhatsApp.",
+  send:"Send OTP", resend:"Resend", otp_l:"Enter the 6-digit OTP", verify:"Verify",
+  otp_sent:"OTP sent on WhatsApp to {m}. Valid for 10 minutes.", otp_wait:"You can resend in {s} s.", otp_ok:"WhatsApp verified", otp_off:"Number noted — our team will confirm it with you.",
+  otp_bad:"Wrong or expired OTP. Please try again.", otp_rate:"Too many attempts. Please try again after 30 minutes.", otp_fail:"Could not send OTP right now. Please try again in a minute.",
+  change:"Change", lockmsg:"🔒 Verify your WhatsApp number to open the form.",
+  s2:"Your details (as on PAN card)", name:"Full name", name_h:"Write your name exactly as printed on your PAN card.", fname:"First name", mname:"Middle name", lname:"Last name (surname)", fullname:"Name on certificate", caddr_h:"Communication address (letters & documents)", paddr_h:"Permanent address", psame_y:"Same as communication address", psame_n:"Different", dob:"Date of birth", email:"Email (for statements, ledgers & Form 16A)",
+  pan:"PAN number", aad:"Aadhaar number", addr:"Address", city:"City / Village", pin:"PIN code", state:"State",
+  s3:"Nominee", nom:"Nominee full name", nomrel:"Relation with you", nommob:"Nominee mobile (optional)",
+  rel:["","Spouse","Son","Daughter","Father","Mother","Brother","Sister","Other"],
+  s4:"Investment & payment", plan:"Plan", famt:"Amount (₹)", famt_h:"Minimum ₹1,00,000, in multiples of ₹1,00,000", est:"Your estimate", est_h:"After 10% TDS",
+  fee_only:"Privé membership only (no new investment)",
+  mship:"Privé membership", mship_h:"Required for Privé plans.", ms5:"5-Year membership — ₹10,000 one time (best value)", ms1:"Annual membership — ₹2,500 per year", ms0:"I am already a Privé member",
+  paid:"Have you already paid?", paid_y:"Yes, paid", paid_n:"Not yet — I will transfer and upload the proof later",
+  mode:"Payment mode", pdate:"Payment date", utr:"UTR / reference / cheque no.", pamt:"Amount paid (₹)", d_payment:"Payment proof (screenshot / slip)",
+  s5:"Bank account for your payouts", s5_h:"Your monthly / yearly payouts (and any refund) will be credited here. Account should be in your own name.",
+  bholder:"Account holder name", bname:"Bank name", bacc:"Account number", bacc2:"Re-enter account number", ifsc:"IFSC code",
+  s6:"Upload documents", s6_h:"Clear photos are fine — take them with your phone camera.",
+  d_pan:"PAN card", d_aadf:"Aadhaar – front", d_aadb:"Aadhaar – back", d_photo:"Passport-size photo / selfie", d_cheque:"Cancelled cheque or passbook first page",
+  tap:"Tap to upload", added:"Added", d_change:"Change",
+  s7:"Who referred you?", ref_note:"🎁 Referral commission (1%) is a <b>Privé member benefit only</b>. If a Privé member referred you, enter their name and mobile so the bonus is credited to them.",
+  rtype:"Referred by", rtypes:["","Richwealth employee / RM","Privé member","Existing investor","City associate (ACA)","Seminar / webinar","Social media / advertisement","Self / walk-in"],
+  rname:"Referrer's full name", rmob:"Referrer's mobile", rid:"Employee code / Client ID / Privé ID (if known)", rid_h:"Optional",
+  s8:"Declaration",
+  d1:"The details and documents I have given are true and belong to me.",
+  d2:"I have paid / will pay only into the official Richwealth account shown on this page.",
+  d3:"I have read the plan details and the important terms & cautions above, and agree to Richwealth contacting me on WhatsApp / phone about this application.",
+  submit:"Submit application", saving:"Submitting… please wait (uploading documents)",
+  e_req:"Please fill this.", e_pick:"Please choose one.", e_mob:"Please enter a valid mobile number.", e_otp:"Enter the 6-digit OTP.", e_name:"Please enter your full name.",
+  e_email:"Please check the email.", e_pan:"PAN should look like ABCDE1234F.", e_aad:"Aadhaar should be 12 digits.", e_amt:"Please check the amount (minimum and multiples as shown above).",
+  e_acc:"Please enter a valid account number.", e_acc2:"Account numbers do not match.", e_ifsc:"IFSC should look like SBIN0001234.",
+  e_doc:"Please upload this.", e_type:"Please upload a photo or PDF.", e_big:"File too large (max 6 MB). Please upload a photo instead.", e_decl:"Please tick all three.",
+  e_server:"Sorry, we could not submit right now. Please try again.", e_net:"Network problem. Please check your internet and try again.", e_otpexp:"Your WhatsApp verification expired. Please verify again.",
+  not_open:"This form is not open yet.", help:"Need help? WhatsApp +91 99131 21121.",
+  ok_h:"Application received!", ok_p:"Please save this reference number.",
+  ok1:"Our team verifies your payment and documents (usually within 2 working days).",
+  ok2:"Your RM calls you on WhatsApp to confirm the details.",
+  ok3:"Your Certificate of Investment / Privé Membership Receipt is sent to you on WhatsApp.",
+  foot1:"Offices: Jamnagar · Ahmedabad · Surat · Porbandar  |  Opening soon: Rajkot · Mumbai · Jaipur",
+  foot2:"Your documents are stored privately and used only for KYC, certificates and payouts."
+},
+hi:{
+  pg_std:"नियमित प्लान (स्टैंडर्ड और प्रीमियम)", pg_pv:"Privé प्लान (केवल सदस्य)", pg_dwk:"द्वारका ऑपर्च्युनिटी लैंड",
+  n8:"शर्तें",
+  cu_eye:"निवेश से पहले",
+  cu_h:"महत्वपूर्ण शर्तें और सावधानियाँ",
+  cu_in:"कृपया ये बातें पढ़ें। ये वही शर्तें हैं जो आपके Certificate of Investment के पीछे और हमारे कंपनी ब्रोशर में छपी हैं।",
+  cu_bh:"⚠ कृपया ध्यान दें",
+  cu_b:["<b>Richwealth, SEBI में रजिस्टर्ड नहीं है और यह बैंक नहीं है।</b> यह बैंक डिपॉज़िट नहीं है और कोई थर्ड-पार्टी गारंटी नहीं है।", "शेयर, रियल एस्टेट और अन्य व्यावसायिक संपत्तियों में निवेश में वित्तीय और बाज़ार जोखिम होता है। <b>मूल्य और रिटर्न ऊपर-नीचे हो सकते हैं।</b>", "<b>पिछले भुगतान भविष्य के परिणामों की गारंटी नहीं हैं।</b> उदाहरण के आँकड़े और मॉडल बताई गई मान्यताओं पर आधारित हैं; वास्तविक परिणाम अलग हो सकते हैं।", "हर निवेश के लिए KYC जाँच और Richwealth की स्वीकृति ज़रूरी है। आपका सर्टिफ़िकेट आपके और Richwealth के बीच आपसी समझौता है — इसे ध्यान से पढ़ें।", "<b>भुगतान केवल इस पेज पर दिए Richwealth के आधिकारिक बैंक खातों में करें</b>, और हर बातचीत में अपना सर्टिफ़िकेट नंबर बताएँ।", "Richwealth 2027 तक SEBI-रजिस्टर्ड AIF के रूप में शुरू होने की राह पर है।"],
+  cu_full:"निवेश की पूरी शर्तें (सर्टिफ़िकेट से)",
+  cu_t:["<b>सर्टिफ़िकेट</b>आपके निवेश का आधिकारिक प्रमाण। यह ट्रांसफ़र नहीं हो सकता और Richwealth की लिखित अनुमति के बिना गिरवी नहीं रखा जा सकता। खो जाने पर हेड ऑफ़िस को लिखित में बताएँ।", "<b>भुगतान</b>मासिक प्लान का भुगतान 10 तारीख को; Privé मासिक का 1 तारीख को; वार्षिक प्लान का निवेश की वर्षगांठ पर। विशेष परिस्थिति में भुगतान 7 कार्य-दिवस तक देर हो सकता है।", "<b>TDS</b>आयकर अधिनियम, 1961 के अनुसार: PAN आधार से लिंक हो तो 10%, न हो तो 20% (धारा 206AA)। अगले महीने की 7 तारीख तक जमा; Form 16A दिया जाता है।", "<b>परिपक्वता</b>परिपक्वता के 15 कार्य-दिवस में पूरा मूलधन आपके रजिस्टर्ड बैंक खाते में। परिपक्वता से पहले हमारी टीम नवीनीकरण के लिए संपर्क करेगी।", "<b>KYC और बैंक खाता</b>वैध PAN और आधार रिकॉर्ड में रखें। बैंक बदलाव अगले भुगतान से 15 दिन पहले लिखित में दें। गलत विवरण से ट्रांसफ़र विफल होने पर Richwealth ज़िम्मेदार नहीं।", "<b>जल्दी निकासी</b>12 महीने से पहले: कोई ब्याज देय नहीं — दिया गया पूरा ब्याज (TDS सहित) मूलधन से वापस। 12 महीने के बाद: रखी गई अवधि के लिए 11% वार्षिक (साधारण) से ब्याज दोबारा गिना जाएगा और अंतर समायोजित होगा। 30 कार्य-दिवस में भुगतान।", "<b>नॉमिनी और उत्तराधिकार</b>नॉमिनी मृत्यु प्रमाणपत्र, यह सर्टिफ़िकेट और अपने KYC के साथ दावा कर सकता है। पूरे दस्तावेज़ मिलने के 45 कार्य-दिवस में दावा निपटेगा; नॉमिनी न हो तो कानूनी वारिसों को उत्तराधिकार दस्तावेज़ देने होंगे।", "<b>Privé सदस्यता</b>5 साल में ₹60,00,000 की प्रतिबद्धता (अपने निवेश और/या योग्य रेफ़रल); शुल्क ₹2,500 प्रति वर्ष या 5 साल के लिए ₹10,000; पहले कम से कम ₹1,00,000 निवेश। एक बार 90 दिन की कूलिंग अवधि 1.5% पर। नियम पूरे न होने पर सदस्यता निष्क्रिय हो सकती है; <b>सदस्यता शुल्क वापस नहीं होता</b>, और दोबारा शुरू करने पर नया शुल्क और नई कूलिंग अवधि।", "<b>कानून और विवाद</b>भारत के कानून लागू; जामनगर, गुजरात की अदालतों का विशेष अधिकार क्षेत्र। विवाद पहले लिखित नोटिस के 30 दिन में आपसी बातचीत से, फिर मध्यस्थता और सुलह अधिनियम, 1996 के तहत एकल मध्यस्थ द्वारा, जामनगर में।", "<b>शिकायत</b>शिकायत अधिकारी, Richwealth हेड ऑफ़िस, जामनगर को लिखें · info@richwealth.in · +91 9913 121 121। 2 कार्य-दिवस में पावती, 7 कार्य-दिवस में समाधान।"],
+  cu_avow:"आवेदन करके आप पुष्टि करते हैं कि आप इन शर्तों, प्लान विवरण और इस निवेश की प्रकृति को पढ़-समझकर अपनी इच्छा से निवेश कर रहे हैं।",
+  n7:"स्टेटस", dk_h1:"प्रति वर्ग फ़ुट · 4 साल का ज़मीन मूल्य लक्ष्य", dk_h2:"4 साल में, वैकल्पिक रिटर्न इंश्योरेंस के साथ",
+  dk_s4:"वर्ग फ़ुट प्रति ₹4,00,000",
+  dk_land:"आपकी ज़मीन का हिस्सा", dk_val:"₹800 लक्ष्य पर मूल्य", dk_pay:"इंश्योरेंस के साथ आप देंगे (+10%)", dk_get:"4 साल बाद प्रस्तावित भुगतान",
+  dk_why:"यह ज़मीन क्यों", dk_w:["🛣️|<b>NH-51 हाईवे पर</b> — द्वारका–पोरबंदर रोड, मेहमान सीधे पहुँचें","🛕|द्वारकाधीश मंदिर से सड़क मार्ग से <b>लगभग 16 किमी</b>","🌊|<b>समुद्र के पास</b> — ओखा मढ़ी बीच और टर्टल कंज़र्वेशन सेंटर के नज़दीक","📐|<b>16,00,000 वर्ग फ़ुट</b> — 10,00,000 वर्ग फ़ुट निवेशकों के लिए"],
+  dk_rec:"द्वारका में हम यह पहले भी कर चुके हैं", dk_r1:"सिटी सेंटर प्लॉट · 2022 में ख़रीदा · अब (अनुमान)", dk_r2:"विश्राम द्वारका · 2025 में ख़रीदा · अब (अनुमान)",
+  dk_exit:"आपका पैसा बढ़ाने के दो रास्ते", dk_e1:"ज़मीन बेचें", dk_e1s:"मंज़ूरी के बाद पूरी या कुछ ज़मीन बेचें — बिक्री में आपका हिस्सा आपको।", dk_e2:"रिसॉर्ट बनाएँ", dk_e2s:"द्वारका के पास रिसॉर्ट, सी-व्यू कॉटेज और हॉलिडे विला।",
+  dk_safe:"सरल और सुरक्षित",
+  dk_fine:"*वैकल्पिक रिटर्न इंश्योरेंस (10% प्रीमियम) के साथ: Richwealth 4 साल बाद 2× भुगतान का प्रस्ताव रखता है, अंतिम एग्रीमेंट और Richwealth की भुगतान क्षमता के अधीन। इंश्योरेंस के बिना आपको वास्तविक बिक्री मूल्य में अपना हिस्सा मिलेगा। ₹800 एक लक्ष्य है; ज़मीन के दाम ऊपर-नीचे हो सकते हैं। पुराने प्लॉट के मूल्य स्थानीय बाज़ार के अनुमान हैं (नवंबर 2026)। ज़मीन की ख़रीद अभी बाकी है; आपके नाम पर अलग प्लॉट रजिस्टर नहीं होगा।",
+  ins:"रिटर्न इंश्योरेंस (वैकल्पिक)", ins_h:"10% अतिरिक्त दें और Richwealth 4 साल बाद आपकी राशि का 2× भुगतान का प्रस्ताव रखता है।", ins_y:"हाँ — 10% इंश्योरेंस जोड़ें (₹4,00,000 → ₹4,40,000 दें, प्रस्तावित ₹8,00,000)", ins_n:"नहीं — मुझे वास्तविक बिक्री मूल्य में मेरा हिस्सा चाहिए",
+  st:["आवेदन और KYC मिल गया","Richwealth के आधिकारिक खाते में ट्रांसफ़र करें","ट्रांसफ़र का साफ़ स्क्रीनशॉट / बैंक स्लिप अपलोड करें","हम इसे अपने बैंक रिकॉर्ड से मिलाते हैं","आपको WhatsApp पर e-Certificate / रसीद मिलती है","आप OK लिखें — हम मूल प्रति कूरियर से भेजते हैं"],
+  ok_proof:"भुगतान का प्रमाण अपलोड करें →",
+  tr_eye:"अपना आवेदन ट्रैक करें", tr_h:"स्टेटस देखें और भुगतान का प्रमाण अपलोड करें", tr_in:"आपको मिला रेफ़रेंस नंबर (RWINV-…) डालें। हम आपका सत्यापित WhatsApp नंबर उपयोग करते हैं।",
+  tr_ref:"रेफ़रेंस नंबर", tr_check:"देखें", tr_bad:"इस रेफ़रेंस और WhatsApp नंबर से कोई आवेदन नहीं मिला।",
+  tr_who:"आवेदन {r} · {p}", tr_ph:"भुगतान का प्रमाण अपलोड करें", tr_pin:"ट्रांसफ़र के बाद साफ़ स्क्रीनशॉट, बैंक स्लिप या चेक जमा स्लिप अपलोड करें ताकि हम इसे अपने बैंक रिकॉर्ड से मिला सकें।",
+  tr_send:"भुगतान का प्रमाण जमा करें", tr_sent:"धन्यवाद! आपका प्रमाण मिल गया। हम इसे बैंक रिकॉर्ड से मिलाकर आपका e-Certificate WhatsApp पर भेजेंगे।",
+  tr_fix:"कुछ विवरण ठीक करने के लिए हमारी टीम आपको कॉल करेगी।", tr_closed:"कृपया WhatsApp +91 99131 21121 पर संपर्क करें।", tr_cour:"मूल प्रति कूरियर से भेजी गई",
+  tr_okmsg:"आपका e-Certificate WhatsApp पर भेज दिया गया है। कृपया जाँच कर OK लिखें — फिर हम मूल प्रति कूरियर से भेजेंगे।",
+  n5:"द्वारका ज़मीन", n6:"ऑफ़िस",
+  dwk:"द्वारका ऑपर्च्युनिटी लैंड", dk_eye:"नया अवसर · द्वारका", dk_h:"द्वारका ऑपर्च्युनिटी लैंड",
+  dk_in:"द्वारका–पोरबंदर हाईवे पर, समुद्र के पास 16,00,000 वर्ग फ़ुट रिसॉर्ट ज़मीन में अपना हिस्सा लें — ₹400 प्रति वर्ग फ़ुट पर।",
+  dk_s1:"प्रति वर्ग फ़ुट", dk_s2:"न्यूनतम", dk_s3:"भुगतान की अंतिम तिथि",
+  dk_amt:"आपकी राशि (न्यूनतम ₹4,00,000, ₹4,00,000 के गुणक में)", dk_area:"₹400 / वर्ग फ़ुट पर ज़मीन", sqft:"वर्ग फ़ुट",
+  dk_p:["<b>भुगतान केवल Richwealth Investments के YES Bank खाते में करें</b> — आपको भुगतान और रुचि की रसीद मिलेगी।", "<b>आपका हिस्सा सुरक्षित:</b> ज़मीन रखने वाली कंपनी के शेयर के रूप में भागीदारी (200 निवेशकों तक; ₹40,00,00,000 लक्ष्य का 33% आने पर रजिस्ट्रेशन)।", "<b>पूरी राशि वापसी योग्य:</b> 1 अप्रैल 2027 से कभी भी रिफ़ंड माँगें — 30 दिन में भुगतान। Richwealth पहले भी रिफ़ंड कर सकता है।", "<b>हर ऑफ़र आपके साथ:</b> 31 मार्च 2027 तक सभी निवेशकों को अपडेट, और हर ख़रीदार के ऑफ़र पर आपसे चर्चा।"],
+  dk_use:"द्वारका ज़मीन के लिए आवेदन करें →", dk_bank:"द्वारका ऑपर्च्युनिटी लैंड — केवल इसी खाते में भुगतान करें",
+  dk_famt_h:"न्यूनतम ₹4,00,000, ₹4,00,000 के गुणक में",
+  o_eye:"हमसे मिलें", o_h:"हमारे ऑफ़िस", o_soon:"जल्द शुरू",
+  en_h:"हमारे प्लान और रिटर्न देखें", en_p:"Richwealth के प्लान, कैलकुलेटर और आवेदन खोलने के लिए अपना WhatsApp नंबर डालें।",
+  en_k1:"2011 से", en_k2:"गुजरात में 4 ऑफ़िस", en_k3:"200+ शहर · 19 राज्य",
+  en_priv:"🔒 आपका नंबर सुरक्षित है। हम इसका उपयोग केवल सत्यापन और प्लान की जानकारी भेजने के लिए करते हैं — किसी से साझा नहीं करते।",
+  h1:"अपनी निवेश यात्रा शुरू करें", sub:"अपना रिटर्न देखें, प्लान चुनें, हमारे आधिकारिक खाते में भुगतान करें और KYC के साथ आवेदन पूरा करें — सब एक ही जगह, 5 मिनट में।",
+  st1:"स्थापना", st2:"साल का भरोसा", st3:"राज्य", st4:"शहर",
+  n1:"कैलकुलेटर", n3:"बैंक विवरण", n4:"अभी आवेदन करें",
+  c_eye:"प्लान कैलकुलेटर", c_h:"आप कितना कमाएँगे?", c_in:"प्लान चुनें और राशि डालें। आँकड़े 10% TDS कटने के बाद के हैं।",
+  c_amt:"निवेश राशि (न्यूनतम ₹1,00,000, ₹1,00,000 के गुणक में)",
+  std_m:"स्टैंडर्ड मासिक", pre_m:"प्रीमियम मासिक", std_a:"स्टैंडर्ड वार्षिक", pre_a:"प्रीमियम वार्षिक", prv_m:"Privé मासिक", prv_a:"Privé वार्षिक",
+  per_m:"/ महीना", per_y:"/ साल", mo:"महीने",
+  r_month:"हर महीने शुद्ध आय", r_year:"हर साल शुद्ध आय",
+  r_gross:"TDS से पहले", r_tds:"TDS (10%)", r_total:"कुल शुद्ध कमाई", r_corpus:"कुल राशि (मूलधन + कमाई)",
+  r_ten:"अवधि", r_pay:"भुगतान", r_mat:"परिपक्वता (लगभग)",
+  pay_10th:"हर महीने की 10 तारीख", pay_1st:"हर महीने की 1 तारीख (प्राथमिकता)", pay_yr:"साल में एक बार",
+  up_txt:"<b>Privé</b> में इसी राशि पर 5 साल में <b>{x}</b> ज़्यादा कमाई।", up_lnk:"Privé के लाभ देखें →",
+  pv_y1:"Privé पहला साल (नए सदस्य): पहले 3 महीने 1.5%/माह, फिर 2% — पहले साल प्रभावी 24.5%। दूसरे साल से पूरा रेट। सदस्यता शुल्क अलग।",
+  c_note:"अनुमानित आँकड़े। अंतिम शर्तें आपके Certificate of Investment पर लिखी होंगी। PAN आधार से लिंक न हो तो TDS 20% कटेगा।",
+  c_use:"इस प्लान से आवेदन करें →",
+  t_h:"मुख्य शर्तें (कृपया पढ़ें)",
+  t1:"न्यूनतम ₹1,00,000, ₹1,00,000 के गुणक में।",
+  t2:"हर भुगतान पर 10% TDS कटता है (PAN आधार से लिंक न हो तो 20%)। Form 16A दिया जाता है।",
+  t3:"12 महीने से पहले निकासी: अब तक दिया गया पूरा ब्याज (TDS सहित) मूलधन से वापस काटा जाएगा।",
+  t4:"12 महीने के बाद निकासी: वास्तविक दिनों के लिए 11% वार्षिक से ब्याज दोबारा गिना जाएगा; अंतर मूलधन से काटा जाएगा।",
+  t5:"हर निकासी और प्रक्रिया में 30 कार्य-दिवस लगते हैं।",
+  t6:"भुगतान की जाँच के बाद आपका Certificate of Investment (या Privé सदस्यता रसीद) जारी होता है।",
+  p_in:"प्रतिबद्ध निवेशकों के लिए हमारी प्रीमियम सदस्यता — सबसे ऊँचा रिटर्न, प्राथमिकता भुगतान और विशेष पुरस्कार।",
+  p_s1:"प्रति माह", p_s2:"वार्षिक ROI", p_s3:"प्राथमिक भुगतान", p_s4:"24K सोने का बैज",
+  b1:"हर महीने 2%", b1s:"3 महीने की कूलिंग अवधि के बाद आपके सभी निवेश पर — नए और पुराने।",
+  b2:"1 तारीख को प्राथमिक भुगतान", b2s:"बाकी सभी प्लान से पहले (बाकी को 10 तारीख को)।",
+  b3:"हर साल बोनस महीना", b3s:"Privé वार्षिक में हर साल 1 महीने का बोनस ब्याज — दूसरे साल से 26% ROI।",
+  b4:"1% रेफ़रल कमीशन", b4s:"आपके लाए लोग निवेश करें तो कमाई। रेफ़रल बोनस केवल Privé सदस्यों के लिए।",
+  b5:"10 ग्राम 24K सोने का बैज", b5s:"₹60,00,000 का लक्ष्य पूरा करने वाले 5-वर्षीय सदस्यों के लिए सम्मान।",
+  b6:"जन्मदिन और दिवाली उपहार", b6s:"हर साल Richwealth की ओर से व्यक्तिगत उपहार।",
+  p_f1:"प्रति वर्ष · हर साल नवीनीकरण", p_f2:"एक बार · 5 साल · गोल्ड बैज योग्य", p_best:"सबसे फ़ायदेमंद",
+  pn1:"<b>5 साल में ₹60,00,000:</b> Privé 5 साल की प्रतिबद्धता है — लगभग ₹1,00,000 प्रति माह, अपने निवेश से और/या स्टैंडर्ड/प्रीमियम प्लान पर लाए गए निवेशकों से।",
+  pn2:"<b>कूलिंग अवधि (एक बार):</b> पहले 3 महीने 1.5%/माह, फिर सब पर 2%। पुराने सदस्य नई राशि जोड़ें तो तुरंत 2%।",
+  pn3:"<b>कौन जुड़ सकता है:</b> कम से कम ₹1,00,000 निवेश वाला निवेशक। नए निवेशक इसी आवेदन में निवेश और सदस्यता दोनों ले सकते हैं।",
+  b_eye:"आधिकारिक बैंक खाते", b_h:"भुगतान कहाँ करें",
+  b_in:"NEFT / RTGS / IMPS / चेक से केवल अपने प्लान वाले नीचे दिए खाते में भुगतान करें, फिर फ़ॉर्म में भुगतान का प्रमाण अपलोड करें।",
+  bk_inv:"स्टैंडर्ड और प्रीमियम प्लान के लिए", bk_prive:"Privé प्लान और Privé सदस्यता शुल्क के लिए",
+  bk_name:"खाते का नाम", bk_bank:"बैंक", bk_acc:"खाता नंबर", bk_ifsc:"IFSC", bk_branch:"शाखा", tbc:"आपके RM द्वारा दिया जाएगा", copy:"कॉपी", copied:"कॉपी हुआ",
+  b_warn:"⚠ केवल इन Richwealth कंपनी खातों में ही भुगतान करें — किसी कर्मचारी के निजी खाते या UPI में नहीं। Richwealth कभी आपका OTP या PIN नहीं माँगता।",
+  f_eye:"आवेदन फ़ॉर्म", f_h:"आवेदन करें और KYC पूरा करें", f_in:"ये विवरण बिल्कुल वैसे ही आपके Certificate of Investment / Privé रसीद पर छपेंगे।",
+  s1:"अपना WhatsApp नंबर सत्यापित करें", mob:"WhatsApp नंबर", mob_h:"WhatsApp पर एक बार का पासवर्ड (OTP) भेजा जाएगा।",
+  send:"OTP भेजें", resend:"फिर भेजें", otp_l:"6 अंकों का OTP डालें", verify:"सत्यापित करें",
+  otp_sent:"{m} पर WhatsApp से OTP भेजा गया। 10 मिनट तक मान्य।", otp_wait:"{s} सेकंड बाद फिर भेज सकते हैं।", otp_ok:"WhatsApp सत्यापित", otp_off:"नंबर दर्ज हुआ — हमारी टीम आपसे पुष्टि करेगी।",
+  otp_bad:"OTP गलत है या समय खत्म। फिर कोशिश करें।", otp_rate:"बहुत ज़्यादा प्रयास। 30 मिनट बाद कोशिश करें।", otp_fail:"अभी OTP नहीं भेज पाए। एक मिनट बाद कोशिश करें।",
+  change:"बदलें", lockmsg:"🔒 फ़ॉर्म खोलने के लिए अपना WhatsApp नंबर सत्यापित करें।",
+  s2:"आपका विवरण (PAN कार्ड के अनुसार)", name:"पूरा नाम", name_h:"नाम बिल्कुल वैसा लिखें जैसा PAN कार्ड पर छपा है।", fname:"पहला नाम", mname:"मध्य नाम (पिता / पति का नाम)", lname:"अंतिम नाम (सरनेम)", fullname:"सर्टिफ़िकेट पर नाम", caddr_h:"पत्राचार का पता (पत्र और दस्तावेज़)", paddr_h:"स्थायी पता", psame_y:"पत्राचार के पते जैसा ही", psame_n:"अलग है", dob:"जन्म तिथि", email:"ईमेल (स्टेटमेंट, लेजर और Form 16A के लिए)",
+  pan:"PAN नंबर", aad:"आधार नंबर", addr:"पता", city:"शहर / गाँव", pin:"पिन कोड", state:"राज्य",
+  s3:"नॉमिनी", nom:"नॉमिनी का पूरा नाम", nomrel:"आपसे संबंध", nommob:"नॉमिनी का मोबाइल (वैकल्पिक)",
+  rel:["","पति / पत्नी","बेटा","बेटी","पिता","माता","भाई","बहन","अन्य"],
+  s4:"निवेश और भुगतान", plan:"प्लान", famt:"राशि (₹)", famt_h:"न्यूनतम ₹1,00,000, ₹1,00,000 के गुणक में", est:"आपका अनुमान", est_h:"10% TDS के बाद",
+  fee_only:"केवल Privé सदस्यता (नया निवेश नहीं)",
+  mship:"Privé सदस्यता", mship_h:"Privé प्लान के लिए ज़रूरी।", ms5:"5-वर्षीय सदस्यता — ₹10,000 एक बार (सबसे फ़ायदेमंद)", ms1:"वार्षिक सदस्यता — ₹2,500 प्रति वर्ष", ms0:"मैं पहले से Privé सदस्य हूँ",
+  paid:"क्या आपने भुगतान कर दिया है?", paid_y:"हाँ, कर दिया", paid_n:"अभी नहीं — ट्रांसफ़र करके बाद में प्रमाण अपलोड करूँगा",
+  mode:"भुगतान का तरीका", pdate:"भुगतान की तारीख", utr:"UTR / रेफ़रेंस / चेक नंबर", pamt:"भुगतान राशि (₹)", d_payment:"भुगतान का प्रमाण (स्क्रीनशॉट / स्लिप)",
+  s5:"भुगतान पाने के लिए बैंक खाता", s5_h:"आपका मासिक / वार्षिक भुगतान (और कोई भी रिफ़ंड) इसी खाते में आएगा। खाता आपके अपने नाम पर हो।",
+  bholder:"खाताधारक का नाम", bname:"बैंक का नाम", bacc:"खाता नंबर", bacc2:"खाता नंबर दोबारा डालें", ifsc:"IFSC कोड",
+  s6:"दस्तावेज़ अपलोड करें", s6_h:"साफ़ फ़ोटो चलेगी — मोबाइल कैमरे से खींच लें।",
+  d_pan:"PAN कार्ड", d_aadf:"आधार – आगे", d_aadb:"आधार – पीछे", d_photo:"पासपोर्ट फ़ोटो / सेल्फ़ी", d_cheque:"कैंसल चेक या पासबुक का पहला पेज",
+  tap:"अपलोड करने के लिए टैप करें", added:"जोड़ा गया", d_change:"बदलें",
+  s7:"आपको किसने रेफ़र किया?", ref_note:"🎁 रेफ़रल कमीशन (1%) <b>केवल Privé सदस्यों का लाभ</b> है। अगर किसी Privé सदस्य ने आपको रेफ़र किया है, तो उनका नाम और मोबाइल लिखें ताकि बोनस उन्हें मिले।",
+  rtype:"किसके द्वारा", rtypes:["","Richwealth कर्मचारी / RM","Privé सदस्य","मौजूदा निवेशक","सिटी एसोसिएट (ACA)","सेमिनार / वेबिनार","सोशल मीडिया / विज्ञापन","स्वयं / सीधे ऑफ़िस"],
+  rname:"रेफ़र करने वाले का पूरा नाम", rmob:"रेफ़र करने वाले का मोबाइल", rid:"कर्मचारी कोड / क्लाइंट ID / Privé ID (पता हो तो)", rid_h:"वैकल्पिक",
+  s8:"घोषणा",
+  d1:"मेरे दिए गए विवरण और दस्तावेज़ सही हैं और मेरे ही हैं।",
+  d2:"मैंने केवल इस पेज पर दिए Richwealth के आधिकारिक खाते में भुगतान किया है / करूँगा।",
+  d3:"मैंने ऊपर प्लान विवरण और महत्वपूर्ण शर्तें व सावधानियाँ पढ़ ली हैं, और इस आवेदन के बारे में Richwealth मुझसे WhatsApp / फ़ोन पर संपर्क कर सकता है।",
+  submit:"आवेदन जमा करें", saving:"जमा हो रहा है… कृपया रुकें (दस्तावेज़ अपलोड हो रहे हैं)",
+  e_req:"कृपया भरें।", e_pick:"कृपया एक चुनें।", e_mob:"कृपया सही मोबाइल नंबर डालें।", e_otp:"6 अंकों का OTP डालें।", e_name:"कृपया पूरा नाम लिखें।",
+  e_email:"कृपया ईमेल जाँचें।", e_pan:"PAN ऐसा होना चाहिए: ABCDE1234F", e_aad:"आधार 12 अंकों का होना चाहिए।", e_amt:"कृपया राशि जाँचें (ऊपर बताए अनुसार न्यूनतम और गुणक)।",
+  e_acc:"कृपया सही खाता नंबर डालें।", e_acc2:"खाता नंबर मेल नहीं खाते।", e_ifsc:"IFSC ऐसा होना चाहिए: SBIN0001234",
+  e_doc:"कृपया अपलोड करें।", e_type:"कृपया फ़ोटो या PDF अपलोड करें।", e_big:"फ़ाइल बहुत बड़ी है (अधिकतम 6 MB)। फ़ोटो अपलोड करें।", e_decl:"कृपया तीनों पर टिक करें।",
+  e_server:"माफ़ करें, अभी जमा नहीं हो सका। फिर कोशिश करें।", e_net:"इंटरनेट की समस्या। जाँच कर फिर कोशिश करें।", e_otpexp:"WhatsApp सत्यापन का समय खत्म। कृपया फिर सत्यापित करें।",
+  not_open:"यह फ़ॉर्म अभी खुला नहीं है।", help:"मदद चाहिए? WhatsApp +91 99131 21121",
+  ok_h:"आवेदन मिल गया!", ok_p:"कृपया यह रेफ़रेंस नंबर संभाल कर रखें।",
+  ok1:"हमारी टीम आपका भुगतान और दस्तावेज़ जाँचेगी (आमतौर पर 2 कार्य-दिवस में)।",
+  ok2:"आपके RM विवरण की पुष्टि के लिए WhatsApp पर कॉल करेंगे।",
+  ok3:"आपका Certificate of Investment / Privé सदस्यता रसीद WhatsApp पर भेजी जाएगी।",
+  foot1:"ऑफ़िस: जामनगर · अहमदाबाद · सूरत · पोरबंदर  |  जल्द शुरू: राजकोट · मुंबई · जयपुर",
+  foot2:"आपके दस्तावेज़ निजी रूप से रखे जाते हैं और केवल KYC, सर्टिफ़िकेट और भुगतान के लिए उपयोग होते हैं।"
+},
+gu:{
+  pg_std:"નિયમિત પ્લાન (સ્ટાન્ડર્ડ અને પ્રીમિયમ)", pg_pv:"Privé પ્લાન (માત્ર સભ્યો)", pg_dwk:"દ્વારકા ઓપોર્ચ્યુનિટી લેન્ડ",
+  n8:"શરતો",
+  cu_eye:"રોકાણ પહેલાં",
+  cu_h:"મહત્વની શરતો અને સાવચેતીઓ",
+  cu_in:"કૃપા કરી આ મુદ્દા વાંચો. આ એ જ શરતો છે જે તમારા Certificate of Investment ની પાછળ અને અમારા કંપની બ્રોશરમાં છપાયેલી છે.",
+  cu_bh:"⚠ કૃપા કરી ધ્યાન આપો",
+  cu_b:["<b>Richwealth, SEBI માં રજિસ્ટર્ડ નથી અને બેંક નથી.</b> આ બેંક ડિપોઝિટ નથી અને કોઈ થર્ડ-પાર્ટી ગેરંટી નથી.", "શેર, રિયલ એસ્ટેટ અને અન્ય વ્યવસાયિક સંપત્તિઓમાં રોકાણમાં નાણાકીય અને બજાર જોખમ હોય છે. <b>કિંમત અને વળતર ઉપર-નીચે થઈ શકે.</b>", "<b>અગાઉની ચુકવણીઓ ભવિષ્યના પરિણામોની ગેરંટી નથી.</b> ઉદાહરણના આંકડા અને મોડેલ જણાવેલી ધારણાઓ પર આધારિત છે; ખરેખરાં પરિણામ જુદાં હોઈ શકે.", "દરેક રોકાણ માટે KYC ચકાસણી અને Richwealth ની મંજૂરી જરૂરી છે. તમારું સર્ટિફિકેટ તમારી અને Richwealth વચ્ચેનો પરસ્પર કરાર છે — તેને ધ્યાનથી વાંચો.", "<b>ચુકવણી માત્ર આ પેજ પર આપેલા Richwealth ના સત્તાવાર બેંક ખાતાઓમાં જ કરો</b>, અને દરેક વાતચીતમાં તમારો સર્ટિફિકેટ નંબર જણાવો.", "Richwealth 2027 સુધીમાં SEBI-રજિસ્ટર્ડ AIF તરીકે શરૂ થવાના માર્ગ પર છે."],
+  cu_full:"રોકાણની પૂરી શરતો (સર્ટિફિકેટ પરથી)",
+  cu_t:["<b>સર્ટિફિકેટ</b>તમારા રોકાણનો સત્તાવાર પુરાવો. તે ટ્રાન્સફર થઈ શકતું નથી અને Richwealth ની લેખિત સંમતિ વગર ગીરવે મૂકી શકાતું નથી. ખોવાય તો હેડ ઓફિસને લેખિતમાં જાણ કરો.", "<b>ચુકવણી</b>માસિક પ્લાનની ચુકવણી 10 તારીખે; Privé માસિકની 1 તારીખે; વાર્ષિક પ્લાનની રોકાણની વર્ષગાંઠે. ખાસ સંજોગોમાં ચુકવણી 7 કામકાજના દિવસ સુધી મોડી થઈ શકે.", "<b>TDS</b>આવકવેરા અધિનિયમ, 1961 મુજબ: PAN આધાર સાથે લિંક હોય તો 10%, ન હોય તો 20% (કલમ 206AA). આવતા મહિનાની 7 તારીખ સુધી જમા; Form 16A આપવામાં આવે છે.", "<b>પાકતી મુદત</b>પાકતી મુદતના 15 કામકાજના દિવસમાં પૂરી મૂડી તમારા રજિસ્ટર્ડ બેંક ખાતામાં. પાકતી મુદત પહેલાં અમારી ટીમ રિન્યુઅલ માટે સંપર્ક કરશે.", "<b>KYC અને બેંક ખાતું</b>માન્ય PAN અને આધાર રેકોર્ડમાં રાખો. બેંક ફેરફાર આગામી ચુકવણીના 15 દિવસ પહેલાં લેખિતમાં આપો. ખોટી વિગતોથી ટ્રાન્સફર નિષ્ફળ જાય તો Richwealth જવાબદાર નથી.", "<b>વહેલો ઉપાડ</b>12 મહિના પહેલાં: કોઈ વ્યાજ મળવાપાત્ર નથી — ચૂકવેલું બધું વ્યાજ (TDS સહિત) મૂડીમાંથી પાછું. 12 મહિના પછી: રાખેલા સમયગાળા માટે 11% વાર્ષિક (સાદું) પ્રમાણે વ્યાજ ફરી ગણાશે અને તફાવત સરભર થશે. 30 કામકાજના દિવસમાં ચુકવણી.", "<b>નોમિની અને વારસો</b>નોમિની મરણ પ્રમાણપત્ર, આ સર્ટિફિકેટ અને પોતાના KYC સાથે દાવો કરી શકે. પૂરા દસ્તાવેજ મળ્યાના 45 કામકાજના દિવસમાં દાવો પતશે; નોમિની ન હોય તો કાયદેસર વારસદારોએ વારસાના દસ્તાવેજ આપવા પડશે.", "<b>Privé સભ્યપદ</b>5 વર્ષમાં ₹60,00,000 ની પ્રતિબદ્ધતા (પોતાનું રોકાણ અને/અથવા યોગ્ય રેફરલ); ફી ₹2,500 દર વર્ષે અથવા 5 વર્ષ માટે ₹10,000; પહેલાં ઓછામાં ઓછું ₹1,00,000 રોકાણ. એક વાર 90 દિવસનો કૂલિંગ પીરિયડ 1.5% પર. નિયમો પૂરા ન થાય તો સભ્યપદ નિષ્ક્રિય થઈ શકે; <b>સભ્યપદ ફી પરત મળતી નથી</b>, અને ફરી શરૂ કરવા નવી ફી અને નવો કૂલિંગ પીરિયડ.", "<b>કાયદો અને વિવાદ</b>ભારતના કાયદા લાગુ; જામનગર, ગુજરાતની અદાલતોનું વિશિષ્ટ અધિકારક્ષેત્ર. વિવાદ પહેલાં લેખિત નોટિસના 30 દિવસમાં સમજૂતીથી, પછી લવાદ અને સમાધાન અધિનિયમ, 1996 હેઠળ એકલ લવાદ દ્વારા, જામનગરમાં.", "<b>ફરિયાદ</b>ફરિયાદ અધિકારી, Richwealth હેડ ઓફિસ, જામનગરને લખો · info@richwealth.in · +91 9913 121 121. 2 કામકાજના દિવસમાં સ્વીકૃતિ, 7 કામકાજના દિવસમાં ઉકેલ."],
+  cu_avow:"અરજી કરીને તમે ખાતરી આપો છો કે તમે આ શરતો, પ્લાનની વિગતો અને આ રોકાણના સ્વરૂપને વાંચી-સમજીને તમારી પોતાની ઇચ્છાથી રોકાણ કરો છો.",
+  n7:"સ્ટેટસ", dk_h1:"પ્રતિ ચો. ફૂટ · 4 વર્ષનું જમીન ભાવ લક્ષ્ય", dk_h2:"4 વર્ષમાં, વૈકલ્પિક રિટર્ન ઇન્શ્યોરન્સ સાથે",
+  dk_s4:"ચો. ફૂટ પ્રતિ ₹4,00,000",
+  dk_land:"તમારો જમીન હિસ્સો", dk_val:"₹800 લક્ષ્ય પર કિંમત", dk_pay:"ઇન્શ્યોરન્સ સાથે તમે ચૂકવશો (+10%)", dk_get:"4 વર્ષ પછી સૂચિત ચુકવણી",
+  dk_why:"આ જમીન કેમ", dk_w:["🛣️|<b>NH-51 હાઇવે પર</b> — દ્વારકા–પોરબંદર રોડ, મહેમાનો સીધા પહોંચે","🛕|દ્વારકાધીશ મંદિરથી રસ્તે <b>આશરે 16 કિમી</b>","🌊|<b>દરિયા પાસે</b> — ઓખા મઢી બીચ અને ટર્ટલ કન્ઝર્વેશન સેન્ટર નજીક","📐|<b>16,00,000 ચો. ફૂટ</b> — 10,00,000 ચો. ફૂટ રોકાણકારો માટે"],
+  dk_rec:"દ્વારકામાં અમે આ પહેલાં પણ કર્યું છે", dk_r1:"સિટી સેન્ટર પ્લોટ · 2022 માં ખરીદ્યો · હવે (અંદાજ)", dk_r2:"વિશ્રામ દ્વારકા · 2025 માં ખરીદ્યું · હવે (અંદાજ)",
+  dk_exit:"તમારા પૈસા વધારવાના બે રસ્તા", dk_e1:"જમીન વેચીએ", dk_e1s:"મંજૂરી પછી પૂરી કે થોડી જમીન વેચીએ — વેચાણમાં તમારો હિસ્સો તમને.", dk_e2:"રિસોર્ટ બનાવીએ", dk_e2s:"દ્વારકા પાસે રિસોર્ટ, સી-વ્યૂ કોટેજ અને હોલિડે વિલા.",
+  dk_safe:"સરળ અને સુરક્ષિત",
+  dk_fine:"*વૈકલ્પિક રિટર્ન ઇન્શ્યોરન્સ (10% પ્રીમિયમ) સાથે: Richwealth 4 વર્ષ પછી 2× ચુકવણીનો પ્રસ્તાવ મૂકે છે, અંતિમ કરાર અને Richwealth ની ચુકવણી ક્ષમતાને આધીન. ઇન્શ્યોરન્સ વગર તમને ખરેખરા વેચાણ મૂલ્યમાં તમારો હિસ્સો મળશે. ₹800 એક લક્ષ્ય છે; જમીનના ભાવ ઉપર-નીચે થઈ શકે. જૂના પ્લોટની કિંમત સ્થાનિક બજારનો અંદાજ છે (નવેમ્બર 2026). જમીનની ખરીદી હજી બાકી છે; તમારા નામે અલગ પ્લોટ રજિસ્ટર નહીં થાય.",
+  ins:"રિટર્ન ઇન્શ્યોરન્સ (વૈકલ્પિક)", ins_h:"10% વધારે ચૂકવો અને Richwealth 4 વર્ષ પછી તમારી રકમના 2× ચુકવણીનો પ્રસ્તાવ મૂકે છે.", ins_y:"હા — 10% ઇન્શ્યોરન્સ ઉમેરો (₹4,00,000 → ₹4,40,000 ચૂકવો, સૂચિત ₹8,00,000)", ins_n:"ના — મને ખરેખરા વેચાણ મૂલ્યમાં મારો હિસ્સો જોઈએ",
+  st:["અરજી અને KYC મળી ગયા","Richwealth ના સત્તાવાર ખાતામાં ટ્રાન્સફર કરો","ટ્રાન્સફરનો ચોખ્ખો સ્ક્રીનશૉટ / બેંક સ્લિપ અપલોડ કરો","અમે તેને અમારા બેંક રેકોર્ડ સાથે મેળવીએ છીએ","તમને WhatsApp પર e-Certificate / રસીદ મળે છે","તમે OK લખો — અમે ઓરિજિનલ કુરિયરથી મોકલીએ છીએ"],
+  ok_proof:"ચુકવણીનો પુરાવો અપલોડ કરો →",
+  tr_eye:"તમારી અરજી ટ્રેક કરો", tr_h:"સ્ટેટસ જુઓ અને ચુકવણીનો પુરાવો અપલોડ કરો", tr_in:"તમને મળેલો રેફરન્સ નંબર (RWINV-…) લખો. અમે તમારો ચકાસાયેલો WhatsApp નંબર વાપરીએ છીએ.",
+  tr_ref:"રેફરન્સ નંબર", tr_check:"જુઓ", tr_bad:"આ રેફરન્સ અને WhatsApp નંબરથી કોઈ અરજી મળી નહીં.",
+  tr_who:"અરજી {r} · {p}", tr_ph:"ચુકવણીનો પુરાવો અપલોડ કરો", tr_pin:"ટ્રાન્સફર પછી ચોખ્ખો સ્ક્રીનશૉટ, બેંક સ્લિપ અથવા ચેક જમા સ્લિપ અપલોડ કરો જેથી અમે તેને અમારા બેંક રેકોર્ડ સાથે મેળવી શકીએ.",
+  tr_send:"ચુકવણીનો પુરાવો સબમિટ કરો", tr_sent:"આભાર! તમારો પુરાવો મળી ગયો. અમે તેને બેંક રેકોર્ડ સાથે મેળવીને તમારું e-Certificate WhatsApp પર મોકલીશું.",
+  tr_fix:"થોડી વિગતો સુધારવા માટે અમારી ટીમ તમને કૉલ કરશે.", tr_closed:"કૃપા કરી WhatsApp +91 99131 21121 પર સંપર્ક કરો.", tr_cour:"ઓરિજિનલ કુરિયરથી મોકલાયું",
+  tr_okmsg:"તમારું e-Certificate WhatsApp પર મોકલાયું છે. કૃપા કરી તપાસીને OK લખો — પછી અમે ઓરિજિનલ કુરિયરથી મોકલીશું.",
+  n5:"દ્વારકા જમીન", n6:"ઓફિસ",
+  dwk:"દ્વારકા ઓપોર્ચ્યુનિટી લેન્ડ", dk_eye:"નવી તક · દ્વારકા", dk_h:"દ્વારકા ઓપોર્ચ્યુનિટી લેન્ડ",
+  dk_in:"દ્વારકા–પોરબંદર હાઇવે પર, દરિયા પાસે 16,00,000 ચો. ફૂટ રિસોર્ટ જમીનમાં તમારો હિસ્સો લો — ₹400 પ્રતિ ચો. ફૂટ પર.",
+  dk_s1:"પ્રતિ ચો. ફૂટ", dk_s2:"ઓછામાં ઓછા", dk_s3:"ચુકવણીની છેલ્લી તારીખ",
+  dk_amt:"તમારી રકમ (ઓછામાં ઓછા ₹4,00,000, ₹4,00,000 ના ગુણાંકમાં)", dk_area:"₹400 / ચો. ફૂટ પ્રમાણે જમીન", sqft:"ચો. ફૂટ",
+  dk_p:["<b>ચુકવણી માત્ર Richwealth Investments ના YES Bank ખાતામાં જ કરો</b> — તમને ચુકવણી અને રસની રસીદ મળશે.", "<b>તમારો હિસ્સો સુરક્ષિત:</b> જમીન ધરાવતી કંપનીના શેર રૂપે ભાગીદારી (200 રોકાણકારો સુધી; ₹40,00,00,000 લક્ષ્યના 33% આવે ત્યારે રજિસ્ટ્રેશન).", "<b>પૂરી રકમ પરત મળી શકે:</b> 1 એપ્રિલ 2027 થી ક્યારેય પણ રિફંડ માંગો — 30 દિવસમાં ચુકવણી. Richwealth વહેલું પણ રિફંડ કરી શકે છે.", "<b>દરેક ઓફર તમારી સાથે:</b> 31 માર્ચ 2027 સુધીમાં બધા રોકાણકારોને અપડેટ, અને દરેક ખરીદનારની ઓફર પર તમારી સાથે ચર્ચા."],
+  dk_use:"દ્વારકા જમીન માટે અરજી કરો →", dk_bank:"દ્વારકા ઓપોર્ચ્યુનિટી લેન્ડ — માત્ર આ જ ખાતામાં ચુકવણી કરો",
+  dk_famt_h:"ઓછામાં ઓછા ₹4,00,000, ₹4,00,000 ના ગુણાંકમાં",
+  o_eye:"અમને મળો", o_h:"અમારી ઓફિસ", o_soon:"ટૂંક સમયમાં",
+  en_h:"અમારા પ્લાન અને વળતર જુઓ", en_p:"Richwealth ના પ્લાન, કેલ્ક્યુલેટર અને અરજી ખોલવા માટે તમારો WhatsApp નંબર લખો.",
+  en_k1:"2011 થી", en_k2:"ગુજરાતમાં 4 ઓફિસ", en_k3:"200+ શહેરો · 19 રાજ્યો",
+  en_priv:"🔒 તમારો નંબર સુરક્ષિત છે. અમે તેનો ઉપયોગ માત્ર ચકાસણી અને પ્લાનની માહિતી મોકલવા કરીએ છીએ — કોઈને આપતા નથી.",
+  h1:"તમારી રોકાણ યાત્રા શરૂ કરો", sub:"તમારું વળતર જુઓ, પ્લાન પસંદ કરો, અમારા સત્તાવાર ખાતામાં ચુકવણી કરો અને KYC સાથે અરજી પૂરી કરો — બધું એક જ જગ્યાએ, 5 મિનિટમાં.",
+  st1:"સ્થાપના", st2:"વર્ષનો વિશ્વાસ", st3:"રાજ્યો", st4:"શહેરો",
+  n1:"કેલ્ક્યુલેટર", n3:"બેંક વિગત", n4:"હમણાં અરજી કરો",
+  c_eye:"પ્લાન કેલ્ક્યુલેટર", c_h:"તમે કેટલું કમાશો?", c_in:"પ્લાન પસંદ કરો અને રકમ લખો. આંકડા 10% TDS કપાયા પછીના છે.",
+  c_amt:"રોકાણ રકમ (ઓછામાં ઓછા ₹1,00,000, ₹1,00,000 ના ગુણાંકમાં)",
+  std_m:"સ્ટાન્ડર્ડ માસિક", pre_m:"પ્રીમિયમ માસિક", std_a:"સ્ટાન્ડર્ડ વાર્ષિક", pre_a:"પ્રીમિયમ વાર્ષિક", prv_m:"Privé માસિક", prv_a:"Privé વાર્ષિક",
+  per_m:"/ મહિનો", per_y:"/ વર્ષ", mo:"મહિના",
+  r_month:"દર મહિને ચોખ્ખી આવક", r_year:"દર વર્ષે ચોખ્ખી આવક",
+  r_gross:"TDS પહેલાં", r_tds:"TDS (10%)", r_total:"કુલ ચોખ્ખી કમાણી", r_corpus:"કુલ રકમ (મૂડી + કમાણી)",
+  r_ten:"મુદત", r_pay:"ચુકવણી", r_mat:"પાકતી તારીખ (અંદાજે)",
+  pay_10th:"દર મહિનાની 10 તારીખ", pay_1st:"દર મહિનાની 1 તારીખ (પ્રાથમિકતા)", pay_yr:"વર્ષમાં એક વાર",
+  up_txt:"<b>Privé</b> માં આ જ રકમ પર 5 વર્ષમાં <b>{x}</b> વધુ કમાણી.", up_lnk:"Privé ના લાભ જુઓ →",
+  pv_y1:"Privé પહેલું વર્ષ (નવા સભ્યો): પહેલા 3 મહિના 1.5%/મહિનો, પછી 2% — પહેલા વર્ષે અસરકારક 24.5%. બીજા વર્ષથી પૂરો દર. સભ્યપદ ફી અલગ.",
+  c_note:"અંદાજિત આંકડા. અંતિમ શરતો તમારા Certificate of Investment પર છપાયેલી હશે. PAN આધાર સાથે લિંક ન હોય તો TDS 20% કપાશે.",
+  c_use:"આ પ્લાનથી અરજી કરો →",
+  t_h:"મુખ્ય શરતો (કૃપા કરી વાંચો)",
+  t1:"ઓછામાં ઓછા ₹1,00,000, ₹1,00,000 ના ગુણાંકમાં.",
+  t2:"દરેક ચુકવણી પર 10% TDS કપાય છે (PAN આધાર સાથે લિંક ન હોય તો 20%). Form 16A આપવામાં આવે છે.",
+  t3:"12 મહિના પહેલાં ઉપાડ: અત્યાર સુધી ચૂકવેલું બધું વ્યાજ (TDS સહિત) મૂડીમાંથી પાછું કપાશે.",
+  t4:"12 મહિના પછી ઉપાડ: ખરેખરા દિવસો માટે 11% વાર્ષિક પ્રમાણે વ્યાજ ફરી ગણાશે; તફાવત મૂડીમાંથી કપાશે.",
+  t5:"દરેક ઉપાડ અને પ્રક્રિયામાં 30 કામકાજના દિવસ લાગે છે.",
+  t6:"ચુકવણીની ચકાસણી પછી તમારું Certificate of Investment (અથવા Privé સભ્યપદ રસીદ) આપવામાં આવે છે.",
+  p_in:"પ્રતિબદ્ધ રોકાણકારો માટે અમારું પ્રીમિયમ સભ્યપદ — સૌથી ઊંચું વળતર, પ્રાથમિક ચુકવણી અને ખાસ ઇનામો.",
+  p_s1:"દર મહિને", p_s2:"વાર્ષિક ROI", p_s3:"પ્રાથમિક ચુકવણી", p_s4:"24K સોનાનો બેજ",
+  b1:"દર મહિને 2%", b1s:"3 મહિનાના કૂલિંગ પીરિયડ પછી તમારા બધા રોકાણ પર — નવા અને જૂના.",
+  b2:"1 તારીખે પ્રાથમિક ચુકવણી", b2s:"બીજા બધા પ્લાન કરતાં પહેલાં (બાકીને 10 તારીખે).",
+  b3:"દર વર્ષે બોનસ મહિનો", b3s:"Privé વાર્ષિકમાં દર વર્ષે 1 મહિનાનું બોનસ વ્યાજ — બીજા વર્ષથી 26% ROI.",
+  b4:"1% રેફરલ કમિશન", b4s:"તમે લાવેલા લોકો રોકાણ કરે તો કમાણી. રેફરલ બોનસ માત્ર Privé સભ્યો માટે.",
+  b5:"10 ગ્રામ 24K સોનાનો બેજ", b5s:"₹60,00,000 નું લક્ષ્ય પૂરું કરનાર 5-વર્ષના સભ્યો માટે સન્માન.",
+  b6:"જન્મદિવસ અને દિવાળી ભેટ", b6s:"દર વર્ષે Richwealth તરફથી વ્યક્તિગત ભેટ.",
+  p_f1:"દર વર્ષે · વાર્ષિક રિન્યુઅલ", p_f2:"એક વાર · 5 વર્ષ · ગોલ્ડ બેજ માટે પાત્ર", p_best:"સૌથી ફાયદાકારક",
+  pn1:"<b>5 વર્ષમાં ₹60,00,000:</b> Privé 5 વર્ષની પ્રતિબદ્ધતા છે — આશરે ₹1,00,000 દર મહિને, તમારા પોતાના રોકાણથી અને/અથવા સ્ટાન્ડર્ડ/પ્રીમિયમ પ્લાન પર લાવેલા રોકાણકારોથી.",
+  pn2:"<b>કૂલિંગ પીરિયડ (એક જ વાર):</b> પહેલા 3 મહિના 1.5%/મહિનો, પછી બધા પર 2%. જૂના સભ્યો નવી રકમ ઉમેરે તો તરત 2%.",
+  pn3:"<b>કોણ જોડાઈ શકે:</b> ઓછામાં ઓછું ₹1,00,000 રોકાણ ધરાવતા રોકાણકાર. નવા રોકાણકાર આ જ અરજીમાં રોકાણ અને સભ્યપદ બંને લઈ શકે.",
+  b_eye:"સત્તાવાર બેંક ખાતા", b_h:"ચુકવણી ક્યાં કરવી",
+  b_in:"NEFT / RTGS / IMPS / ચેકથી માત્ર તમારા પ્લાન મુજબના નીચેના ખાતામાં ચુકવણી કરો, પછી ફોર્મમાં ચુકવણીનો પુરાવો અપલોડ કરો.",
+  bk_inv:"સ્ટાન્ડર્ડ અને પ્રીમિયમ પ્લાન માટે", bk_prive:"Privé પ્લાન અને Privé સભ્યપદ ફી માટે",
+  bk_name:"ખાતાનું નામ", bk_bank:"બેંક", bk_acc:"ખાતા નંબર", bk_ifsc:"IFSC", bk_branch:"શાખા", tbc:"તમારા RM આપશે", copy:"કૉપિ", copied:"કૉપિ થયું",
+  b_warn:"⚠ માત્ર આ Richwealth કંપની ખાતાઓમાં જ ચુકવણી કરો — કોઈ કર્મચારીના અંગત ખાતા કે UPI માં નહીં. Richwealth ક્યારેય તમારો OTP કે PIN માંગતું નથી.",
+  f_eye:"અરજી ફોર્મ", f_h:"અરજી કરો અને KYC પૂરું કરો", f_in:"આ વિગતો બરાબર એ જ રીતે તમારા Certificate of Investment / Privé રસીદ પર છપાશે.",
+  s1:"તમારો WhatsApp નંબર ચકાસો", mob:"WhatsApp નંબર", mob_h:"WhatsApp પર એક વખતનો પાસવર્ડ (OTP) મોકલાશે.",
+  send:"OTP મોકલો", resend:"ફરી મોકલો", otp_l:"6 અંકનો OTP લખો", verify:"ચકાસો",
+  otp_sent:"{m} પર WhatsApp થી OTP મોકલ્યો. 10 મિનિટ માટે માન્ય.", otp_wait:"{s} સેકન્ડ પછી ફરી મોકલી શકશો.", otp_ok:"WhatsApp ચકાસાયું", otp_off:"નંબર નોંધાયો — અમારી ટીમ તમારી સાથે ખાતરી કરશે.",
+  otp_bad:"OTP ખોટો છે અથવા સમય પૂરો. ફરી પ્રયાસ કરો.", otp_rate:"ઘણા બધા પ્રયાસ. 30 મિનિટ પછી પ્રયાસ કરો.", otp_fail:"અત્યારે OTP મોકલી શકાયો નહીં. એક મિનિટ પછી પ્રયાસ કરો.",
+  change:"બદલો", lockmsg:"🔒 ફોર્મ ખોલવા માટે તમારો WhatsApp નંબર ચકાસો.",
+  s2:"તમારી વિગત (PAN કાર્ડ મુજબ)", name:"પૂરું નામ", name_h:"નામ બરાબર PAN કાર્ડ પર છપાયેલું છે તેમ જ લખો.", fname:"પહેલું નામ", mname:"વચલું નામ (પિતા / પતિનું નામ)", lname:"છેલ્લું નામ (અટક)", fullname:"સર્ટિફિકેટ પર નામ", caddr_h:"પત્રવ્યવહારનું સરનામું (પત્રો અને દસ્તાવેજો)", paddr_h:"કાયમી સરનામું", psame_y:"પત્રવ્યવહારના સરનામા જેવું જ", psame_n:"અલગ છે", dob:"જન્મ તારીખ", email:"ઇમેઇલ (સ્ટેટમેન્ટ, લેજર અને Form 16A માટે)",
+  pan:"PAN નંબર", aad:"આધાર નંબર", addr:"સરનામું", city:"શહેર / ગામ", pin:"પિન કોડ", state:"રાજ્ય",
+  s3:"નોમિની", nom:"નોમિનીનું પૂરું નામ", nomrel:"તમારી સાથે સંબંધ", nommob:"નોમિનીનો મોબાઇલ (વૈકલ્પિક)",
+  rel:["","પતિ / પત્ની","દીકરો","દીકરી","પિતા","માતા","ભાઈ","બહેન","અન્ય"],
+  s4:"રોકાણ અને ચુકવણી", plan:"પ્લાન", famt:"રકમ (₹)", famt_h:"ઓછામાં ઓછા ₹1,00,000, ₹1,00,000 ના ગુણાંકમાં", est:"તમારો અંદાજ", est_h:"10% TDS પછી",
+  fee_only:"માત્ર Privé સભ્યપદ (નવું રોકાણ નહીં)",
+  mship:"Privé સભ્યપદ", mship_h:"Privé પ્લાન માટે જરૂરી.", ms5:"5-વર્ષનું સભ્યપદ — ₹10,000 એક વાર (સૌથી ફાયદાકારક)", ms1:"વાર્ષિક સભ્યપદ — ₹2,500 દર વર્ષે", ms0:"હું પહેલેથી Privé સભ્ય છું",
+  paid:"શું તમે ચુકવણી કરી દીધી છે?", paid_y:"હા, કરી દીધી", paid_n:"હજી નહીં — ટ્રાન્સફર કરીને પછી પુરાવો અપલોડ કરીશ",
+  mode:"ચુકવણીની રીત", pdate:"ચુકવણીની તારીખ", utr:"UTR / રેફરન્સ / ચેક નંબર", pamt:"ચૂકવેલી રકમ (₹)", d_payment:"ચુકવણીનો પુરાવો (સ્ક્રીનશૉટ / સ્લિપ)",
+  s5:"ચુકવણી મેળવવા માટે બેંક ખાતું", s5_h:"તમારી માસિક / વાર્ષિક ચુકવણી (અને કોઈપણ રિફંડ) આ ખાતામાં જમા થશે. ખાતું તમારા પોતાના નામે હોવું જોઈએ.",
+  bholder:"ખાતાધારકનું નામ", bname:"બેંકનું નામ", bacc:"ખાતા નંબર", bacc2:"ખાતા નંબર ફરી લખો", ifsc:"IFSC કોડ",
+  s6:"દસ્તાવેજ અપલોડ કરો", s6_h:"ચોખ્ખો ફોટો ચાલશે — મોબાઇલ કેમેરાથી પાડી લો.",
+  d_pan:"PAN કાર્ડ", d_aadf:"આધાર – આગળ", d_aadb:"આધાર – પાછળ", d_photo:"પાસપોર્ટ ફોટો / સેલ્ફી", d_cheque:"કેન્સલ ચેક અથવા પાસબુકનું પહેલું પાનું",
+  tap:"અપલોડ કરવા ટૅપ કરો", added:"ઉમેરાયું", d_change:"બદલો",
+  s7:"તમને કોણે રેફર કર્યા?", ref_note:"🎁 રેફરલ કમિશન (1%) <b>માત્ર Privé સભ્યોનો લાભ</b> છે. જો કોઈ Privé સભ્યે તમને રેફર કર્યા હોય, તો તેમનું નામ અને મોબાઇલ લખો જેથી બોનસ તેમને મળે.",
+  rtype:"કોના દ્વારા", rtypes:["","Richwealth કર્મચારી / RM","Privé સભ્ય","હાલના રોકાણકાર","સિટી એસોસિએટ (ACA)","સેમિનાર / વેબિનાર","સોશિયલ મીડિયા / જાહેરાત","જાતે / સીધા ઓફિસ"],
+  rname:"રેફર કરનારનું પૂરું નામ", rmob:"રેફર કરનારનો મોબાઇલ", rid:"કર્મચારી કોડ / ક્લાયન્ટ ID / Privé ID (ખબર હોય તો)", rid_h:"વૈકલ્પિક",
+  s8:"ઘોષણા",
+  d1:"મેં આપેલી વિગતો અને દસ્તાવેજો સાચા છે અને મારા પોતાના છે.",
+  d2:"મેં માત્ર આ પેજ પર આપેલા Richwealth ના સત્તાવાર ખાતામાં ચુકવણી કરી છે / કરીશ.",
+  d3:"મેં ઉપર પ્લાનની વિગતો અને મહત્વની શરતો તથા સાવચેતીઓ વાંચી છે, અને આ અરજી અંગે Richwealth મારો WhatsApp / ફોન પર સંપર્ક કરી શકે છે.",
+  submit:"અરજી સબમિટ કરો", saving:"સબમિટ થાય છે… કૃપા કરી રાહ જુઓ (દસ્તાવેજ અપલોડ થાય છે)",
+  e_req:"કૃપા કરી ભરો.", e_pick:"કૃપા કરી એક પસંદ કરો.", e_mob:"કૃપા કરી સાચો મોબાઇલ નંબર લખો.", e_otp:"6 અંકનો OTP લખો.", e_name:"કૃપા કરી પૂરું નામ લખો.",
+  e_email:"કૃપા કરી ઇમેઇલ તપાસો.", e_pan:"PAN આવો હોવો જોઈએ: ABCDE1234F", e_aad:"આધાર 12 અંકનો હોવો જોઈએ.", e_amt:"કૃપા કરી રકમ તપાસો (ઉપર બતાવ્યા મુજબ ઓછામાં ઓછી અને ગુણાંક).",
+  e_acc:"કૃપા કરી સાચો ખાતા નંબર લખો.", e_acc2:"ખાતા નંબર મેળ ખાતા નથી.", e_ifsc:"IFSC આવો હોવો જોઈએ: SBIN0001234",
+  e_doc:"કૃપા કરી અપલોડ કરો.", e_type:"કૃપા કરી ફોટો અથવા PDF અપલોડ કરો.", e_big:"ફાઇલ બહુ મોટી છે (વધુમાં વધુ 6 MB). ફોટો અપલોડ કરો.", e_decl:"કૃપા કરી ત્રણેય પર ટિક કરો.",
+  e_server:"માફ કરશો, અત્યારે સબમિટ ન થયું. ફરી પ્રયાસ કરો.", e_net:"ઇન્ટરનેટની સમસ્યા. તપાસીને ફરી પ્રયાસ કરો.", e_otpexp:"WhatsApp ચકાસણીનો સમય પૂરો. કૃપા કરી ફરી ચકાસો.",
+  not_open:"આ ફોર્મ હજી ખુલ્યું નથી.", help:"મદદ જોઈએ? WhatsApp +91 99131 21121",
+  ok_h:"અરજી મળી ગઈ!", ok_p:"કૃપા કરી આ રેફરન્સ નંબર સાચવી રાખો.",
+  ok1:"અમારી ટીમ તમારી ચુકવણી અને દસ્તાવેજ ચકાસશે (સામાન્ય રીતે 2 કામકાજના દિવસમાં).",
+  ok2:"તમારા RM વિગતોની ખાતરી માટે WhatsApp પર કૉલ કરશે.",
+  ok3:"તમારું Certificate of Investment / Privé સભ્યપદ રસીદ WhatsApp પર મોકલાશે.",
+  foot1:"ઓફિસ: જામનગર · અમદાવાદ · સુરત · પોરબંદર  |  ટૂંક સમયમાં: રાજકોટ · મુંબઈ · જયપુર",
+  foot2:"તમારા દસ્તાવેજ ખાનગી રીતે સચવાય છે અને માત્ર KYC, સર્ટિફિકેટ અને ચુકવણી માટે વપરાય છે."
+}};
+
+/* ===================== HELPERS ===================== */
+var LANG = "en", plan = "pre_m", lakhs = 10, dRs = 400000, files = {}, otpToken = "", otpVerifiedMob = "", otpOff = false, cdTimer = null;
+var PREVIEW = !ENDPOINT && /^(localhost|127\.0\.0\.1|)$/.test(location.hostname);
+function $(id){ return document.getElementById(id); }
+/* keep the last 3 words of a longer text together, so no line ends with only 1-2 words */
+function nowid(h){
+  if (typeof h !== "string" || h.replace(/<[^>]+>/g, "").trim().split(/\s+/).length < 5) return h;
+  var parts = h.split(/(<[^>]+>)/), left = 2;
+  for (var i = parts.length - 1; i >= 0 && left > 0; i--){
+    if (parts[i].charAt(0) === "<") continue;
+    var seg = parts[i].replace(/\s+$/, function(m){ return m; });
+    for (var j = seg.length - 1; j >= 0 && left > 0; j--){
+      if (seg.charAt(j) === " " && j < seg.trimEnd().length){ seg = seg.slice(0, j) + " " + seg.slice(j + 1); left--; }
+    }
+    parts[i] = seg;
+  }
+  return parts.join("");
+}
+function t(k){ var v = (T[LANG] && T[LANG][k]); if (v == null) v = T.en[k] != null ? T.en[k] : ""; return Array.isArray(v) ? v.map(nowid) : nowid(v); }
+function inr(n){ return "₹" + Math.round(n).toLocaleString("en-IN"); }
+/* two-sentence texts: start the 2nd sentence on a new line (only where marked) */
+function brk(h){ return String(h).replace(/([^\d\s][.।])\s+(?=\S)/, "$1<br>"); }
+function num(n){ return Math.round(n).toLocaleString("en-IN"); }
+function rupees(id){ return Number(String(document.getElementById(id).value).replace(/\D/g, "")) || 0; }
+function val(id){ return $(id).value.trim(); }
+function digits(s){ return String(s).replace(/\D/g, ""); }
+function radio(n){ var r = document.querySelector('input[name="'+n+'"]:checked'); return r ? r.value : ""; }
+function addMonths(m){ var d = new Date(); d.setMonth(d.getMonth() + m); return d.toLocaleDateString("en-GB", {day:"2-digit", month:"short", year:"numeric"}); }
+
+function calc(p, L){
+  var P = PLANS[p], amt = L * 100000, years = P.ten / 12;
+  if (P.m){ var g = amt * P.r / 100, net = g * (1 - TDS); return { amt:amt, gross:g, tds:g*TDS, net:net, total:net*P.ten, per:"m" }; }
+  var gy = amt * P.r / 100, ny = gy * (1 - TDS); return { amt:amt, gross:gy, tds:gy*TDS, net:ny, total:ny*years, per:"y" };
+}
+
+/* ===================== CALCULATOR ===================== */
+function buildPlans(){
+  var box = $("plans"); box.innerHTML = "";
+  ORDER.forEach(function(k){
+    var P = PLANS[k], b = document.createElement("button");
+    b.type = "button"; b.className = "pl" + (P.pv ? " pv" : ""); b.setAttribute("aria-pressed", k === plan);
+    b.innerHTML = "<b>"+t(k)+"</b><span>"+P.r+"%"+(P.m ? " <small>"+t("per_m")+"</small>" : " <small>"+t("per_y")+"</small>")+"</span><small>"+P.ten+"&nbsp;"+t("mo")+"&nbsp;· ROI&nbsp;"+P.roi+"%</small>";
+    b.onclick = function(){ plan = k; $("f-plan").value = k; buildPlans(); render(); syncForm(); };
+    box.appendChild(b);
+  });
+}
+function setLakhs(n, from){
+  n = Math.max(1, Math.min(9999, Math.round(Number(n) || 1)));
+  lakhs = n;
+  if (from !== "amt") $("amt").value = num(n * 100000);
+  $("rng").value = Math.min(100, n);
+  render();
+}
+function render(){
+  var P = PLANS[plan], r = calc(plan, lakhs);
+  $("words").textContent = inr(r.amt) + "  ·  " + t(plan);
+  var payTxt = P.pay === "10th" ? t("pay_10th") : P.pay === "1st" ? t("pay_1st") : t("pay_yr");
+  $("res").className = "res" + (P.pv ? " pv" : "");
+  $("res").innerHTML =
+    '<div class="big"><div><small>'+(r.per === "m" ? t("r_month") : t("r_year"))+'</small><b class="num-f">'+inr(r.net)+'</b></div><span class="tag">'+P.r+'% · '+P.ten+' '+t("mo")+'</span></div>' +
+    '<div class="rgrid num-f">' +
+      '<div><small>'+t("r_gross")+'</small><b>'+inr(r.gross)+'</b></div>' +
+      '<div><small>'+t("r_tds")+'</small><b>− '+inr(r.tds)+'</b></div>' +
+      '<div><small>'+t("r_total")+'</small><b>'+inr(r.total)+'</b></div>' +
+      '<div><small>'+t("r_corpus")+'</small><b>'+inr(r.amt + r.total)+'</b></div>' +
+      '<div><small>'+t("r_pay")+'</small><b style="font-size:14px">'+payTxt+'</b></div>' +
+      '<div><small>'+t("r_mat")+'</small><b>'+addMonths(P.ten)+'</b></div>' +
+    '</div>';
+  var up = $("upsell");
+  if (P.pv){ up.className = "upsell"; up.innerHTML = brk(t("pv_y1")); }
+  else {
+    var alt = calc(P.m ? "prv_m" : "prv_a", lakhs), mine5 = r.total * (60 / P.ten);   // compare over 5 years
+    var extra = alt.total - (P.ten === 60 ? r.total : mine5);
+    up.className = "upsell"; up.innerHTML = t("up_txt").replace("{x}", inr(extra)) + ' <a href="#prive">'+t("up_lnk")+'</a>';
+  }
+  highlightBank();
+}
+function buildQuick(){
+  var q = $("quick"); q.innerHTML = "";
+  [1,5,10,25,50,100].forEach(function(n){
+    var b = document.createElement("button"); b.type = "button";
+    b.textContent = inr(n * 100000);
+    b.onclick = function(){ setLakhs(n); }; q.appendChild(b);
+  });
+}
+$("amt").addEventListener("input", function(){ var v = rupees("amt"); if (v >= 100000) setLakhs(Math.floor(v / 100000), "amt"); });
+$("amt").addEventListener("blur", function(){ setLakhs(Math.floor(rupees("amt") / 100000)); });
+$("rng").addEventListener("input", function(){ setLakhs(this.value); });
+$("minus").onclick = function(){ setLakhs(lakhs - 1); };
+$("plus").onclick = function(){ setLakhs(lakhs + 1); };
+$("useplan").addEventListener("click", function(){ $("f-plan").value = plan; $("f-amt").value = num(lakhs * 100000); syncForm(); });
+
+/* ===================== DWARKA ===================== */
+function dShow(){
+  var sq = dRs / DWK.rate;
+  $("dres").innerHTML =
+    '<div><small>' + t("dk_land") + '</small><b>' + num(sq) + ' ' + t("sqft") + '</b></div>' +
+    '<div class="gold"><small>' + t("dk_val") + '</small><b>' + inr(sq * 800) + '</b></div>' +
+    '<div><small>' + t("dk_pay") + '</small><b>' + inr(dRs * 1.1) + '</b></div>' +
+    '<div class="gold"><small>' + t("dk_get") + '*</small><b>' + inr(dRs * 2) + '</b></div>';
+}
+function setDwk(v){ dRs = Math.max(DWK.min, Math.round((Number(v) || 0) / DWK.step) * DWK.step); $("damt").value = num(dRs); dShow(); }
+$("damt").addEventListener("input", function(){ var v = rupees("damt"); if (v >= DWK.min){ dRs = Math.floor(v / DWK.step) * DWK.step; dShow(); } });
+function stepsHTML(stage){ return t("st").map(function(x, i){ var n = i + 1; return '<li class="' + (n < stage ? "ok" : n === stage ? "now" : "") + '">' + x + '</li>'; }).join(""); }
+$("damt").addEventListener("blur", function(){ setDwk(Math.floor(rupees("damt") / DWK.step) * DWK.step); });
+$("dminus").onclick = function(){ setDwk(dRs - DWK.step); };
+$("dplus").onclick = function(){ setDwk(dRs + DWK.step); };
+$("usedwk").addEventListener("click", function(){ $("f-plan").value = "dwk"; $("f-amt").value = num(dRs); syncForm(); });
+
+/* ===================== PRIVÉ + BANKS + TERMS ===================== */
+function buildStatic(){
+  var ic = ["%","①","★","🤝","🏅","🎁"];
+  $("bens").innerHTML = [1,2,3,4,5,6].map(function(i){ return '<div class="ben"><i>'+ic[i-1]+'</i><div><b>'+t("b"+i)+'</b><span>'+t("b"+i+"s")+'</span></div></div>'; }).join("");
+  $("pvnote").innerHTML = "<p>"+t("pn1")+"</p><p>"+t("pn2")+"</p><p>"+t("pn3")+"</p>";
+  $("cuList").innerHTML = t("cu_b").map(function(x){ return "<li>" + x + "</li>"; }).join("");
+  $("cuTerms").innerHTML = t("cu_t").map(function(x){ return "<li>" + x + "</li>"; }).join("");
+  $("dwhys").innerHTML = t("dk_w").map(function(x){ var a = x.split("|"); return '<div class="why"><i>' + a[0] + '</i><span>' + a[1] + '</span></div>'; }).join("");
+  $("doneSteps").innerHTML = stepsHTML(Number($("done").getAttribute("data-stage") || 2));
+  $("dwkpts").innerHTML = t("dk_p").map(function(x){ return "<li>" + x + "</li>"; }).join("");
+  $("ogrid").innerHTML = OFFICES.map(function(o){ return '<div class="off"><h3>' + (o[LANG] || o.en) + '</h3><p>' + o.a + '</p></div>'; }).join("");
+  $("soon").innerHTML = "<b>" + t("o_soon") + "</b>" + SOON.map(function(c){ return "<span>" + (c[LANG] || c.en) + "</span>"; }).join("");
+  dShow();
+  $("terms").innerHTML = [1,2,3,4,5,6].map(function(i){ return "<li>"+t("t"+i)+"</li>"; }).join("");
+  var bx = $("banks"); bx.innerHTML = "";
+  BANKS.forEach(function(B){
+    var d = document.createElement("div"); d.className = "bank"; d.id = "bank-" + B.k;
+    var rows = [["bk_name", B.name], ["bk_bank", B.bank], ["bk_acc", B.acc], ["bk_ifsc", B.ifsc], ["bk_branch", B.branch]];
+    d.innerHTML = "<h3>"+t("bk_"+B.k)+"</h3>" + rows.map(function(r){
+      return '<div class="brow"><small>'+t(r[0])+'</small>' + (r[1] ? '<b'+(r[0] === "bk_acc" || r[0] === "bk_ifsc" ? ' class="mono"' : '')+'>'+r[1]+'</b>' + (r[0] === "bk_acc" || r[0] === "bk_ifsc" ? '<button type="button" class="cp" data-v="'+r[1]+'">'+t("copy")+'</button>' : '') : '<b class="tbc">'+t("tbc")+'</b>') + '</div>';
+    }).join("");
+    bx.appendChild(d);
+  });
+  bx.querySelectorAll(".cp").forEach(function(b){
+    b.onclick = function(){ var v = b.getAttribute("data-v"); (navigator.clipboard ? navigator.clipboard.writeText(v) : Promise.reject()).then(function(){ b.textContent = t("copied"); setTimeout(function(){ b.textContent = t("copy"); }, 1500); }, function(){}); };
+  });
+  highlightBank();
+}
+function highlightBank(){
+  var p = ($("f-plan") && $("f-plan").value) || plan, dw = p === "dwk";
+  BANKS.forEach(function(B){
+    var el = $("bank-" + B.k); if (!el) return;
+    el.classList.toggle("on", B.forPlans.indexOf(p) >= 0);
+    el.classList.toggle("hide", dw && B.forPlans.indexOf("dwk") < 0);      // Dwarka: only the RI account is shown
+    var h = el.querySelector("h3"); if (h) h.textContent = dw && B.k === "inv" ? t("dk_bank") : t("bk_" + B.k);
+  });
+}
+
+/* ===================== FORM BUILD ===================== */
+var DOCS = [
+  { k:"pan", t:"d_pan" }, { k:"aadhaar_front", t:"d_aadf" }, { k:"aadhaar_back", t:"d_aadb" },
+  { k:"photo", t:"d_photo" }, { k:"cheque", t:"d_cheque" }
+];
+var PAYDOC = { k:"payment", t:"d_payment" };
+function dropHTML(d){
+  return '<span class="lbl">'+t(d.t)+' <span class="req">*</span></span>' +
+    '<label class="drop"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h3l2-3h8l2 3h3v11H3z"/><circle cx="12" cy="13" r="3.5"/></svg></span>' +
+    '<span class="tx"><b>'+t("tap")+'</b>JPG · PNG · PDF</span><input type="file" accept="image/*,application/pdf"></label>' +
+    '<div class="prev"></div><span class="err">'+t("e_doc")+'</span>';
+}
+function wireDrop(d, f){
+  f.innerHTML = dropHTML(d);
+  var inp = f.querySelector("input");
+  inp.addEventListener("change", function(){ if (inp.files[0]) addFile(d, inp.files[0], f); inp.value = ""; });
+  drawPrev(d, f);
+}
+function buildDocs(){
+  var box = $("docs"); box.innerHTML = "";
+  DOCS.forEach(function(d){ var f = document.createElement("div"); f.className = "field"; f.setAttribute("data-k", "doc_"+d.k); box.appendChild(f); wireDrop(d, f); });
+  wireDrop(PAYDOC, $("payDoc"));
+}
+function addFile(d, file, field){
+  var errEl = field.querySelector(".err");
+  var isPdf = /pdf$/i.test(file.type) || /\.pdf$/i.test(file.name), isImg = /^image\//.test(file.type) || /\.(heic|heif)$/i.test(file.name);
+  function bad(k){ errEl.textContent = t(k); field.classList.add("bad"); }
+  if (!isPdf && !isImg) return bad("e_type");
+  if (isPdf && file.size > MAX_RAW) return bad("e_big");
+  (isPdf ? readRaw(file) : shrink(file)).then(function(r){
+    if (!r) return bad("e_big");
+    files[d.k] = r; field.classList.remove("bad"); errEl.textContent = t("e_doc"); drawPrev(d, field);
+  });
+}
+function readRaw(file){
+  return new Promise(function(res){
+    var fr = new FileReader();
+    fr.onload = function(){ res({name:file.name, mime:file.type||"application/pdf", data:String(fr.result).split(",")[1], preview:null}); };
+    fr.onerror = function(){ res(null); };
+    fr.readAsDataURL(file);
+  });
+}
+function shrink(file){
+  return new Promise(function(res){
+    var url = URL.createObjectURL(file), img = new Image();
+    img.onload = function(){
+      var w = img.naturalWidth, h = img.naturalHeight, s = Math.min(1, MAX_EDGE / Math.max(w, h));
+      var c = document.createElement("canvas"); c.width = Math.round(w*s); c.height = Math.round(h*s);
+      var g = c.getContext("2d"); g.fillStyle = "#fff"; g.fillRect(0,0,c.width,c.height); g.drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url);
+      var d = c.toDataURL("image/jpeg", JPEG_Q);
+      res({name:file.name.replace(/\.[^.]+$/, "")+".jpg", mime:"image/jpeg", data:d.split(",")[1], preview:d});
+    };
+    img.onerror = function(){ URL.revokeObjectURL(url); if (file.size > MAX_RAW) return res(null); readRaw(file).then(res); };
+    img.src = url;
+  });
+}
+function drawPrev(d, field){
+  var box = field.querySelector(".prev"), r = files[d.k], drop = field.querySelector(".drop");
+  drop.classList.toggle("has", !!r);
+  drop.querySelector(".tx b").textContent = r ? "✓ " + t("added") : t("tap");
+  box.innerHTML = "";
+  if (!r) return;
+  box.innerHTML = (r.preview ? '<img src="'+r.preview+'" alt="">' : '<div class="pdf">PDF</div>') + '<button type="button">'+t("d_change")+'</button>';
+  box.querySelector("button").addEventListener("click", function(){ field.querySelector("input").click(); });
+}
+function fillSelect(id, opts, keepVal){
+  var s = $(id), v = s.value; s.innerHTML = "";
+  opts.forEach(function(o){ var op = document.createElement("option"); op.value = o[0]; op.textContent = o[1]; s.appendChild(op); });
+  if (keepVal) s.value = v;
+}
+function buildSelects(){
+  var rel = t("rel"), relEn = T.en.rel;
+  fillSelect("f-nomrel", relEn.map(function(v, i){ return [v, rel[i] || v]; }), true);
+  var rt = t("rtypes"), rtEn = T.en.rtypes;
+  fillSelect("f-rtype", rtEn.map(function(v, i){ return [v, rt[i] || v]; }), true);
+  var cur = $("f-plan").value || plan;
+  var ps = $("f-plan"); ps.innerHTML = "";
+  [["g-std", "pg_std", ["std_m","pre_m","std_a","pre_a"]], ["g-pv", "pg_pv", ["prv_m","prv_a","fee"]], ["g-dwk", "pg_dwk", ["dwk"]]].forEach(function(g){
+    var og = document.createElement("optgroup"); og.label = t(g[1]); og.className = g[0];
+    g[2].forEach(function(k){
+      var op = document.createElement("option"); op.value = k; op.className = "o-" + g[0].slice(2);
+      if (k === "fee") op.textContent = t("fee_only");
+      else if (k === "dwk") op.textContent = t("dwk") + " · ₹400";
+      else { var P = PLANS[k]; op.textContent = t(k) + " — " + P.r + "% " + (P.m ? t("per_m") : t("per_y")); }
+      og.appendChild(op);
+    });
+    ps.appendChild(og);
+  });
+  $("f-plan").value = cur;
+}
+function syncForm(){
+  var p = $("f-plan").value, pv = p === "fee" || (PLANS[p] && PLANS[p].pv);
+  $("mshipField").classList.toggle("hide", !pv);
+  $("insField").classList.toggle("hide", p !== "dwk");
+  var kind = p === "dwk" ? "k-dwk" : p === "fee" ? "k-fee" : (PLANS[p] && PLANS[p].pv) ? "k-pv" : "k-std";
+  $("f-plan").className = "in " + kind;
+  $("plantag").className = "plantag " + kind;
+  $("plantag").textContent = t(kind === "k-dwk" ? "pg_dwk" : kind === "k-std" ? "pg_std" : "pg_pv");
+  $("f-amt").closest(".field").classList.toggle("hide", p === "fee");
+  var rs = rupees("f-amt"), L = rs / 100000;
+  $("f-amt").closest(".field").querySelector(".hint").textContent = p === "dwk" ? t("dk_famt_h") : t("famt_h");
+  $("fsum").previousElementSibling.textContent = p === "dwk" ? t("dk_area") : t("est_h");
+  if (p === "fee"){ $("fsum").innerHTML = "<b>Privé</b> — ₹2,500 / ₹10,000"; }
+  else if (p === "dwk"){ $("fsum").innerHTML = rs >= DWK.min ? "<b>" + num(rs / DWK.rate) + "</b> " + t("sqft") + (/^Yes/.test(radio("ins")) ? " · " + t("dk_pay") + ": <b>" + inr(rs * 1.1) + "</b>" : "") : "—"; }
+  else if (L >= 1){ var r = calc(p, L); $("fsum").innerHTML = "<b>" + inr(r.net) + "</b> " + (r.per === "m" ? t("per_m") : t("per_y")); }
+  else $("fsum").textContent = "—";
+  highlightBank();
+}
+$("f-plan").addEventListener("change", syncForm);
+$("f-amt").addEventListener("input", function(){ syncForm(); });
+$("f-amt").addEventListener("blur", function(){ var v = rupees("f-amt"); this.value = v ? num(v) : ""; syncForm(); });
+document.querySelectorAll('input[name="ins"]').forEach(function(r){ r.addEventListener("change", syncForm); });
+document.querySelectorAll('input[name="psame"]').forEach(function(r){ r.addEventListener("change", function(){ $("pBox").classList.toggle("hide", radio("psame") !== "Different"); }); });
+function fullName(){ return [val("f-fname"), val("f-mname"), val("f-lname")].filter(Boolean).join(" ").toUpperCase().replace(/\s+/g, " "); }
+function showFull(){ var n = fullName(), b = $("fullname"); b.classList.toggle("hide", !n); b.innerHTML = t("fullname") + ": <b>" + n + "</b>"; }
+["f-fname","f-mname","f-lname"].forEach(function(id){ $(id).addEventListener("input", showFull); });
+document.querySelectorAll('input[name="paid"]').forEach(function(r){ r.addEventListener("change", function(){ $("payBox").classList.toggle("hide", radio("paid") !== "Paid"); }); });
+$("f-rtype").addEventListener("change", function(){ var v = this.value; $("refBox").classList.toggle("hide", !v || /Self|Social|Seminar/.test(v)); });
+$("f-aad").addEventListener("input", function(){ var d = digits(this.value).slice(0,12); this.value = d.replace(/(\d{4})(?=\d)/g, "$1 "); });
+["f-pan","f-ifsc"].forEach(function(id){ $(id).addEventListener("input", function(){ this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g, ""); }); });
+
+/* ===================== LANGUAGE ===================== */
+function setLang(l){
+  LANG = T[l] ? l : "en";
+  document.documentElement.lang = LANG;
+  try { localStorage.setItem("rw_inv_lang", LANG); } catch(e){}
+  document.querySelectorAll("[data-t]").forEach(function(el){ var h = t(el.getAttribute("data-t")); el.innerHTML = el.hasAttribute("data-brk") ? brk(h) : h; });
+  document.querySelectorAll(".langbar button").forEach(function(b){ b.setAttribute("aria-pressed", b.getAttribute("data-lang") === LANG); });
+  $("logo").src = $("elogo").src = LANG === "gu" ? "logo-gu.png" : LANG === "hi" ? "logo-hi.png" : "logo-en.png";
+  buildPlans(); buildQuick(); buildStatic(); buildDocs(); buildSelects(); render(); syncForm();
+  if (otpToken || otpOff) showVerified();
+}
+document.querySelectorAll("[data-lang]").forEach(function(b){
+  b.addEventListener("click", function(){ setLang(b.getAttribute("data-lang")); $("gate").hidden = true; });
+});
+
+/* ===================== NETWORK ===================== */
+function post(p){
+  if (PREVIEW) return mock(p);
+  var ctrl = window.AbortController ? new AbortController() : null;
+  var timer = setTimeout(function(){ if (ctrl) ctrl.abort(); }, 150000);
+  return fetch(ENDPOINT, { method:"POST", body: JSON.stringify(p), signal: ctrl ? ctrl.signal : undefined })
+    .then(function(r){ clearTimeout(timer); return r.json(); }, function(e){ clearTimeout(timer); throw e; });
+}
+function mock(p){
+  return new Promise(function(res){ setTimeout(function(){
+    if (p.action === "otp_send") res({ ok:true, mode:"sent" });
+    else if (p.action === "otp_verify") res(p.code === "123456" ? { ok:true, token:"preview-token" } : { ok:false, error:"bad" });
+    else if (p.action === "status") res(/^RWINV-\d{5}$|PREVIEW/.test(p.ref) ? { ok:true, stage:2, plan:"Dwarka Opportunity Land", amount:400000, proof:false, status:"New" } : { ok:false, error:"notfound" });
+    else if (p.action === "proof") res({ ok:true });
+    else res({ ok:true, ref:"RWINV-PREVIEW" });
+  }, 600); });
+}
+
+/* ===================== OTP ===================== */
+var cc = $("f-cc");
+function mobDigits(){ return digits(val("f-mob")); }
+function badMobile(){ var m = mobDigits(); return cc.value === "+91" ? !/^[6-9]\d{9}$/.test(m) : !/^\d{6,13}$/.test(m); }
+function otpMsg(txt, cls){ var m = $("otpMsg"); m.className = "otpmsg" + (cls ? " " + cls : ""); m.innerHTML = txt; }
+function countdown(s){
+  var b = $("sendOtp"); clearInterval(cdTimer); b.disabled = true;
+  cdTimer = setInterval(function(){
+    s--; if (s <= 0){ clearInterval(cdTimer); b.disabled = false; b.textContent = t("resend"); return; }
+    b.textContent = s + "s";
+  }, 1000);
+  b.textContent = s + "s";
+}
+$("sendOtp").addEventListener("click", function(){
+  var f = document.querySelector('[data-k="mobile"]');
+  if (badMobile()){ f.classList.add("bad"); return; }
+  f.classList.remove("bad");
+  if (!ENDPOINT && !PREVIEW){ otpMsg(t("not_open"), "no"); return; }
+  var b = this; b.disabled = true; otpMsg("…");
+  post({ action:"otp_send", cc:cc.value, mob:mobDigits(), lang:LANG, src:location.search.slice(0,200), ref:document.referrer.slice(0,120) }).then(function(r){
+    if (r.ok && r.mode === "off"){ otpOff = true; otpVerifiedMob = cc.value + mobDigits(); showVerified(); return; }
+    if (r.ok){
+      $("otpField").classList.remove("hide"); $("f-otp").focus();
+      otpMsg(t("otp_sent").replace("{m}", cc.value + " " + mobDigits()), "");
+      countdown(45);
+    } else { b.disabled = false; otpMsg(t(r.error === "rate" ? "otp_rate" : "otp_fail"), "no"); }
+  }).catch(function(){ b.disabled = false; otpMsg(t("e_net"), "no"); });
+});
+$("f-otp").addEventListener("input", function(){ this.value = digits(this.value).slice(0,6); if (this.value.length === 6) $("verifyOtp").click(); });
+$("verifyOtp").addEventListener("click", function(){
+  var code = val("f-otp"), f = $("otpField");
+  if (!/^\d{6}$/.test(code)){ f.classList.add("bad"); return; }
+  f.classList.remove("bad");
+  var b = this; b.disabled = true;
+  post({ action:"otp_verify", cc:cc.value, mob:mobDigits(), code:code }).then(function(r){
+    b.disabled = false;
+    if (r.ok && r.token){ otpToken = r.token; otpVerifiedMob = cc.value + mobDigits(); showVerified(); }
+    else otpMsg(t(r.error === "rate" ? "otp_rate" : "otp_bad"), "no");
+  }).catch(function(){ b.disabled = false; otpMsg(t("e_net"), "no"); });
+});
+function showVerified(){
+  clearInterval(cdTimer);
+  $("otpArea").classList.add("hide"); $("verified").classList.remove("hide");
+  $("verTxt").textContent = (otpOff ? t("otp_off") : t("otp_ok")) + " · " + cc.value + " " + mobDigits();
+  $("entry").hidden = true; document.body.classList.remove("locked");
+  try { localStorage.setItem("rw_inv_v", JSON.stringify({ t:otpToken, off:otpOff, cc:cc.value, m:mobDigits(), at:Date.now() })); } catch(e){}
+  if (!val("f-bholder") && fullName()) $("f-bholder").value = fullName();
+}
+$("chgMob").addEventListener("click", function(){
+  otpToken = ""; otpOff = false; otpVerifiedMob = "";
+  $("otpArea").classList.remove("hide"); $("verified").classList.add("hide"); $("otpField").classList.add("hide");
+  $("f-otp").value = ""; otpMsg(""); $("sendOtp").disabled = false; $("sendOtp").textContent = t("send");
+  try { localStorage.removeItem("rw_inv_v"); } catch(e){}
+  $("entry").hidden = false; document.body.classList.add("locked"); $("f-mob").focus();
+});
+$("f-lname").addEventListener("blur", function(){ if (!val("f-bholder")) $("f-bholder").value = fullName(); });
+
+/* ===================== SUBMIT ===================== */
+var form = $("form"), btn = $("submit"), msg = $("formmsg");
+function mark(k, isBad){ var f = form.querySelector('[data-k="'+k+'"]'); if (!f || f.offsetParent === null) return true; f.classList.toggle("bad", !!isBad); return !isBad; }
+function fail(text){ msg.innerHTML = text + " " + t("help"); msg.classList.add("show"); btn.disabled = false; btn.innerHTML = t("submit"); }
+function stamp(){ var d = new Date(), o = -d.getTimezoneOffset(), s = o >= 0 ? "+" : "-"; o = Math.abs(o);
+  return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)+" "+d.toTimeString().slice(0,8)+" UTC"+s+("0"+Math.floor(o/60)).slice(-2)+":"+("0"+o%60).slice(-2); }
+
+form.addEventListener("submit", function(ev){
+  ev.preventDefault(); msg.classList.remove("show");
+  if (val("f-hp")) return;
+  var p = $("f-plan").value, feeOnly = p === "fee", isPv = feeOnly || (PLANS[p] && PLANS[p].pv);
+  var paid = radio("paid") === "Paid", rtype = $("f-rtype").value, needRef = rtype && !/Self|Social|Seminar/.test(rtype);
+  var rs = rupees("f-amt"), L = rs / 100000, acc = digits(val("f-bacc")), isDwk = p === "dwk", pdiff = radio("psame") === "Different";
+  var amtBad = feeOnly ? false : isDwk ? (rs < DWK.min || rs % DWK.step !== 0) : (rs < 100000 || rs % 100000 !== 0);
+  var ok = [
+    mark("fname", val("f-fname").length < 1),
+    mark("lname", val("f-lname").length < 1),
+    mark("dob", !val("f-dob")),
+    mark("email", val("f-email") !== "" && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val("f-email"))),
+    mark("pan", !/^[A-Z]{5}\d{4}[A-Z]$/.test(val("f-pan"))),
+    mark("aadhaar", !/^\d{12}$/.test(digits(val("f-aad")))),
+    mark("address", val("f-addr").length < 8),
+    mark("city", val("f-city").length < 2),
+    mark("pin", digits(val("f-pin")).length < 4),
+    mark("state", val("f-state").length < 2),
+    mark("paddr", pdiff && val("f-paddr").length < 8),
+    mark("pcity", pdiff && val("f-pcity").length < 2),
+    mark("ppin", pdiff && digits(val("f-ppin")).length < 4),
+    mark("pstate", pdiff && val("f-pstate").length < 2),
+    mark("nom", val("f-nom").length < 3),
+    mark("nomrel", !$("f-nomrel").value),
+    mark("plan", !p),
+    mark("famt", amtBad),
+    mark("ins", isDwk && !radio("ins")),
+    mark("mship", isPv && !radio("mship")),
+    mark("paid", !radio("paid")),
+    mark("mode", paid && !$("f-mode").value),
+    mark("pdate", paid && !val("f-pdate")),
+    mark("pamt", paid && !digits(val("f-pamt"))),
+    mark("doc_payment", paid && !files.payment),
+    mark("bholder", val("f-bholder").length < 3),
+    mark("bacc", !/^\d{6,20}$/.test(acc)),
+    mark("bacc2", digits(val("f-bacc2")) !== acc),
+    mark("ifsc", !/^[A-Z]{4}0[A-Z0-9]{6}$/.test(val("f-ifsc"))),
+    mark("rtype", !rtype),
+    mark("rname", needRef && val("f-rname").length < 3),
+    mark("rmob", needRef && !/^\d{10,13}$/.test(digits(val("f-rmob")))),
+    mark("decl", form.querySelectorAll('input[name="decl"]:checked').length !== 3)
+  ].concat(DOCS.map(function(d){ return mark("doc_"+d.k, !files[d.k]); })).every(Boolean);
+  if (!ok){ var b = form.querySelector(".field.bad"); if (b) b.scrollIntoView({behavior:"smooth", block:"center"}); return; }
+  if (!ENDPOINT && !PREVIEW){ fail(t("not_open")); return; }
+
+  btn.disabled = true; btn.innerHTML = t("saving");
+  var est = feeOnly || isDwk ? null : calc(p, L);
+  var docs = DOCS.concat(paid ? [PAYDOC] : []).map(function(d){ var f = files[d.k]; return { kind:d.k, mime:f.mime, data:f.data }; });
+  var payload = {
+    action:"submit", token:otpToken, otp_off: otpOff ? "Yes" : "No",
+    cc:cc.value, mob:mobDigits(),
+    name:fullName(), first_name:val("f-fname").toUpperCase(), middle_name:val("f-mname").toUpperCase(), last_name:val("f-lname").toUpperCase(), dob:val("f-dob"), email:val("f-email"), pan:val("f-pan"), aadhaar:digits(val("f-aad")),
+    address:val("f-addr"), city:val("f-city"), pin:digits(val("f-pin")), state:val("f-state"),
+    perm_same: pdiff ? "No" : "Yes", perm_address: pdiff ? [val("f-paddr"), val("f-pcity"), val("f-pstate"), digits(val("f-ppin"))].join(", ") : "",
+    nominee:val("f-nom").toUpperCase(), nominee_rel:$("f-nomrel").value, nominee_mob:digits(val("f-nommob")),
+    plan:p, plan_name: feeOnly ? "Privé membership only" : isDwk ? "Dwarka Opportunity Land" : T.en[p], amount: feeOnly ? 0 : rs,
+    rate: feeOnly ? "" : isDwk ? "Rs 400 per sq ft" : PLANS[p].r + (PLANS[p].m ? "% per month" : "% per year"), tenure: feeOnly || isDwk ? "" : PLANS[p].ten,
+    est_net: isDwk ? num(rs / DWK.rate) + " sq ft" : est ? Math.round(est.net) + (est.per === "m" ? " / month" : " / year") : "",
+    membership: isPv ? radio("mship") : "", dwk_ins: isDwk ? radio("ins") : "",
+    paid: radio("paid"), mode: paid ? $("f-mode").value : "", pay_date: paid ? val("f-pdate") : "", utr: paid ? val("f-utr").toUpperCase() : "", pay_amount: paid ? digits(val("f-pamt")) : "",
+    b_holder:val("f-bholder").toUpperCase(), b_name:val("f-bname").toUpperCase(), b_acc:acc, ifsc:val("f-ifsc"),
+    ref_type:rtype, ref_name: needRef ? val("f-rname").toUpperCase() : "", ref_mob: needRef ? digits(val("f-rmob")) : "", ref_id: needRef ? val("f-rid").toUpperCase() : "",
+    lang:LANG, device_time:stamp(), ua:navigator.userAgent.slice(0,160), docs:docs
+  };
+  post(payload).then(function(r){
+    if (r && r.ok){
+      form.closest(".card").style.display = "none";
+      $("doneRef").textContent = r.ref; $("done").style.display = "block";
+      var stg = paid ? 4 : 2; $("done").setAttribute("data-stage", stg); $("doneSteps").innerHTML = stepsHTML(stg);
+      $("goProof").classList.toggle("hide", paid);
+      $("t-ref").value = r.ref; try { localStorage.setItem("rw_inv_ref", r.ref); } catch(e){}
+      $("done").scrollIntoView({behavior:"smooth", block:"start"});
+    } else if (r && r.error === "otp"){ fail(t("e_otpexp")); $("chgMob").click(); }
+    else fail(t("e_server"));
+  }).catch(function(){ fail(t("e_net")); });
+});
+
+/* ===================== TRACK / PROOF ===================== */
+var TPROOF = { k:"tproof", t:"d_payment" };
+function tmsg(id, txt, cls){ var m = $(id); m.className = "tmsg " + cls; m.innerHTML = txt; }
+function trackCheck(){
+  var ref = val("t-ref").toUpperCase(), f = form.ownerDocument.querySelector('[data-k="tref"]');
+  $("t-msg").className = "tmsg hide";
+  if (!/^RWINV-[A-Z0-9]{5,7}$/.test(ref)){ f.classList.add("bad"); return; }
+  f.classList.remove("bad");
+  if (!ENDPOINT && !PREVIEW){ tmsg("t-msg", t("not_open"), "no"); return; }
+  var b = $("t-check"); b.disabled = true;
+  post({ action:"status", cc:cc.value, mob:mobDigits(), ref:ref, token:otpToken }).then(function(r){
+    b.disabled = false;
+    if (!r || !r.ok){ f.classList.add("bad"); $("t-out").classList.add("hide"); return; }
+    $("t-out").classList.remove("hide");
+    $("t-who").innerHTML = t("tr_who").replace("{r}", "<b>" + ref + "</b>").replace("{p}", r.plan + (r.amount ? " · " + inr(r.amount) : ""));
+    $("t-steps").innerHTML = stepsHTML(r.stage);
+    var note = r.fix ? t("tr_fix") : r.closed ? t("tr_closed") : r.stage === 6 ? t("tr_okmsg") : r.stage >= 7 ? "✓ " + t("tr_cour") : "";
+    $("t-note").className = note ? "tmsg " + (r.fix || r.closed ? "no" : "info") : "tmsg hide"; $("t-note").innerHTML = note;
+    var needProof = !r.proof && !r.closed;
+    $("t-proof").classList.toggle("hide", !needProof);
+    if (needProof){ wireDrop(TPROOF, $("t-doc")); if (r.amount && !val("t-amt")) $("t-amt").value = num(r.amount); }
+  }).catch(function(){ b.disabled = false; tmsg("t-msg", t("e_net"), "no"); });
+}
+$("t-check").addEventListener("click", trackCheck);
+$("t-ref").addEventListener("input", function(){ this.value = this.value.toUpperCase().replace(/[^A-Z0-9-]/g, ""); });
+$("t-amt").addEventListener("blur", function(){ var v = rupees("t-amt"); this.value = v ? num(v) : ""; });
+$("goProof").addEventListener("click", function(){ setTimeout(trackCheck, 300); });
+$("t-send").addEventListener("click", function(){
+  var tf = function(k, bad){ var f = $("track").querySelector('[data-k="' + k + '"]'); f.classList.toggle("bad", !!bad); return !bad; };
+  var ok = [tf("tmode", !$("t-mode").value), tf("tdate", !val("t-date")), tf("tamt", !rupees("t-amt")), tf("doc_tproof", !files.tproof)].every(Boolean);
+  if (!ok) return;
+  var b = this; b.disabled = true; b.innerHTML = t("saving");
+  post({ action:"proof", cc:cc.value, mob:mobDigits(), ref:val("t-ref").toUpperCase(), token:otpToken, mode:$("t-mode").value, date:val("t-date"),
+         utr:val("t-utr").toUpperCase(), amount:rupees("t-amt"), doc:{ mime:files.tproof.mime, data:files.tproof.data } }).then(function(r){
+    b.disabled = false; b.innerHTML = t("tr_send");
+    if (r && r.ok){ $("t-proof").classList.add("hide"); tmsg("t-msg", "✓ " + t("tr_sent"), "ok"); $("t-steps").innerHTML = stepsHTML(4); delete files.tproof; }
+    else tmsg("t-msg", t(r && r.error === "notfound" ? "tr_bad" : "e_server"), "no");
+  }).catch(function(){ b.disabled = false; b.innerHTML = t("tr_send"); tmsg("t-msg", t("e_net"), "no"); });
+});
+
+/* ===================== INIT ===================== */
+(function(){
+  if (PREVIEW) $("pvbar").classList.remove("hide");
+  try { var lastRef = localStorage.getItem("rw_inv_ref"); if (lastRef) $("t-ref").value = lastRef; } catch(e){}
+  var saved = ""; try { saved = localStorage.getItem("rw_inv_lang") || ""; } catch(e){}
+  var q = new URLSearchParams(location.search);
+  var ql = q.get("lang"), qp = q.get("plan"), qr = q.get("ref");
+  if (qp && PLANS[qp]) plan = qp;
+  $("f-plan").value = plan;
+  setLang(ql || saved || "en");
+  $("f-plan").value = plan; $("f-amt").value = num(lakhs * 100000); syncForm();
+  if (qp === "dwk"){ $("f-plan").value = "dwk"; $("f-amt").value = num(DWK.min); syncForm(); }
+  if (!(ql || saved)) $("gate").hidden = false;
+  var v = null; try { v = JSON.parse(localStorage.getItem("rw_inv_v") || "null"); } catch(e){}
+  if (v && v.m && Date.now() - v.at < 3*3600*1000){ otpToken = v.t || ""; otpOff = !!v.off; cc.value = v.cc; $("f-mob").value = v.m; showVerified(); }
+  else { $("entry").hidden = false; document.body.classList.add("locked"); }
+  // ?ref=NAME|MOBILE|TYPE prefill from a referral link, e.g. ?rt=prive&rn=Ramesh%20Patel&rm=9876543210
+  var rt = q.get("rt"), map = { emp:T.en.rtypes[1], prive:T.en.rtypes[2], inv:T.en.rtypes[3], aca:T.en.rtypes[4] };
+  if (rt && map[rt]){ $("f-rtype").value = map[rt]; $("refBox").classList.remove("hide"); $("f-rname").value = (q.get("rn") || "").toUpperCase(); $("f-rmob").value = digits(q.get("rm") || ""); $("f-rid").value = (q.get("ri") || "").toUpperCase(); }
+})();
+</script>
+</body>
+</html>

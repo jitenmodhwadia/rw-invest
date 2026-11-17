@@ -1,0 +1,5 @@
+# Backend source + old versions stay local.
+apps_script*.gs
+*_backup.html
+_shot.html
+README.md
