@@ -241,6 +241,18 @@
   .field > label.drop{padding:10px 12px}
   .refnote,.warn,.note,.upsell,.tmsg,.caution li,.dwkpts li,.why span,.ben span,.exits span,.hint,.esub,.epriv,.pvnote p,.avow{text-wrap:balance}
 
+  /* reverse OTP */
+  .rvbox{margin-top:10px; text-align:center}
+  .rvstep{font-size:14.5px; color:var(--ink); margin:0 0 10px}
+  .wabtn{display:flex; align-items:center; justify-content:center; gap:10px; background:#1fa855; color:#fff !important; text-decoration:none; border-radius:12px; padding:15px 16px; font:700 17px/1.2 var(--body); box-shadow:0 4px 14px rgba(31,168,85,.3)}
+  .wabtn:hover{background:#178a45}
+  .rvwait{display:flex; align-items:center; justify-content:center; gap:8px; margin-top:12px; font-size:14px; color:var(--gold-dk); font-weight:600}
+  .spin{width:16px; height:16px; border-radius:50%; border:2.5px solid #e8d9a8; border-top-color:var(--gold-dk); animation:sp 0.9s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  .sbtn.ghostbtn{background:#fff; color:var(--navy); border:1.5px solid #cdb46a; font-weight:600}
+  .rvman{font-size:12.5px; color:var(--muted); margin:10px 0 0}
+  .rvman b{color:var(--navy); font-family:Montserrat,Inter,sans-serif; letter-spacing:.03em}
+
   /* dropdowns */
   select.in, .phone select{background-color:#fbf3dc; border-color:#cdb46a; font-weight:600; color:var(--navy); cursor:pointer}
   select.in:focus{background-color:#fff6df}
@@ -424,6 +436,12 @@
             <span class="err" data-t="e_otp"></span>
           </div>
           <div class="otpmsg" id="otpMsg"></div>
+          <div class="rvbox hide" id="rvBox">
+            <p class="rvstep" data-t="rv_step"></p>
+            <a class="wabtn" id="rvBtn" href="#" target="_blank" rel="noopener"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.6-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.3.5-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.4 1.8 2.2 1.2 1.1 2.2 1.4 2.5 1.6.3.1.5.1.7-.1l.9-1.1c.2-.3.4-.2.7-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.1 1.2z"/></svg><span data-t="rv_btn"></span></a>
+            <div class="rvwait" id="rvWait"><span class="spin"></span><span data-t="rv_wait"></span></div>
+            <p class="rvman" id="rvMan"></p>
+          </div>
         </div>
     <p class="epriv" data-t="en_priv"></p>
   </div>
@@ -985,6 +1003,11 @@ var TDS = 0.10, MAX_EDGE = 1700, JPEG_Q = 0.82, MAX_RAW = 6 * 1024 * 1024;
 /* ===================== TEXT ===================== */
 var T = {
 en:{
+  rv_step:"Tap the green button. WhatsApp opens with a ready message — just press <b>Send</b>. This page opens by itself.",
+  rv_btn:"Verify on WhatsApp",
+  rv_wait:"Waiting for your WhatsApp message…",
+  rv_man:"If WhatsApp did not open, send {c} on WhatsApp to {n} from this number.",
+  rv_timeout:"We did not receive your message yet. Tap Continue again.",
   pg_std:"Regular plans (Standard & Premium)", pg_pv:"Privé plans (members only)", pg_dwk:"Dwarka Opportunity Land",
   n8:"Terms",
   cu_eye:"Before you invest",
@@ -1064,8 +1087,8 @@ en:{
   bk_name:"Account name", bk_bank:"Bank", bk_acc:"Account no.", bk_ifsc:"IFSC", bk_branch:"Branch", tbc:"will be shared by your RM", copy:"Copy", copied:"Copied",
   b_warn:"⚠ Pay ONLY into these Richwealth company accounts — never into any staff member's personal account or UPI. Richwealth never asks for your OTP or PIN.",
   f_eye:"Application form", f_h:"Apply & complete your KYC", f_in:"We use these details exactly as they will appear on your Certificate of Investment / Privé receipt.",
-  s1:"Verify your WhatsApp number", mob:"WhatsApp number", mob_h:"A one-time password (OTP) will be sent on WhatsApp.",
-  send:"Send OTP", resend:"Resend", otp_l:"Enter the 6-digit OTP", verify:"Verify",
+  s1:"Verify your WhatsApp number", mob:"WhatsApp number", mob_h:"We verify your number on WhatsApp — it takes 10 seconds.",
+  send:"Continue →", resend:"Resend", otp_l:"Enter the 6-digit OTP", verify:"Verify",
   otp_sent:"OTP sent on WhatsApp to {m}. Valid for 10 minutes.", otp_wait:"You can resend in {s} s.", otp_ok:"WhatsApp verified", otp_off:"Number noted — our team will confirm it with you.",
   otp_bad:"Wrong or expired OTP. Please try again.", otp_rate:"Too many attempts. Please try again after 30 minutes.", otp_fail:"Could not send OTP right now. Please try again in a minute.",
   change:"Change", lockmsg:"🔒 Verify your WhatsApp number to open the form.",
@@ -1105,6 +1128,11 @@ en:{
   foot2:"Your documents are stored privately and used only for KYC, certificates and payouts."
 },
 hi:{
+  rv_step:"हरा बटन दबाएँ। WhatsApp तैयार संदेश के साथ खुलेगा — बस <b>Send</b> दबाएँ। यह पेज अपने आप खुल जाएगा।",
+  rv_btn:"WhatsApp पर सत्यापित करें",
+  rv_wait:"आपके WhatsApp संदेश का इंतज़ार…",
+  rv_man:"अगर WhatsApp नहीं खुला, तो इसी नंबर से {n} पर WhatsApp में {c} भेजें।",
+  rv_timeout:"आपका संदेश अभी नहीं मिला। फिर से ‘आगे बढ़ें’ दबाएँ।",
   pg_std:"नियमित प्लान (स्टैंडर्ड और प्रीमियम)", pg_pv:"Privé प्लान (केवल सदस्य)", pg_dwk:"द्वारका ऑपर्च्युनिटी लैंड",
   n8:"शर्तें",
   cu_eye:"निवेश से पहले",
@@ -1184,8 +1212,8 @@ hi:{
   bk_name:"खाते का नाम", bk_bank:"बैंक", bk_acc:"खाता नंबर", bk_ifsc:"IFSC", bk_branch:"शाखा", tbc:"आपके RM द्वारा दिया जाएगा", copy:"कॉपी", copied:"कॉपी हुआ",
   b_warn:"⚠ केवल इन Richwealth कंपनी खातों में ही भुगतान करें — किसी कर्मचारी के निजी खाते या UPI में नहीं। Richwealth कभी आपका OTP या PIN नहीं माँगता।",
   f_eye:"आवेदन फ़ॉर्म", f_h:"आवेदन करें और KYC पूरा करें", f_in:"ये विवरण बिल्कुल वैसे ही आपके Certificate of Investment / Privé रसीद पर छपेंगे।",
-  s1:"अपना WhatsApp नंबर सत्यापित करें", mob:"WhatsApp नंबर", mob_h:"WhatsApp पर एक बार का पासवर्ड (OTP) भेजा जाएगा।",
-  send:"OTP भेजें", resend:"फिर भेजें", otp_l:"6 अंकों का OTP डालें", verify:"सत्यापित करें",
+  s1:"अपना WhatsApp नंबर सत्यापित करें", mob:"WhatsApp नंबर", mob_h:"हम आपका नंबर WhatsApp पर सत्यापित करते हैं — 10 सेकंड लगते हैं।",
+  send:"आगे बढ़ें →", resend:"फिर भेजें", otp_l:"6 अंकों का OTP डालें", verify:"सत्यापित करें",
   otp_sent:"{m} पर WhatsApp से OTP भेजा गया। 10 मिनट तक मान्य।", otp_wait:"{s} सेकंड बाद फिर भेज सकते हैं।", otp_ok:"WhatsApp सत्यापित", otp_off:"नंबर दर्ज हुआ — हमारी टीम आपसे पुष्टि करेगी।",
   otp_bad:"OTP गलत है या समय खत्म। फिर कोशिश करें।", otp_rate:"बहुत ज़्यादा प्रयास। 30 मिनट बाद कोशिश करें।", otp_fail:"अभी OTP नहीं भेज पाए। एक मिनट बाद कोशिश करें।",
   change:"बदलें", lockmsg:"🔒 फ़ॉर्म खोलने के लिए अपना WhatsApp नंबर सत्यापित करें।",
@@ -1225,6 +1253,11 @@ hi:{
   foot2:"आपके दस्तावेज़ निजी रूप से रखे जाते हैं और केवल KYC, सर्टिफ़िकेट और भुगतान के लिए उपयोग होते हैं।"
 },
 gu:{
+  rv_step:"લીલું બટન દબાવો. WhatsApp તૈયાર મેસેજ સાથે ખૂલશે — બસ <b>Send</b> દબાવો. આ પેજ જાતે ખૂલી જશે.",
+  rv_btn:"WhatsApp પર ચકાસો",
+  rv_wait:"તમારા WhatsApp મેસેજની રાહ…",
+  rv_man:"જો WhatsApp ન ખૂલ્યું હોય, તો આ જ નંબર પરથી {n} પર WhatsApp માં {c} મોકલો.",
+  rv_timeout:"તમારો મેસેજ હજી મળ્યો નથી. ફરી ‘આગળ વધો’ દબાવો.",
   pg_std:"નિયમિત પ્લાન (સ્ટાન્ડર્ડ અને પ્રીમિયમ)", pg_pv:"Privé પ્લાન (માત્ર સભ્યો)", pg_dwk:"દ્વારકા ઓપોર્ચ્યુનિટી લેન્ડ",
   n8:"શરતો",
   cu_eye:"રોકાણ પહેલાં",
@@ -1304,8 +1337,8 @@ gu:{
   bk_name:"ખાતાનું નામ", bk_bank:"બેંક", bk_acc:"ખાતા નંબર", bk_ifsc:"IFSC", bk_branch:"શાખા", tbc:"તમારા RM આપશે", copy:"કૉપિ", copied:"કૉપિ થયું",
   b_warn:"⚠ માત્ર આ Richwealth કંપની ખાતાઓમાં જ ચુકવણી કરો — કોઈ કર્મચારીના અંગત ખાતા કે UPI માં નહીં. Richwealth ક્યારેય તમારો OTP કે PIN માંગતું નથી.",
   f_eye:"અરજી ફોર્મ", f_h:"અરજી કરો અને KYC પૂરું કરો", f_in:"આ વિગતો બરાબર એ જ રીતે તમારા Certificate of Investment / Privé રસીદ પર છપાશે.",
-  s1:"તમારો WhatsApp નંબર ચકાસો", mob:"WhatsApp નંબર", mob_h:"WhatsApp પર એક વખતનો પાસવર્ડ (OTP) મોકલાશે.",
-  send:"OTP મોકલો", resend:"ફરી મોકલો", otp_l:"6 અંકનો OTP લખો", verify:"ચકાસો",
+  s1:"તમારો WhatsApp નંબર ચકાસો", mob:"WhatsApp નંબર", mob_h:"અમે તમારો નંબર WhatsApp પર ચકાસીએ છીએ — 10 સેકન્ડ લાગે છે.",
+  send:"આગળ વધો →", resend:"ફરી મોકલો", otp_l:"6 અંકનો OTP લખો", verify:"ચકાસો",
   otp_sent:"{m} પર WhatsApp થી OTP મોકલ્યો. 10 મિનિટ માટે માન્ય.", otp_wait:"{s} સેકન્ડ પછી ફરી મોકલી શકશો.", otp_ok:"WhatsApp ચકાસાયું", otp_off:"નંબર નોંધાયો — અમારી ટીમ તમારી સાથે ખાતરી કરશે.",
   otp_bad:"OTP ખોટો છે અથવા સમય પૂરો. ફરી પ્રયાસ કરો.", otp_rate:"ઘણા બધા પ્રયાસ. 30 મિનિટ પછી પ્રયાસ કરો.", otp_fail:"અત્યારે OTP મોકલી શકાયો નહીં. એક મિનિટ પછી પ્રયાસ કરો.",
   change:"બદલો", lockmsg:"🔒 ફોર્મ ખોલવા માટે તમારો WhatsApp નંબર ચકાસો.",
@@ -1639,7 +1672,8 @@ function post(p){
 }
 function mock(p){
   return new Promise(function(res){ setTimeout(function(){
-    if (p.action === "otp_send") res({ ok:true, mode:"sent" });
+    if (p.action === "otp_send") res({ ok:true, mode:"reverse", code:"123456", to:"919913221121" });
+    else if (p.action === "rv_check") res(window.__rvDemo ? { ok:true, token:"preview-token", cc:p.cc || "+91", mob:"" } : { ok:false, pending:true, error:"wait" });
     else if (p.action === "otp_verify") res(p.code === "123456" ? { ok:true, token:"preview-token" } : { ok:false, error:"bad" });
     else if (p.action === "status") res(/^RWINV-\d{5}$|PREVIEW/.test(p.ref) ? { ok:true, stage:2, plan:"Dwarka Opportunity Land", amount:400000, proof:false, status:"New" } : { ok:false, error:"notfound" });
     else if (p.action === "proof") res({ ok:true });
@@ -1668,6 +1702,7 @@ $("sendOtp").addEventListener("click", function(){
   var b = this; b.disabled = true; otpMsg("…");
   post({ action:"otp_send", cc:cc.value, mob:mobDigits(), lang:LANG, src:location.search.slice(0,200), ref:document.referrer.slice(0,120) }).then(function(r){
     if (r.ok && r.mode === "off"){ otpOff = true; otpVerifiedMob = cc.value + mobDigits(); showVerified(); return; }
+    if (r.ok && r.mode === "reverse"){ startReverse(r.code, r.to); b.disabled = false; b.textContent = t("resend"); otpMsg(""); return; }
     if (r.ok){
       $("otpField").classList.remove("hide"); $("f-otp").focus();
       otpMsg(t("otp_sent").replace("{m}", cc.value + " " + mobDigits()), "");
@@ -1687,6 +1722,32 @@ $("verifyOtp").addEventListener("click", function(){
     else otpMsg(t(r.error === "rate" ? "otp_rate" : "otp_bad"), "no");
   }).catch(function(){ b.disabled = false; otpMsg(t("e_net"), "no"); });
 });
+/* ---------- reverse OTP: visitor sends "RW VERIFY 123456" to our WhatsApp, we poll ---------- */
+var rvCode = "", rvTimer = null, rvUntil = 0, rvBusy = false;
+function startReverse(code, to){
+  rvCode = code; rvUntil = Date.now() + 15 * 60 * 1000;
+  var msgTxt = "RW VERIFY " + code;
+  $("rvBtn").href = "https://wa.me/" + to + "?text=" + encodeURIComponent(msgTxt);
+  $("rvMan").innerHTML = t("rv_man").replace("{c}", "<b>" + msgTxt + "</b>").replace("{n}", "<b>+" + to.slice(0, 2) + " " + to.slice(2, 7) + " " + to.slice(7) + "</b>");
+  $("rvBox").classList.remove("hide"); $("rvWait").classList.remove("hide"); $("sendOtp").classList.add("ghostbtn");
+  clearInterval(rvTimer); rvTimer = setInterval(rvPoll, 3000);
+}
+function rvPoll(){
+  if (!rvCode || rvBusy) return;
+  if (Date.now() > rvUntil){ clearInterval(rvTimer); $("rvWait").classList.add("hide"); otpMsg(t("rv_timeout"), "no"); return; }
+  rvBusy = true;
+  post({ action:"rv_check", code:rvCode }).then(function(r){
+    rvBusy = false;
+    if (r && r.ok && r.token){
+      clearInterval(rvTimer); rvCode = "";
+      if (r.cc && r.mob){ cc.value = r.cc; $("f-mob").value = r.mob; }
+      otpToken = r.token; otpVerifiedMob = cc.value + mobDigits(); $("rvBox").classList.add("hide"); showVerified();
+    } else if (r && r.error === "expired"){ clearInterval(rvTimer); $("rvWait").classList.add("hide"); otpMsg(t("rv_timeout"), "no"); }
+  }).catch(function(){ rvBusy = false; });
+}
+document.addEventListener("visibilitychange", function(){ if (!document.hidden && rvCode) rvPoll(); });
+$("rvBtn").addEventListener("click", function(){ setTimeout(rvPoll, 4000); });
+
 function showVerified(){
   clearInterval(cdTimer);
   $("otpArea").classList.add("hide"); $("verified").classList.remove("hide");
@@ -1699,6 +1760,7 @@ $("chgMob").addEventListener("click", function(){
   otpToken = ""; otpOff = false; otpVerifiedMob = "";
   $("otpArea").classList.remove("hide"); $("verified").classList.add("hide"); $("otpField").classList.add("hide");
   $("f-otp").value = ""; otpMsg(""); $("sendOtp").disabled = false; $("sendOtp").textContent = t("send");
+  clearInterval(rvTimer); rvCode = ""; $("rvBox").classList.add("hide"); $("sendOtp").classList.remove("ghostbtn");
   try { localStorage.removeItem("rw_inv_v"); } catch(e){}
   $("entry").hidden = false; document.body.classList.add("locked"); $("f-mob").focus();
 });
