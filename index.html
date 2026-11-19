@@ -70,11 +70,68 @@
   .stat{background:#fff; border:1px solid var(--line); border-radius:12px; padding:10px 4px}
   .stat b{display:block; font:800 clamp(19px,5.4vw,26px)/1.2 Montserrat,"Playfair Display",Georgia,serif; color:var(--gold-dk)}
   .stat span{display:block; font-size:12px; color:var(--muted); line-height:1.3; margin-top:2px}
-  .nav{position:sticky; top:0; z-index:20; background:rgba(250,246,236,.94); backdrop-filter:blur(6px); margin:14px -16px 0; padding:8px 16px; border-bottom:1px solid var(--line); display:flex; gap:6px; overflow-x:auto; scrollbar-width:none}
-  .nav::-webkit-scrollbar{display:none}
-  .nav a{flex:none; text-decoration:none; color:var(--navy); background:#fff; border:1px solid var(--line); border-radius:999px; padding:6px 11px; font-size:13.5px; font-weight:600}
-  .nav{justify-content:safe center}
-  .nav a.go{background:var(--gold); border-color:var(--gold); color:#fff}
+
+  /* ===== app shell ===== */
+  body{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+  .appbar{position:sticky; top:0; z-index:25; background:rgba(250,246,236,.95); backdrop-filter:blur(8px); border-bottom:1px solid var(--line)}
+  .appbar .in{max-width:720px; margin:0 auto; padding:8px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px}
+  .appbar .logo{width:150px; max-width:44%}
+  .appbar .langbar{margin:0}
+  .appbar .langbar button{padding:5px 10px}
+  .panel{display:none}
+  .panel.on{display:block; animation:pin .22s ease-out}
+  @keyframes pin{from{transform:translateY(8px)} to{transform:none}}
+  header.hero{padding:14px 0 0; text-align:center}
+  header.hero h1{font-size:clamp(23px,5.8vw,32px); margin:6px 0 4px}
+  header.hero .sub{font-size:14.5px; line-height:1.5}
+  header.hero .kicker{font-size:11px; letter-spacing:.16em}
+  #form .step:has(#verified:not(.hide)){border-top:0; padding-top:4px; margin-top:4px}
+  #form .step:has(#verified:not(.hide)) > h3{display:none}
+  header.hero .stats{margin-top:12px; gap:6px}
+  header.hero .stat{padding:8px 2px}
+  header.hero .stat b{font-size:clamp(17px,4.8vw,22px)}
+  .tabbar{position:fixed; left:0; right:0; bottom:0; z-index:30; background:#fff; border-top:1px solid var(--line); box-shadow:0 -4px 18px rgba(138,109,31,.12); padding:4px 4px calc(4px + env(safe-area-inset-bottom))}
+  .tabbar .in{max-width:720px; margin:0 auto; display:grid; grid-template-columns:repeat(5,1fr); align-items:end}
+  .tabbar a{display:flex; flex-direction:column; align-items:center; gap:1px; text-decoration:none; color:#8b836b; font-size:11.5px; font-weight:600; line-height:1.25; padding:4px 0 3px; text-align:center}
+  .tabbar .ic{display:flex; align-items:center; justify-content:center; width:44px; height:28px; border-radius:999px; transition:background .2s}
+  .tabbar svg{width:23px; height:23px}
+  .tabbar a.on{color:var(--gold-dk)}
+  .tabbar a.on .ic{background:var(--gold-lt)}
+  .tabbar a.go .ic{width:50px; height:50px; margin-top:-22px; border-radius:50%; background:linear-gradient(135deg,#c9a640,var(--gold-dk)); color:#fff; box-shadow:0 5px 14px rgba(138,109,31,.45); border:3px solid #fff}
+  .tabbar a.go svg{width:26px; height:26px; stroke-width:2.6}
+  .tabbar a.go{color:var(--gold-dk)}
+  /* "click here for more details" */
+  details.more{margin-top:14px}
+  details.more > summary{list-style:none; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; padding:11px 12px; border:1.5px dashed var(--gold); border-radius:12px; color:var(--gold-dk); font-weight:700; font-size:14.5px; background:var(--paper)}
+  details.more > summary::-webkit-details-marker{display:none}
+  details.more > summary::after{content:""; width:8px; height:8px; border-right:2.2px solid currentColor; border-bottom:2.2px solid currentColor; transform:translateY(-2px) rotate(45deg); transition:transform .2s}
+  details.more[open] > summary::after{transform:translateY(2px) rotate(-135deg)}
+  details.more > summary .l, details.more[open] > summary .m{display:none}
+  details.more[open] > summary .l{display:inline}
+  details.more[open] > summary{margin-bottom:6px}
+  .prive details.more > summary{background:transparent; border-color:rgba(241,223,166,.55); color:var(--gold-lt)}
+  /* accordions in the More tab */
+  .acchead{cursor:pointer; position:relative; padding-right:34px; outline:none}
+  .acchead h2{font-size:clamp(19px,4.6vw,22px); color:var(--navy)}
+  .acchead::after{content:""; position:absolute; right:6px; top:50%; width:10px; height:10px; border-right:2.5px solid var(--gold-dk); border-bottom:2.5px solid var(--gold-dk); transform:translateY(-75%) rotate(45deg); transition:transform .2s}
+  .acc.open .acchead::after{transform:translateY(-25%) rotate(-135deg)}
+  .acc:not(.open) > :not(.acchead){display:none}
+  .acc{padding:14px 18px}
+  .acc.open{padding-bottom:20px}
+  .acc.open .acchead{margin-bottom:10px}
+  #tab-more .card{margin-top:10px}
+  #tab-more .card:first-child{margin-top:16px}
+  /* step-by-step form */
+  #lock > .step.wz.cur + .step.wz.cur{border-top:1px solid var(--line); padding-top:16px; margin-top:16px}
+  .wzprog{scroll-margin-top:92px; display:flex; align-items:center; gap:10px; margin:14px 0 0}
+  .wzprog .bar{flex:1; height:7px; background:var(--cream2); border-radius:99px; overflow:hidden}
+  .wzprog .bar i{display:block; height:100%; width:12%; background:linear-gradient(90deg,#c9a640,var(--gold-dk)); border-radius:99px; transition:width .35s}
+  .wzprog b{font-size:13.5px; color:var(--gold-dk); white-space:nowrap}
+  #lock > .step.wz{display:none; border-top:0; margin-top:6px}
+  #lock > .step.wz.cur{display:block; animation:pin .22s ease-out}
+  .wznav{display:flex; gap:10px; margin-top:16px}
+  .wznav .btn{margin-top:0}
+  .wznav #wzBack{flex:0 0 36%}
 
   /* cards */
   .card{background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 18px; margin-top:16px; box-shadow:0 2px 12px rgba(138,109,31,.07); scroll-margin-top:62px}
@@ -104,7 +161,9 @@
   .amtbox input:focus{outline:none; box-shadow:none; background:transparent}
   .amtbox em{font-style:normal; font-size:14px; color:var(--muted)}
   input[type=range]{width:100%; accent-color:var(--gold-dk); margin:12px 0 4px}
-  .quick{display:flex; gap:6px; flex-wrap:wrap}
+  .quick{display:flex; gap:6px; flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; margin:0 -18px; padding:2px 18px}
+  .quick::-webkit-scrollbar{display:none}
+  .quick button{flex:none}
   .quick button{border:1px solid var(--line); background:#fff; border-radius:999px; padding:4px 11px; font:600 13px Montserrat,Inter,sans-serif; color:var(--gold-dk); cursor:pointer}
   .words{font-size:13.5px; color:var(--muted); margin-top:6px}
   .res{margin-top:14px; border-radius:14px; background:var(--navy); color:#fff; padding:16px}
@@ -339,6 +398,7 @@
   .otpmsg.ok{color:var(--green); font-weight:600}
   .otpmsg.no{color:var(--err)}
   .verified{display:flex; align-items:center; gap:10px; background:var(--green-bg); border:1.5px solid var(--green); border-radius:10px; padding:11px 14px; font-weight:600; color:#3d5e14}
+  #form .verified{font-size:13.5px; line-height:1.4; padding:8px 12px}
   .verified button{margin-left:auto; background:none; border:0; color:var(--gold-dk); text-decoration:underline; cursor:pointer; font:600 13.5px var(--body)}
   fieldset.lock{border:0; padding:0; margin:0; min-width:0}
   fieldset.lock:disabled{opacity:.45; pointer-events:none}
@@ -449,14 +509,18 @@
 
 <div class="preview hide" id="pvbar">PREVIEW MODE – nothing is saved. Demo OTP: 123456</div>
 
+<div class="appbar"><div class="in">
+  <img class="logo" id="logo" src="logo-en.png" alt="Richwealth">
+  <div class="langbar" role="group" aria-label="Language">
+    <button type="button" data-lang="gu">ગુજ</button>
+    <button type="button" data-lang="hi">हिं</button>
+    <button type="button" data-lang="en">EN</button>
+  </div>
+</div></div>
+
 <div class="wrap">
-  <header>
-    <div class="langbar" role="group" aria-label="Language">
-      <button type="button" data-lang="gu">ગુજ</button>
-      <button type="button" data-lang="hi">हिं</button>
-      <button type="button" data-lang="en">EN</button>
-    </div>
-    <img class="logo" id="logo" src="logo-en.png" alt="Richwealth">
+  <div class="panel on" id="tab-home">
+  <header class="hero">
     <div class="kicker">Since 2011 · Jamnagar · Ahmedabad · Surat · Porbandar</div>
     <h1 data-t="h1"></h1>
     <p class="sub" data-t="sub"></p>
@@ -466,16 +530,6 @@
       <div class="stat"><b>19</b><span data-t="st3"></span></div>
       <div class="stat"><b>200+</b><span data-t="st4"></span></div>
     </div>
-    <nav class="nav">
-      <a href="#calc" data-t="n1"></a>
-      <a href="#prive">Privé</a>
-      <a href="#dwarka" data-t="n5"></a>
-      <a href="#bank" data-t="n3"></a>
-      <a href="#offices" data-t="n6"></a>
-      <a href="#cautions" data-t="n8"></a>
-      <a href="#track" data-t="n7"></a>
-      <a href="#apply" class="go" data-t="n4"></a>
-    </nav>
   </header>
 
   <!-- ============ CALCULATOR ============ -->
@@ -505,6 +559,9 @@
     <a class="btn" href="#apply" id="useplan" data-t="c_use"></a>
   </section>
 
+  </div>
+
+  <div class="panel" id="tab-prive">
   <!-- ============ PRIVÉ ============ -->
   <section class="card prive" id="prive">
     <div class="pvmark">Privé<small>RICHWEALTH EXCLUSIVE MEMBERSHIP</small></div>
@@ -515,14 +572,19 @@
       <div><b>1st</b><span data-t="p_s3"></span></div>
       <div><b>10g</b><span data-t="p_s4"></span></div>
     </div>
-    <div class="bens" id="bens"></div>
     <div class="fees">
       <div class="fee"><b class="num-f">₹2,500</b><span data-t="p_f1"></span></div>
       <div class="fee best"><span class="rib" data-t="p_best"></span><b class="num-f">₹10,000</b><span data-t="p_f2"></span></div>
     </div>
+    <details class="more"><summary><span class="m" data-t="more_d"></span><span class="l" data-t="less_d"></span></summary>
+    <div class="bens" id="bens"></div>
     <div class="pvnote" id="pvnote"></div>
+    </details>
   </section>
 
+  </div>
+
+  <div class="panel" id="tab-dwarka">
   <!-- ============ DWARKA OPPORTUNITY LAND ============ -->
   <section class="card dwk" id="dwarka">
     <div class="eyebrow" data-t="dk_eye"></div>
@@ -547,6 +609,7 @@
       <div class="dwkres num-f" id="dres"></div>
     </div>
 
+    <details class="more"><summary><span class="m" data-t="more_d"></span><span class="l" data-t="less_d"></span></summary>
     <h3 class="dsub" data-t="dk_why"></h3>
     <div class="whys" id="dwhys"></div>
 
@@ -564,40 +627,14 @@
 
     <h3 class="dsub" data-t="dk_safe"></h3>
     <ul class="dwkpts" id="dwkpts"></ul>
+    </details>
     <a class="btn" href="#apply" id="usedwk" data-t="dk_use"></a>
     <p class="fine" data-t="dk_fine"></p>
   </section>
 
-  <!-- ============ BANK ============ -->
-  <section class="card" id="bank">
-    <div class="eyebrow" data-t="b_eye"></div>
-    <h2 data-t="b_h"></h2>
-    <p class="intro" data-t="b_in"></p>
-    <div id="banks"></div>
-    <div class="warn" data-t="b_warn"></div>
-  </section>
+  </div>
 
-  <!-- ============ OFFICES ============ -->
-  <section class="card" id="offices">
-    <div class="eyebrow" data-t="o_eye"></div>
-    <h2 data-t="o_h"></h2>
-    <div class="ogrid" id="ogrid"></div>
-    <div class="soon" id="soon"></div>
-  </section>
-
-  <!-- ============ IMPORTANT TERMS & CAUTIONS ============ -->
-  <section class="card" id="cautions">
-    <div class="eyebrow" data-t="cu_eye"></div>
-    <h2 data-t="cu_h"></h2>
-    <p class="intro" data-t="cu_in" data-brk="1"></p>
-    <div class="caution"><h3 data-t="cu_bh"></h3><ul id="cuList"></ul></div>
-    <details class="terms">
-      <summary data-t="cu_full"></summary>
-      <ol class="tlist" id="cuTerms"></ol>
-    </details>
-    <p class="avow" data-t="cu_avow"></p>
-  </section>
-
+  <div class="panel" id="tab-apply">
   <!-- ============ APPLICATION ============ -->
   <section class="card" id="apply">
     <div class="eyebrow" data-t="f_eye"></div>
@@ -614,6 +651,7 @@
       </div>
 
       <fieldset class="lock" id="lock">
+      <div class="wzprog"><div class="bar"><i id="wzFill"></i></div><b class="num-f" id="wzNum"></b></div>
 
       <!-- 2 Personal -->
       <div class="step">
@@ -899,6 +937,7 @@
         <button type="submit" class="btn" id="submit" data-t="submit"></button>
         <div class="formmsg" id="formmsg"></div>
       </div>
+      <div class="wznav"><button type="button" class="btn ghost" id="wzBack" data-t="wz_back"></button><button type="button" class="btn" id="wzNext" data-t="wz_next"></button></div>
       </fieldset>
     </form>
   </section>
@@ -912,10 +951,26 @@
     <a class="btn" href="#track" id="goProof" data-t="ok_proof"></a>
   </section>
 
+  </div>
+
+  <div class="panel" id="tab-more">
+  <!-- ============ BANK ============ -->
+  <section class="card acc" id="bank">
+    <div class="acchead" role="button" tabindex="0" aria-expanded="false">
+      <div class="eyebrow" data-t="b_eye"></div>
+      <h2 data-t="b_h"></h2>
+    </div>
+    <p class="intro" data-t="b_in"></p>
+    <div id="banks"></div>
+    <div class="warn" data-t="b_warn"></div>
+  </section>
+
   <!-- ============ TRACK / UPLOAD PROOF ============ -->
-  <section class="card" id="track">
-    <div class="eyebrow" data-t="tr_eye"></div>
-    <h2 data-t="tr_h"></h2>
+  <section class="card acc" id="track">
+    <div class="acchead" role="button" tabindex="0" aria-expanded="false">
+      <div class="eyebrow" data-t="tr_eye"></div>
+      <h2 data-t="tr_h"></h2>
+    </div>
     <p class="intro" data-t="tr_in" data-brk="1"></p>
     <div class="field" data-k="tref" style="margin-bottom:8px">
       <label for="t-ref" data-t="tr_ref"></label>
@@ -964,13 +1019,47 @@
     <div class="tmsg hide" id="t-msg"></div>
   </section>
 
+  <!-- ============ OFFICES ============ -->
+  <section class="card acc" id="offices">
+    <div class="acchead" role="button" tabindex="0" aria-expanded="false">
+      <div class="eyebrow" data-t="o_eye"></div>
+      <h2 data-t="o_h"></h2>
+    </div>
+    <div class="ogrid" id="ogrid"></div>
+    <div class="soon" id="soon"></div>
+  </section>
+
+  <!-- ============ IMPORTANT TERMS & CAUTIONS ============ -->
+  <section class="card acc" id="cautions">
+    <div class="acchead" role="button" tabindex="0" aria-expanded="false">
+      <div class="eyebrow" data-t="cu_eye"></div>
+      <h2 data-t="cu_h"></h2>
+    </div>
+    <p class="intro" data-t="cu_in" data-brk="1"></p>
+    <div class="caution"><h3 data-t="cu_bh"></h3><ul id="cuList"></ul></div>
+    <details class="terms">
+      <summary data-t="cu_full"></summary>
+      <ol class="tlist" id="cuTerms"></ol>
+    </details>
+    <p class="avow" data-t="cu_avow"></p>
+  </section>
+
   <footer>
     <img src="logo-en.png" alt="Richwealth">
     <p data-t="foot1"></p>
     <p>+91 99131 21121 · <a href="mailto:info@richwealth.in">info@richwealth.in</a> · <a href="https://richwealth.in">richwealth.in</a></p>
     <p data-t="foot2"></p>
   </footer>
+  </div>
 </div>
+
+<nav class="tabbar" aria-label="Sections"><div class="in">
+  <a href="#calc" data-tab="home"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="2.5"/><path d="M8.5 7h7M8.5 11h.01M12 11h.01M15.5 11h.01M8.5 14.5h.01M12 14.5h.01M15.5 14.5h.01M8.5 18h.01M12 18h3.5"/></svg></span><span data-t="tb1"></span></a>
+  <a href="#prive" data-tab="prive"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 10H5L3 8z"/><path d="M5 21h14"/></svg></span><span>Privé</span></a>
+  <a href="#apply" data-tab="apply" class="go"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span><span data-t="tb4"></span></a>
+  <a href="#dwarka" data-tab="dwarka"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-6.2-6.5-11.2a6.5 6.5 0 0 1 13 0C18.5 14.8 12 21 12 21z"/><circle cx="12" cy="9.8" r="2.4"/></svg></span><span data-t="tb3"></span></a>
+  <a href="#tab-more" data-tab="more"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></span><span data-t="tb5"></span></a>
+</div></nav>
 
 <script>
 /* ===================== CONFIG ===================== */
@@ -1003,6 +1092,14 @@ var TDS = 0.10, MAX_EDGE = 1700, JPEG_Q = 0.82, MAX_RAW = 6 * 1024 * 1024;
 /* ===================== TEXT ===================== */
 var T = {
 en:{
+  tb1:"Plans",
+  tb3:"Dwarka",
+  tb4:"Apply",
+  tb5:"More",
+  more_d:"Click here for more details",
+  less_d:"Show less",
+  wz_next:"Next →",
+  wz_back:"← Back",
   rv_step:"Tap the green button. WhatsApp opens with a ready message — just press <b>Send</b>. This page opens by itself.",
   rv_btn:"Verify on WhatsApp",
   rv_wait:"Waiting for your WhatsApp message…",
@@ -1128,6 +1225,14 @@ en:{
   foot2:"Your documents are stored privately and used only for KYC, certificates and payouts."
 },
 hi:{
+  tb1:"प्लान",
+  tb3:"द्वारका",
+  tb4:"आवेदन",
+  tb5:"और",
+  more_d:"अधिक जानकारी के लिए यहाँ क्लिक करें",
+  less_d:"कम दिखाएँ",
+  wz_next:"आगे →",
+  wz_back:"← पीछे",
   rv_step:"हरा बटन दबाएँ। WhatsApp तैयार संदेश के साथ खुलेगा — बस <b>Send</b> दबाएँ। यह पेज अपने आप खुल जाएगा।",
   rv_btn:"WhatsApp पर सत्यापित करें",
   rv_wait:"आपके WhatsApp संदेश का इंतज़ार…",
@@ -1253,6 +1358,14 @@ hi:{
   foot2:"आपके दस्तावेज़ निजी रूप से रखे जाते हैं और केवल KYC, सर्टिफ़िकेट और भुगतान के लिए उपयोग होते हैं।"
 },
 gu:{
+  tb1:"પ્લાન",
+  tb3:"દ્વારકા",
+  tb4:"અરજી",
+  tb5:"વધુ",
+  more_d:"વધુ વિગત માટે અહીં ક્લિક કરો",
+  less_d:"ઓછું બતાવો",
+  wz_next:"આગળ →",
+  wz_back:"← પાછળ",
   rv_step:"લીલું બટન દબાવો. WhatsApp તૈયાર મેસેજ સાથે ખૂલશે — બસ <b>Send</b> દબાવો. આ પેજ જાતે ખૂલી જશે.",
   rv_btn:"WhatsApp પર ચકાસો",
   rv_wait:"તમારા WhatsApp મેસેજની રાહ…",
@@ -1773,9 +1886,7 @@ function fail(text){ msg.innerHTML = text + " " + t("help"); msg.classList.add("
 function stamp(){ var d = new Date(), o = -d.getTimezoneOffset(), s = o >= 0 ? "+" : "-"; o = Math.abs(o);
   return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2)+" "+d.toTimeString().slice(0,8)+" UTC"+s+("0"+Math.floor(o/60)).slice(-2)+":"+("0"+o%60).slice(-2); }
 
-form.addEventListener("submit", function(ev){
-  ev.preventDefault(); msg.classList.remove("show");
-  if (val("f-hp")) return;
+function checkForm(){
   var p = $("f-plan").value, feeOnly = p === "fee", isPv = feeOnly || (PLANS[p] && PLANS[p].pv);
   var paid = radio("paid") === "Paid", rtype = $("f-rtype").value, needRef = rtype && !/Self|Social|Seminar/.test(rtype);
   var rs = rupees("f-amt"), L = rs / 100000, acc = digits(val("f-bacc")), isDwk = p === "dwk", pdiff = radio("psame") === "Different";
@@ -1815,6 +1926,16 @@ form.addEventListener("submit", function(ev){
     mark("rmob", needRef && !/^\d{10,13}$/.test(digits(val("f-rmob")))),
     mark("decl", form.querySelectorAll('input[name="decl"]:checked').length !== 3)
   ].concat(DOCS.map(function(d){ return mark("doc_"+d.k, !files[d.k]); })).every(Boolean);
+  return ok;
+}
+
+form.addEventListener("submit", function(ev){
+  ev.preventDefault(); msg.classList.remove("show");
+  if (val("f-hp")) return;
+  var p = $("f-plan").value, feeOnly = p === "fee", isPv = feeOnly || (PLANS[p] && PLANS[p].pv);
+  var paid = radio("paid") === "Paid", rtype = $("f-rtype").value, needRef = rtype && !/Self|Social|Seminar/.test(rtype);
+  var rs = rupees("f-amt"), L = rs / 100000, acc = digits(val("f-bacc")), isDwk = p === "dwk", pdiff = radio("psame") === "Different";
+  var ok = checkForm();
   if (!ok){ var b = form.querySelector(".field.bad"); if (b) b.scrollIntoView({behavior:"smooth", block:"center"}); return; }
   if (!ENDPOINT && !PREVIEW){ fail(t("not_open")); return; }
 
@@ -1890,6 +2011,50 @@ $("t-send").addEventListener("click", function(){
   }).catch(function(){ b.disabled = false; b.innerHTML = t("tr_send"); tmsg("t-msg", t("e_net"), "no"); });
 });
 
+/* ===================== APP SHELL: tabs, accordions, step-by-step form ===================== */
+var TABBTN = [].slice.call(document.querySelectorAll(".tabbar a"));
+function goTab(name, el){
+  document.querySelectorAll(".panel").forEach(function(pn){ pn.classList.toggle("on", pn.id === "tab-" + name); });
+  TABBTN.forEach(function(a){ a.classList.toggle("on", a.getAttribute("data-tab") === name); });
+  if (el && el.classList && el.classList.contains("acc")) setAcc(el, true);
+  var pn = $("tab-" + name), top = !el || el === pn.querySelector("section");
+  window.scrollTo({ top:0, behavior:"instant" });
+  if (!top) el.scrollIntoView({ behavior:"instant", block:"start" });
+}
+document.addEventListener("click", function(e){
+  var a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return;
+  var id = a.getAttribute("href").slice(1); if (!id) return;
+  var el = document.getElementById(id), pn = el && el.closest(".panel"); if (!pn) return;
+  e.preventDefault();
+  goTab(pn.id.slice(4), a.hasAttribute("data-tab") ? (pn.id === "tab-more" ? null : el) : el);
+  try { history.replaceState(null, "", "#" + id); } catch(x){}
+});
+function setAcc(sec, open){ sec.classList.toggle("open", open); var h = sec.querySelector(".acchead"); if (h) h.setAttribute("aria-expanded", open); }
+document.querySelectorAll(".acchead").forEach(function(h){
+  var sec = h.parentNode;
+  function tog(){ setAcc(sec, !sec.classList.contains("open")); if (sec.classList.contains("open")) sec.scrollIntoView({ behavior:"smooth", block:"start" }); }
+  h.addEventListener("click", tog);
+  h.addEventListener("keydown", function(e){ if (e.key === "Enter" || e.key === " "){ e.preventDefault(); tog(); } });
+});
+var WZ = [].slice.call(document.querySelectorAll("#lock > .step")), wzI = 0;
+WZ.forEach(function(st){ st.classList.add("wz"); });
+/* 5 short screens: details+nominee · investment · payout bank · documents · referral+declaration */
+var WZG = WZ.length === 7 ? [[0,1],[2],[3],[4],[5,6]] : WZ.map(function(x, k){ return [k]; });
+function wzShow(i, scroll){
+  wzI = Math.max(0, Math.min(i, WZG.length - 1));
+  WZ.forEach(function(st, k){ st.classList.toggle("cur", WZG[wzI].indexOf(k) >= 0); });
+  var n = wzI + 1, tot = WZG.length;
+  $("wzFill").style.width = Math.round(n / tot * 100) + "%"; $("wzNum").textContent = n + " / " + tot;
+  $("wzBack").classList.toggle("hide", wzI === 0); $("wzNext").classList.toggle("hide", wzI === WZG.length - 1);
+  if (scroll) document.querySelector(".wzprog").scrollIntoView({ behavior:"smooth", block:"start" });
+}
+$("wzNext").addEventListener("click", function(){
+  if (!checkForm()){ var b = form.querySelector(".field.bad"); if (b) b.scrollIntoView({ behavior:"smooth", block:"center" }); return; }
+  wzShow(wzI + 1, true);
+});
+$("wzBack").addEventListener("click", function(){ wzShow(wzI - 1, true); });
+wzShow(0);
+
 /* ===================== INIT ===================== */
 (function(){
   if (PREVIEW) $("pvbar").classList.remove("hide");
@@ -1906,6 +2071,8 @@ $("t-send").addEventListener("click", function(){
   var v = null; try { v = JSON.parse(localStorage.getItem("rw_inv_v") || "null"); } catch(e){}
   if (v && v.m && Date.now() - v.at < 3*3600*1000){ otpToken = v.t || ""; otpOff = !!v.off; cc.value = v.cc; $("f-mob").value = v.m; showVerified(); }
   else { $("entry").hidden = false; document.body.classList.add("locked"); }
+  var h0 = location.hash.slice(1), e0 = h0 && document.getElementById(h0), p0 = e0 && e0.closest(".panel");
+  if (p0) goTab(p0.id.slice(4), e0); else TABBTN[0].classList.add("on");
   // ?ref=NAME|MOBILE|TYPE prefill from a referral link, e.g. ?rt=prive&rn=Ramesh%20Patel&rm=9876543210
   var rt = q.get("rt"), map = { emp:T.en.rtypes[1], prive:T.en.rtypes[2], inv:T.en.rtypes[3], aca:T.en.rtypes[4] };
   if (rt && map[rt]){ $("f-rtype").value = map[rt]; $("refBox").classList.remove("hide"); $("f-rname").value = (q.get("rn") || "").toUpperCase(); $("f-rmob").value = digits(q.get("rm") || ""); $("f-rid").value = (q.get("ri") || "").toUpperCase(); }
