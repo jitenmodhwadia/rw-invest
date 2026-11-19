@@ -84,7 +84,9 @@
   header.hero{padding:14px 0 0; text-align:center}
   header.hero h1{font-size:clamp(23px,5.8vw,32px); margin:6px 0 4px}
   header.hero .sub{font-size:14.5px; line-height:1.5}
-  header.hero .kicker{font-size:11px; letter-spacing:.16em}
+  header.hero .kicker{font-size:clamp(11.5px,3.4vw,13.5px); letter-spacing:.02em; line-height:1.6; text-transform:none; white-space:nowrap}
+  @media (max-width:350px){ header.hero .kicker{white-space:normal} }
+  header.hero .kicker .soonk{color:var(--muted); font-weight:600}
   #form .step:has(#verified:not(.hide)){border-top:0; padding-top:4px; margin-top:4px}
   #form .step:has(#verified:not(.hide)) > h3{display:none}
   header.hero .stats{margin-top:12px; gap:6px}
@@ -521,7 +523,7 @@
 <div class="wrap">
   <div class="panel on" id="tab-home">
   <header class="hero">
-    <div class="kicker">Since 2011 · Jamnagar · Ahmedabad · Surat · Porbandar</div>
+    <div class="kicker">Offices: Jamnagar · Ahmedabad · Surat · Porbandar<br><span class="soonk">Opening soon: Rajkot · Mumbai · Jaipur</span></div>
     <h1 data-t="h1"></h1>
     <p class="sub" data-t="sub"></p>
     <div class="stats">
@@ -1221,7 +1223,7 @@ en:{
   ok1:"Our team verifies your payment and documents (usually within 2 working days).",
   ok2:"Your RM calls you on WhatsApp to confirm the details.",
   ok3:"Your Certificate of Investment / Privé Membership Receipt is sent to you on WhatsApp.",
-  foot1:"Offices: Jamnagar · Ahmedabad · Surat · Porbandar  |  Opening soon: Rajkot · Mumbai · Jaipur",
+  foot1:"Offices: Jamnagar · Ahmedabad · Surat · Porbandar<br>Opening soon: Rajkot · Mumbai · Jaipur",
   foot2:"Your documents are stored privately and used only for KYC, certificates and payouts."
 },
 hi:{
@@ -1354,7 +1356,7 @@ hi:{
   ok1:"हमारी टीम आपका भुगतान और दस्तावेज़ जाँचेगी (आमतौर पर 2 कार्य-दिवस में)।",
   ok2:"आपके RM विवरण की पुष्टि के लिए WhatsApp पर कॉल करेंगे।",
   ok3:"आपका Certificate of Investment / Privé सदस्यता रसीद WhatsApp पर भेजी जाएगी।",
-  foot1:"ऑफ़िस: जामनगर · अहमदाबाद · सूरत · पोरबंदर  |  जल्द शुरू: राजकोट · मुंबई · जयपुर",
+  foot1:"ऑफ़िस: जामनगर · अहमदाबाद · सूरत · पोरबंदर<br>जल्द शुरू: राजकोट · मुंबई · जयपुर",
   foot2:"आपके दस्तावेज़ निजी रूप से रखे जाते हैं और केवल KYC, सर्टिफ़िकेट और भुगतान के लिए उपयोग होते हैं।"
 },
 gu:{
@@ -1487,7 +1489,7 @@ gu:{
   ok1:"અમારી ટીમ તમારી ચુકવણી અને દસ્તાવેજ ચકાસશે (સામાન્ય રીતે 2 કામકાજના દિવસમાં).",
   ok2:"તમારા RM વિગતોની ખાતરી માટે WhatsApp પર કૉલ કરશે.",
   ok3:"તમારું Certificate of Investment / Privé સભ્યપદ રસીદ WhatsApp પર મોકલાશે.",
-  foot1:"ઓફિસ: જામનગર · અમદાવાદ · સુરત · પોરબંદર  |  ટૂંક સમયમાં: રાજકોટ · મુંબઈ · જયપુર",
+  foot1:"ઓફિસ: જામનગર · અમદાવાદ · સુરત · પોરબંદર<br>ટૂંક સમયમાં: રાજકોટ · મુંબઈ · જયપુર",
   foot2:"તમારા દસ્તાવેજ ખાનગી રીતે સચવાય છે અને માત્ર KYC, સર્ટિફિકેટ અને ચુકવણી માટે વપરાય છે."
 }};
 
