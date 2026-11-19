@@ -265,6 +265,52 @@
   .fine{font-size:12px; color:#a9c1b8; margin:12px 0 0; line-height:1.5}
   .dwk .chip{background:transparent}
 
+  /* Dwarka jump + Vishram villa plans */
+  #dwarka,#vishram{scroll-margin-top:66px}
+  .dkjump{display:flex; gap:6px; background:#0f2a2e; border-radius:999px; padding:4px; margin:0 0 12px}
+  .dkjump a{flex:1; text-align:center; padding:9px 6px; border-radius:999px; color:#f1dfa6; font:700 13.5px/1.2 var(--body); text-decoration:none}
+  .dkjump a:first-child{background:rgba(241,223,166,.16)}
+  .vd{margin-top:14px}
+  .vdf{grid-template-columns:repeat(3,1fr)}
+  .vdtabs{display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; margin:14px -2px 0; padding:2px}
+  .vdtabs::-webkit-scrollbar{display:none}
+  .vdtabs button{flex:none; border:1px solid rgba(241,223,166,.4); background:transparent; color:#e6efe9; border-radius:999px; padding:8px 13px; font:700 13px/1.15 var(--body); cursor:pointer; text-align:center}
+  .vdtabs button small{display:block; font-weight:500; font-size:10.5px; color:#a9c1b8; margin-top:2px}
+  .vdtabs button.on{background:#f1dfa6; color:#0f2a2e; border-color:#f1dfa6}
+  .vdtabs button.on small{color:#4a5a50}
+  .vdplan{margin-top:10px; background:rgba(255,255,255,.05); border:1px solid rgba(241,223,166,.3); border-radius:14px; padding:14px 13px}
+  .vdplan h3{margin:0; font:700 17px/1.3 var(--body); color:#fff}
+  .vdplan .vdsub{margin:3px 0 0; font-size:13px; color:#c7d9d2}
+  .vdbig{margin:12px 0 4px; padding:11px 10px; border-radius:12px; background:rgba(241,223,166,.1); border:1px solid rgba(241,223,166,.45); text-align:center}
+  .vdbig b{display:block; font:800 clamp(22px,7vw,28px)/1.2 Montserrat,Inter,sans-serif; color:#f1dfa6}
+  .vdbig span{display:block; font-size:12.5px; color:#d6e4de; line-height:1.35; margin-top:3px}
+  .vdrows{margin:8px 0 0}
+  .vdrows div{padding:7px 0; border-bottom:1px dashed rgba(241,223,166,.18); line-height:1.4}
+  .vdrows div:last-child{border-bottom:0}
+  .vdrows dt{color:#a9c1b8; font-size:12px}
+  .vdrows dd{margin:1px 0 0; color:#fff; font-weight:600; font-size:14.5px}
+  .vdbest{margin:8px 0 0; font-size:13px; color:#f1dfa6}
+  .vdtbl{margin-top:10px}
+  .vdtbl > summary{list-style:none; cursor:pointer; font:700 13.5px var(--body); color:#f1dfa6; padding:6px 0}
+  .vdtbl > summary::-webkit-details-marker{display:none}
+  .vdtbl > summary::before{content:"▸ "}
+  .vdtbl[open] > summary::before{content:"▾ "}
+  .vdtbl table{width:100%; border-collapse:collapse; font:600 12.5px/1.35 Montserrat,Inter,sans-serif; margin-top:4px}
+  .vdtbl th{color:#a9c1b8; font:600 11.5px var(--body); text-align:right; padding:5px 4px; border-bottom:1px solid rgba(241,223,166,.3)}
+  .vdtbl td{color:#fff; text-align:right; padding:5px 4px; border-bottom:1px solid rgba(255,255,255,.07)}
+  .vdtbl th:first-child,.vdtbl td:first-child{text-align:left}
+  .vdtbl tr.hl td{color:#f1dfa6}
+  .vdsrc{font-size:13px; color:#c7d9d2; margin:8px 0 0; line-height:1.5}
+  .vdsrc b{color:#fff}
+  .vdchips{display:flex; flex-wrap:wrap; gap:6px}
+  .vdchips span{font-size:12.5px; color:#dce8e3; border:1px solid rgba(241,223,166,.25); border-radius:999px; padding:5px 10px}
+  .vdsteps{margin:10px 0 0; padding:0 0 0 20px; font-size:13.5px; color:#dce8e3}
+  .vdsteps li{margin:4px 0}
+  .vdfaq details{border-bottom:1px solid rgba(241,223,166,.18); padding:8px 0}
+  .vdfaq summary{cursor:pointer; font-weight:700; font-size:14px; color:#fff}
+  .vdfaq p{margin:6px 0 0; font-size:13.5px; color:#dce8e3}
+  .exits b.num-f{color:#f1dfa6; font-size:17px}
+
   /* steps / tracker */
   .steps{list-style:none; margin:14px 0 0; padding:0; text-align:left; counter-reset:st}
   .steps li{position:relative; padding:0 0 14px 40px; color:#4d4838; font-size:15px; counter-increment:st}
@@ -586,6 +632,7 @@
   </div>
 
   <div class="panel" id="tab-dwarka">
+  <nav class="dkjump"><a href="#dwarka" data-t="vd_j1"></a><a href="#vishram" data-t="vd_j2"></a></nav>
   <!-- ============ DWARKA OPPORTUNITY LAND ============ -->
   <section class="card dwk" id="dwarka">
     <div class="eyebrow" data-t="dk_eye"></div>
@@ -631,6 +678,38 @@
     </details>
     <a class="btn" href="#apply" id="usedwk" data-t="dk_use"></a>
     <p class="fine" data-t="dk_fine"></p>
+  </section>
+
+  <!-- ============ VISHRAM DWARKA VILLA PLANS ============ -->
+  <section class="card dwk vd" id="vishram">
+    <div class="eyebrow" data-t="vd_eye"></div>
+    <h2 data-t="vd_h"></h2>
+    <p class="intro" data-t="vd_in"></p>
+    <div class="dwkstats vdf" id="vdFacts"></div>
+    <div class="vdtabs" id="vdTabs" role="tablist"></div>
+    <div class="vdplan" id="vdPlan"></div>
+
+    <details class="more"><summary><span class="m" data-t="more_d"></span><span class="l" data-t="less_d"></span></summary>
+    <h3 class="dsub" data-t="vd_two"></h3>
+    <div class="exits" id="vdTwo"></div>
+    <p class="vdsrc" data-t="vd_src"></p>
+
+    <h3 class="dsub" data-t="vd_villa"></h3>
+    <div class="whys" id="vdVilla"></div>
+
+    <h3 class="dsub" data-t="vd_amen"></h3>
+    <div class="vdchips" id="vdAmen"></div>
+
+    <h3 class="dsub" data-t="vd_book"></h3>
+    <div class="exits" id="vdEoi"></div>
+    <p class="vdsrc" data-t="vd_eoi_n"></p>
+    <ol class="vdsteps" id="vdSteps"></ol>
+
+    <h3 class="dsub" data-t="vd_faq"></h3>
+    <div class="vdfaq" id="vdFaq"></div>
+    </details>
+    <a class="btn" id="vdWa" href="#" target="_blank" rel="noopener" data-t="vd_cta"></a>
+    <p class="fine" data-t="vd_fine"></p>
   </section>
 
   </div>
@@ -1093,6 +1172,59 @@ var TDS = 0.10, MAX_EDGE = 1700, JPEG_Q = 0.82, MAX_RAW = 6 * 1024 * 1024;
 /* ===================== TEXT ===================== */
 var T = {
 en:{
+  vd_j1:"Opportunity Land",
+  vd_j2:"Villa Plans",
+  vd_eye:"Vishram Dwarka · Villa resort",
+  vd_h:"Vishram Dwarka Villa Plans",
+  vd_in:"Own a 4 BHK private-pool villa about 5 km from Dwarkadhish Temple, or join the resort as a business partner. Tap a plan:",
+  vd_f:["200|villas in the resort", "48|villas in Phase 1", "4 BHK|ground + first floor", "2,000|sq. ft. plot per villa", "10′ × 20′|private pool", "~5 km|to Dwarkadhish Temple"],
+  vd_t:["Model 1|Pay in parts", "Model 2|25% benefit", "Model 3|Partner", "Model 4|Founder", "25 Villa|₹3,00,000"],
+  vd_best:"Best for",
+  vd_n1:"Flexible Villa Ownership",
+  vd_s1:"You are the landlord · pay in parts",
+  vd_b1:"rent per month in year 1 · rises 7.2% every year",
+  vd_r1:["Villa price|₹1,51,00,000", "Booking (initial payment)|₹51,00,000", "Balance|₹1,00,00,000 in 36 months, quarterly instalments", "Documents|Registered Agreement at booking · Sale Deed after full payment", "Lease rent|7.2% a year on ₹1,51,00,000, rising 7.2% every year", "10-year rent (approx.)|≈ ₹1,51,00,000, and you keep the villa", "Rent starts|after full payment, Sale Deed and a signed Hospitality Lease Agreement"],
+  vd_bf1:"a buyer who wants to own a villa but prefers to pay in parts",
+  vd_n2:"Premium Villa Ownership",
+  vd_s2:"You are the landlord · 100% upfront with 25% benefit",
+  vd_b2:"rent per month in year 1 · rises 7.2% every year",
+  vd_r2:["Standard price|₹1,51,00,000", "You pay (100% upfront)|₹1,13,25,000", "Your benefit (25%)|₹37,75,000", "Documents|Immediate Sale Deed · villa + plot ownership · Hospitality Lease Agreement", "Lease rent|7.2% a year on ₹1,13,25,000 (the price paid), rising 7.2% every year", "10-year rent (approx.)|≈ ₹1,13,25,000, and you keep a ₹1,51,00,000 villa"],
+  vd_bf2:"a passive owner who can pay in full and wants the discount from day 1",
+  vd_n3:"Resort Operating Partnership",
+  vd_s3:"You are the business partner · profit share, no fixed lease",
+  vd_b3:"illustrative profit share a year on 10 villas · ₹62,50,000 every quarter · ~22.1% a year",
+  vd_r3:["Minimum entry|10 villas", "Price per villa|₹1,13,25,000 (25% launch benefit on ₹1,51,00,000)", "Total entry|₹11,32,50,000 for 10 villas", "Partnership|every 2 villas = 1% · 10 villas = 5%", "Income|share of Net Operating Profit, paid every quarter (no fixed lease)", "10-year income (illustrative)|≈ ₹25,00,00,000, and you keep the 10 villas"],
+  vd_bf3:"HNI and business-minded investors, groups and families who prefer profit sharing to a fixed lease",
+  vd_n4:"Founding Resort Ownership",
+  vd_s4:"Business partner + founder status + amenities rights",
+  vd_b4:"illustrative profit share a year on 10 villas · ₹62,50,000 every quarter · ~16.6% a year",
+  vd_r4:["Minimum entry|10 villas", "Price per villa|₹1,51,00,000 (no discount)", "Total entry|₹15,10,00,000 for 10 villas", "Partnership|5% · same profit share as Model 3", "Extra|future rights in the Amenities Holding (2,00,000 sq. ft. restaurant, banquet, retail and event space) · illustrative 5% of ₹300,00,00,000 = ₹15,00,00,000", "Also|founder recognition · priority in future projects"],
+  vd_bf4:"strategic HNI investors, family offices and long-term partners",
+  vd_n5:"25 Villa Partnership Programme",
+  vd_s5:"Small participation · share of 25 villas",
+  vd_b5:"one participation (minimum) · you can take more",
+  vd_r5:["Limit|1,000 participations in total", "What it buys|1,000 participations together take 25 villas at ₹1,13,25,000 each", "Your share|25 villas = 12.5% of resort profit, shared equally, paid every quarter", "Year 1 (illustrative)|₹66,240 · 22.08%", "10 years (illustrative)|≈ ₹10,55,694 per participation", "Property value (illustrative)|₹3,00,000 → ≈ ₹5,30,000", "Referral reward|refer 20 participations → get 1 participation", "Villas held by|Richwealth Villa Holdings Private Limited"],
+  vd_bf5:"families who want a share in the resort with a small amount",
+  vd_th:["Year", "Per month", "Per year", "Villas", "Per year", "Per quarter", "Total", "Payout"],
+  vd_tb1:"See 10-year rent table",
+  vd_tb2:"See how the partnership scales",
+  vd_tb3:"See 10-year illustration",
+  vd_two:"Two ways to earn from the same resort",
+  vd_two_b:["Landlord · Models 1 & 2|A fixed monthly lease from the resort, rising 7.2% a year. It does not fall in a quiet season.", "Partner · Models 3, 4 & 25 Villa|A share of the resort's profit, paid every quarter. Higher potential, and higher risk."],
+  vd_src:"<b>Where the money comes from:</b> guests paying for their nights, not interest. 200 villas × ₹25,000 a night × 100 profit nights = ₹50,00,00,000 illustrative yearly revenue. Running costs come out first; what remains is shared.",
+  vd_villa:"Inside the villa",
+  vd_villa_b:["🛋️|Living, dining and fitted kitchen, open to the pool deck and lawn", "🛏️|4 bedrooms, each with an attached bathroom, + guest washroom · senior-friendly bedroom on the ground floor", "🏊|Private 10′ × 20′ pool, garden seating and a large L-shaped balcony", "🚗|Car parking inside every villa · EV charging plug", "🏡|Use it as a family holiday home, a full-villa rental or room-wise rental", "🛕|Free EV bus for guests to the temple, Bet Dwarka, Nageshwar and Shivrajpur beach"],
+  vd_amen:"Resort amenities",
+  vd_amen_b:["Clubhouse & reception", "Restaurant", "Banquet hall", "Gym & spa", "Lagoon pool", "Pool bar", "Temple view deck", "Yoga pavilion", "Sports court", "Kids play zone", "Gardens", "Retail shops", "24×7 security", "Housekeeping", "Electric buggy"],
+  vd_book:"How to book",
+  vd_eoi:["₹1,00,000|Villa EOI · one or more villas (Model 1 or 2)", "₹10,00,000|Resort Partner EOI · Model 3 or 4"],
+  vd_eoi_n:"EOI (Expression of Interest) is 100% refundable. No rights are created at the EOI stage; allotment depends on availability.",
+  vd_steps:["Attend the project presentation", "Visit the Vishram Dwarka site", "Choose your model", "Submit the refundable EOI", "Wait for launch documents", "Complete the legal process", "Go ahead with your model"],
+  vd_faq:"Questions people ask",
+  vd_q:["Is the villa registered in my name?|Yes. Models 1 and 2 give a registered Sale Deed for the villa and its 2,000 sq. ft. plot: immediately in Model 2, after full payment in Model 1.", "When does my income start?|For ownership: after full payment, the Sale Deed and a signed Hospitality Lease Agreement. For partnership: distributions every quarter.", "Is the return guaranteed?|The lease is contractual once signed. Partnership income is not fixed; it follows the resort's actual performance. Every figure here is an illustration.", "Can my family use the villa?|Yes: as a family holiday home, a full-villa rental or room rental, as set out in the final documents.", "Where is the site?|Baradiya, on the Dwarka–Porbandar Highway (NH-51), behind the 52 Jinalay Jain Tirth · Ginger Dwarka 400 m · Baradia beach about 2 km."],
+  vd_cta:"Ask about this plan on WhatsApp →",
+  vd_wa:"Hello Richwealth, I am interested in Vishram Dwarka: {p}. Please share details and a site visit time.",
+  vd_fine:"Concept draft for information only, not a legal offer. Lease rent and profit-share figures are illustrations (200 villas · ₹25,000 a night · 100 profit nights), not a guarantee; partnership income depends on occupancy, pricing, expenses, season and resort performance. Images, areas, amenities and terms may change with final approvals, legal documents and CA/tax review. Taxes as applicable. Rely only on the final signed agreements.",
   tb1:"Plans",
   tb3:"Dwarka",
   tb4:"Apply",
@@ -1226,6 +1358,59 @@ en:{
   foot2:"Your documents are stored privately and used only for KYC, certificates and payouts."
 },
 hi:{
+  vd_j1:"ऑपर्च्युनिटी लैंड",
+  vd_j2:"विला प्लान",
+  vd_eye:"विश्राम द्वारका · विला रिसॉर्ट",
+  vd_h:"विश्राम द्वारका विला प्लान",
+  vd_in:"द्वारकाधीश मंदिर से लगभग 5 किमी पर 4 BHK प्राइवेट-पूल विला के मालिक बनें, या रिसॉर्ट में बिज़नेस पार्टनर बनें। कोई प्लान चुनें:",
+  vd_f:["200|रिसॉर्ट में विला", "48|फ़ेज़ 1 में विला", "4 BHK|ग्राउंड + फ़र्स्ट फ़्लोर", "2,000|वर्ग फ़ुट प्लॉट प्रति विला", "10′ × 20′|प्राइवेट पूल", "~5 किमी|द्वारकाधीश मंदिर तक"],
+  vd_t:["मॉडल 1|किस्तों में", "मॉडल 2|25% लाभ", "मॉडल 3|पार्टनर", "मॉडल 4|फ़ाउंडर", "25 विला|₹3,00,000"],
+  vd_best:"किसके लिए",
+  vd_n1:"फ़्लेक्सिबल विला ओनरशिप",
+  vd_s1:"आप मकान-मालिक · किस्तों में भुगतान",
+  vd_b1:"पहले साल हर महीने किराया · हर साल 7.2% बढ़ता है",
+  vd_r1:["विला कीमत|₹1,51,00,000", "बुकिंग (शुरुआती भुगतान)|₹51,00,000", "बाकी|₹1,00,00,000, 36 महीनों में, तिमाही किस्तें", "दस्तावेज़|बुकिंग पर रजिस्टर्ड एग्रीमेंट · पूरे भुगतान के बाद सेल डीड", "लीज़ किराया|₹1,51,00,000 पर 7.2% सालाना, हर साल 7.2% बढ़ोतरी", "10 साल का किराया (लगभग)|≈ ₹1,51,00,000, और विला आपका ही", "किराया शुरू|पूरा भुगतान, सेल डीड और हॉस्पिटैलिटी लीज़ एग्रीमेंट साइन होने के बाद"],
+  vd_bf1:"जो विला ख़रीदना चाहते हैं पर किस्तों में भुगतान करना चाहते हैं",
+  vd_n2:"प्रीमियम विला ओनरशिप",
+  vd_s2:"आप मकान-मालिक · 100% एकमुश्त, 25% लाभ",
+  vd_b2:"पहले साल हर महीने किराया · हर साल 7.2% बढ़ता है",
+  vd_r2:["स्टैंडर्ड कीमत|₹1,51,00,000", "आप देंगे (100% एकमुश्त)|₹1,13,25,000", "आपका लाभ (25%)|₹37,75,000", "दस्तावेज़|तुरंत सेल डीड · विला + प्लॉट का मालिकाना हक़ · हॉस्पिटैलिटी लीज़ एग्रीमेंट", "लीज़ किराया|₹1,13,25,000 (चुकाई गई कीमत) पर 7.2% सालाना, हर साल 7.2% बढ़ोतरी", "10 साल का किराया (लगभग)|≈ ₹1,13,25,000, और ₹1,51,00,000 का विला आपका"],
+  vd_bf2:"जो पूरा भुगतान कर सकते हैं और पहले दिन से छूट चाहते हैं",
+  vd_n3:"रिसॉर्ट ऑपरेटिंग पार्टनरशिप",
+  vd_s3:"आप बिज़नेस पार्टनर · मुनाफ़े में हिस्सा, फ़िक्स्ड लीज़ नहीं",
+  vd_b3:"10 विला पर सालाना अनुमानित मुनाफ़ा हिस्सा · हर तिमाही ₹62,50,000 · ~22.1% सालाना",
+  vd_r3:["न्यूनतम|10 विला", "प्रति विला कीमत|₹1,13,25,000 (₹1,51,00,000 पर 25% लॉन्च लाभ)", "कुल राशि|10 विला के ₹11,32,50,000", "पार्टनरशिप|हर 2 विला = 1% · 10 विला = 5%", "आय|नेट ऑपरेटिंग प्रॉफ़िट में हिस्सा, हर तिमाही (फ़िक्स्ड लीज़ नहीं)", "10 साल की आय (अनुमानित)|≈ ₹25,00,00,000, और 10 विला आपके"],
+  vd_bf3:"HNI और बिज़नेस सोच वाले निवेशक, ग्रुप और परिवार जो फ़िक्स्ड लीज़ की जगह मुनाफ़े में हिस्सा चाहते हैं",
+  vd_n4:"फ़ाउंडिंग रिसॉर्ट ओनरशिप",
+  vd_s4:"बिज़नेस पार्टनर + फ़ाउंडर दर्जा + सुविधाओं में अधिकार",
+  vd_b4:"10 विला पर सालाना अनुमानित मुनाफ़ा हिस्सा · हर तिमाही ₹62,50,000 · ~16.6% सालाना",
+  vd_r4:["न्यूनतम|10 विला", "प्रति विला कीमत|₹1,51,00,000 (कोई छूट नहीं)", "कुल राशि|10 विला के ₹15,10,00,000", "पार्टनरशिप|5% · मॉडल 3 जितना ही मुनाफ़ा हिस्सा", "अतिरिक्त|एमेनिटीज़ होल्डिंग (2,00,000 वर्ग फ़ुट रेस्टोरेंट, बैंक्वेट, दुकानें, इवेंट स्पेस) में भविष्य के अधिकार · अनुमानित ₹300,00,00,000 का 5% = ₹15,00,00,000", "साथ में|फ़ाउंडर सम्मान · भविष्य के प्रोजेक्ट में प्राथमिकता"],
+  vd_bf4:"रणनीतिक HNI निवेशक, फ़ैमिली ऑफ़िस और लंबे समय के पार्टनर",
+  vd_n5:"25 विला पार्टनरशिप प्रोग्राम",
+  vd_s5:"छोटी भागीदारी · 25 विला में हिस्सा",
+  vd_b5:"एक भागीदारी (न्यूनतम) · आप ज़्यादा भी ले सकते हैं",
+  vd_r5:["सीमा|कुल 1,000 भागीदारी", "इससे क्या मिलता है|1,000 भागीदारी मिलकर ₹1,13,25,000 प्रति विला पर 25 विला लेती हैं", "आपका हिस्सा|25 विला = रिसॉर्ट मुनाफ़े का 12.5%, बराबर बँटता है, हर तिमाही", "पहला साल (अनुमानित)|₹66,240 · 22.08%", "10 साल (अनुमानित)|≈ ₹10,55,694 प्रति भागीदारी", "प्रॉपर्टी मूल्य (अनुमानित)|₹3,00,000 → ≈ ₹5,30,000", "रेफ़रल इनाम|20 भागीदारी रेफ़र करें → 1 भागीदारी पाएँ", "विला किसके नाम|Richwealth Villa Holdings Private Limited"],
+  vd_bf5:"जो परिवार छोटी राशि से रिसॉर्ट में हिस्सा चाहते हैं",
+  vd_th:["साल", "प्रति माह", "प्रति वर्ष", "विला", "प्रति वर्ष", "प्रति तिमाही", "कुल", "भुगतान"],
+  vd_tb1:"10 साल की किराया तालिका देखें",
+  vd_tb2:"पार्टनरशिप कैसे बढ़ती है देखें",
+  vd_tb3:"10 साल का अनुमान देखें",
+  vd_two:"एक ही रिसॉर्ट से कमाई के दो तरीके",
+  vd_two_b:["मकान-मालिक · मॉडल 1 और 2|रिसॉर्ट से हर महीने फ़िक्स्ड लीज़, हर साल 7.2% बढ़ती है। ऑफ़-सीज़न में कम नहीं होती।", "पार्टनर · मॉडल 3, 4 और 25 विला|रिसॉर्ट के मुनाफ़े में हिस्सा, हर तिमाही। ज़्यादा संभावना, और ज़्यादा जोखिम।"],
+  vd_src:"<b>पैसा कहाँ से आता है:</b> मेहमानों के रुकने के किराए से, ब्याज से नहीं। 200 विला × ₹25,000 प्रति रात × 100 मुनाफ़े की रातें = ₹50,00,00,000 अनुमानित सालाना आय। पहले खर्च निकलते हैं, बाकी बँटता है।",
+  vd_villa:"विला के अंदर",
+  vd_villa_b:["🛋️|लिविंग, डाइनिंग और फ़िटेड किचन, पूल डेक और लॉन की ओर खुले", "🛏️|4 बेडरूम, हर एक में अटैच्ड बाथरूम, + गेस्ट वॉशरूम · ग्राउंड फ़्लोर पर बुज़ुर्गों के अनुकूल बेडरूम", "🏊|प्राइवेट 10′ × 20′ पूल, गार्डन सीटिंग और बड़ी L-आकार बालकनी", "🚗|हर विला में कार पार्किंग · EV चार्जिंग प्लग", "🏡|फ़ैमिली हॉलिडे होम, पूरा विला किराये पर या कमरे के हिसाब से किराये पर", "🛕|मेहमानों के लिए मंदिर, बेट द्वारका, नागेश्वर और शिवराजपुर बीच तक फ़्री EV बस"],
+  vd_amen:"रिसॉर्ट सुविधाएँ",
+  vd_amen_b:["क्लबहाउस और रिसेप्शन", "रेस्टोरेंट", "बैंक्वेट हॉल", "जिम और स्पा", "लैगून पूल", "पूल बार", "टेंपल व्यू डेक", "योग पवेलियन", "स्पोर्ट्स कोर्ट", "बच्चों का खेल क्षेत्र", "गार्डन", "दुकानें", "24×7 सुरक्षा", "हाउसकीपिंग", "इलेक्ट्रिक बग्गी"],
+  vd_book:"बुकिंग कैसे करें",
+  vd_eoi:["₹1,00,000|विला EOI · एक या ज़्यादा विला (मॉडल 1 या 2)", "₹10,00,000|रिसॉर्ट पार्टनर EOI · मॉडल 3 या 4"],
+  vd_eoi_n:"EOI (रुचि पत्र) 100% वापसी योग्य है। EOI से कोई अधिकार नहीं बनता; आवंटन उपलब्धता पर निर्भर।",
+  vd_steps:["प्रोजेक्ट प्रेज़ेंटेशन में आएँ", "विश्राम द्वारका साइट देखें", "अपना मॉडल चुनें", "वापसी योग्य EOI जमा करें", "लॉन्च दस्तावेज़ों का इंतज़ार करें", "क़ानूनी प्रक्रिया पूरी करें", "अपने मॉडल के साथ आगे बढ़ें"],
+  vd_faq:"लोग अक्सर पूछते हैं",
+  vd_q:["क्या विला मेरे नाम रजिस्टर होगा?|हाँ। मॉडल 1 और 2 में विला और 2,000 वर्ग फ़ुट प्लॉट की रजिस्टर्ड सेल डीड: मॉडल 2 में तुरंत, मॉडल 1 में पूरे भुगतान के बाद।", "आय कब शुरू होगी?|ओनरशिप: पूरा भुगतान, सेल डीड और हॉस्पिटैलिटी लीज़ एग्रीमेंट साइन होने के बाद। पार्टनरशिप: हर तिमाही।", "क्या रिटर्न गारंटीड है?|लीज़ साइन होने के बाद अनुबंधित है। पार्टनरशिप आय फ़िक्स्ड नहीं, रिसॉर्ट के असली प्रदर्शन पर निर्भर। यहाँ हर आँकड़ा अनुमान है।", "क्या मेरा परिवार विला इस्तेमाल कर सकता है?|हाँ: फ़ैमिली हॉलिडे होम, पूरा विला या कमरे किराये पर, अंतिम दस्तावेज़ों के अनुसार।", "साइट कहाँ है?|बराडिया, द्वारका–पोरबंदर हाईवे (NH-51), 52 जिनालय जैन तीर्थ के पीछे · जिंजर द्वारका 400 मीटर · बराडिया बीच लगभग 2 किमी।"],
+  vd_cta:"इस प्लान के बारे में WhatsApp पर पूछें →",
+  vd_wa:"नमस्ते Richwealth, मुझे विश्राम द्वारका में रुचि है: {p}. कृपया जानकारी और साइट विज़िट का समय बताएँ।",
+  vd_fine:"यह केवल जानकारी के लिए कॉन्सेप्ट ड्राफ़्ट है, क़ानूनी ऑफ़र नहीं। लीज़ किराया और मुनाफ़ा-हिस्सा आँकड़े अनुमान हैं (200 विला · ₹25,000 प्रति रात · 100 मुनाफ़े की रातें), गारंटी नहीं; पार्टनरशिप आय ऑक्यूपेंसी, कीमत, खर्च, सीज़न और रिसॉर्ट प्रदर्शन पर निर्भर। चित्र, क्षेत्रफल, सुविधाएँ और शर्तें अंतिम मंज़ूरी, क़ानूनी दस्तावेज़ और CA/टैक्स समीक्षा से बदल सकती हैं। टैक्स लागू। केवल अंतिम साइन किए गए एग्रीमेंट मान्य।",
   tb1:"प्लान",
   tb3:"द्वारका",
   tb4:"आवेदन",
@@ -1359,6 +1544,59 @@ hi:{
   foot2:"आपके दस्तावेज़ निजी रूप से रखे जाते हैं और केवल KYC, सर्टिफ़िकेट और भुगतान के लिए उपयोग होते हैं।"
 },
 gu:{
+  vd_j1:"ઓપોર્ચ્યુનિટી લેન્ડ",
+  vd_j2:"વિલા પ્લાન",
+  vd_eye:"વિશ્રામ દ્વારકા · વિલા રિસોર્ટ",
+  vd_h:"વિશ્રામ દ્વારકા વિલા પ્લાન",
+  vd_in:"દ્વારકાધીશ મંદિરથી આશરે 5 કિમી પર 4 BHK પ્રાઇવેટ-પૂલ વિલાના માલિક બનો, અથવા રિસોર્ટમાં બિઝનેસ પાર્ટનર બનો. પ્લાન પસંદ કરો:",
+  vd_f:["200|રિસોર્ટમાં વિલા", "48|ફેઝ 1 માં વિલા", "4 BHK|ગ્રાઉન્ડ + ફર્સ્ટ ફ્લોર", "2,000|ચો. ફૂટ પ્લોટ દરેક વિલા", "10′ × 20′|પ્રાઇવેટ પૂલ", "~5 કિમી|દ્વારકાધીશ મંદિર સુધી"],
+  vd_t:["મોડલ 1|હપ્તામાં", "મોડલ 2|25% લાભ", "મોડલ 3|પાર્ટનર", "મોડલ 4|ફાઉન્ડર", "25 વિલા|₹3,00,000"],
+  vd_best:"કોના માટે",
+  vd_n1:"ફ્લેક્સિબલ વિલા ઓનરશિપ",
+  vd_s1:"તમે મકાન-માલિક · હપ્તામાં ચુકવણી",
+  vd_b1:"પહેલા વર્ષે દર મહિને ભાડું · દર વર્ષે 7.2% વધે",
+  vd_r1:["વિલા કિંમત|₹1,51,00,000", "બુકિંગ (શરૂઆતની ચુકવણી)|₹51,00,000", "બાકી|₹1,00,00,000, 36 મહિનામાં, ત્રિમાસિક હપ્તા", "દસ્તાવેજ|બુકિંગ વખતે રજિસ્ટર્ડ કરાર · પૂરી ચુકવણી પછી સેલ ડીડ", "લીઝ ભાડું|₹1,51,00,000 પર વાર્ષિક 7.2%, દર વર્ષે 7.2% વધારો", "10 વર્ષનું ભાડું (આશરે)|≈ ₹1,51,00,000, અને વિલા તમારો જ", "ભાડું શરૂ|પૂરી ચુકવણી, સેલ ડીડ અને હોસ્પિટાલિટી લીઝ કરાર સહી થયા પછી"],
+  vd_bf1:"જે વિલા ખરીદવા માંગે છે પણ હપ્તામાં ચૂકવવા માંગે છે",
+  vd_n2:"પ્રીમિયમ વિલા ઓનરશિપ",
+  vd_s2:"તમે મકાન-માલિક · 100% એકસાથે, 25% લાભ",
+  vd_b2:"પહેલા વર્ષે દર મહિને ભાડું · દર વર્ષે 7.2% વધે",
+  vd_r2:["સ્ટાન્ડર્ડ કિંમત|₹1,51,00,000", "તમે ચૂકવો (100% એકસાથે)|₹1,13,25,000", "તમારો લાભ (25%)|₹37,75,000", "દસ્તાવેજ|તરત સેલ ડીડ · વિલા + પ્લોટની માલિકી · હોસ્પિટાલિટી લીઝ કરાર", "લીઝ ભાડું|₹1,13,25,000 (ચૂકવેલી કિંમત) પર વાર્ષિક 7.2%, દર વર્ષે 7.2% વધારો", "10 વર્ષનું ભાડું (આશરે)|≈ ₹1,13,25,000, અને ₹1,51,00,000 નો વિલા તમારો"],
+  vd_bf2:"જે પૂરી રકમ ચૂકવી શકે અને પહેલા દિવસથી ડિસ્કાઉન્ટ ઇચ્છે",
+  vd_n3:"રિસોર્ટ ઓપરેટિંગ પાર્ટનરશિપ",
+  vd_s3:"તમે બિઝનેસ પાર્ટનર · નફામાં હિસ્સો, ફિક્સ લીઝ નહીં",
+  vd_b3:"10 વિલા પર વાર્ષિક અંદાજિત નફા હિસ્સો · દર ત્રિમાસિક ₹62,50,000 · ~22.1% વાર્ષિક",
+  vd_r3:["ઓછામાં ઓછા|10 વિલા", "વિલા દીઠ કિંમત|₹1,13,25,000 (₹1,51,00,000 પર 25% લોન્ચ લાભ)", "કુલ રકમ|10 વિલાના ₹11,32,50,000", "પાર્ટનરશિપ|દર 2 વિલા = 1% · 10 વિલા = 5%", "આવક|નેટ ઓપરેટિંગ પ્રોફિટમાં હિસ્સો, દર ત્રિમાસિક (ફિક્સ લીઝ નહીં)", "10 વર્ષની આવક (અંદાજિત)|≈ ₹25,00,00,000, અને 10 વિલા તમારા"],
+  vd_bf3:"HNI અને બિઝનેસ માઇન્ડેડ રોકાણકારો, ગ્રુપ અને પરિવારો જે ફિક્સ લીઝને બદલે નફામાં હિસ્સો ઇચ્છે",
+  vd_n4:"ફાઉન્ડિંગ રિસોર્ટ ઓનરશિપ",
+  vd_s4:"બિઝનેસ પાર્ટનર + ફાઉન્ડર દરજ્જો + સુવિધાઓમાં હક",
+  vd_b4:"10 વિલા પર વાર્ષિક અંદાજિત નફા હિસ્સો · દર ત્રિમાસિક ₹62,50,000 · ~16.6% વાર્ષિક",
+  vd_r4:["ઓછામાં ઓછા|10 વિલા", "વિલા દીઠ કિંમત|₹1,51,00,000 (કોઈ ડિસ્કાઉન્ટ નહીં)", "કુલ રકમ|10 વિલાના ₹15,10,00,000", "પાર્ટનરશિપ|5% · મોડલ 3 જેટલો જ નફા હિસ્સો", "વધારાનું|એમેનિટીઝ હોલ્ડિંગ (2,00,000 ચો. ફૂટ રેસ્ટોરન્ટ, બેન્ક્વેટ, દુકાનો, ઇવેન્ટ સ્પેસ) માં ભવિષ્યના હક · અંદાજિત ₹300,00,00,000 ના 5% = ₹15,00,00,000", "સાથે|ફાઉન્ડર સન્માન · ભવિષ્યના પ્રોજેક્ટમાં પ્રાથમિકતા"],
+  vd_bf4:"વ્યૂહાત્મક HNI રોકાણકારો, ફેમિલી ઓફિસ અને લાંબા ગાળાના પાર્ટનર",
+  vd_n5:"25 વિલા પાર્ટનરશિપ પ્રોગ્રામ",
+  vd_s5:"નાની ભાગીદારી · 25 વિલામાં હિસ્સો",
+  vd_b5:"એક ભાગીદારી (ઓછામાં ઓછી) · તમે વધુ પણ લઈ શકો",
+  vd_r5:["મર્યાદા|કુલ 1,000 ભાગીદારી", "આમાં શું મળે|1,000 ભાગીદારી મળીને ₹1,13,25,000 પ્રતિ વિલા પર 25 વિલા લે છે", "તમારો હિસ્સો|25 વિલા = રિસોર્ટના નફાના 12.5%, સરખા ભાગે, દર ત્રિમાસિક", "પહેલું વર્ષ (અંદાજિત)|₹66,240 · 22.08%", "10 વર્ષ (અંદાજિત)|≈ ₹10,55,694 પ્રતિ ભાગીદારી", "પ્રોપર્ટી મૂલ્ય (અંદાજિત)|₹3,00,000 → ≈ ₹5,30,000", "રેફરલ ઇનામ|20 ભાગીદારી રેફર કરો → 1 ભાગીદારી મેળવો", "વિલા કોના નામે|Richwealth Villa Holdings Private Limited"],
+  vd_bf5:"જે પરિવારો નાની રકમથી રિસોર્ટમાં હિસ્સો ઇચ્છે",
+  vd_th:["વર્ષ", "દર મહિને", "દર વર્ષે", "વિલા", "દર વર્ષે", "દર ત્રિમાસિક", "કુલ", "ચુકવણી"],
+  vd_tb1:"10 વર્ષનું ભાડા ટેબલ જુઓ",
+  vd_tb2:"પાર્ટનરશિપ કેવી રીતે વધે જુઓ",
+  vd_tb3:"10 વર્ષનો અંદાજ જુઓ",
+  vd_two:"એક જ રિસોર્ટમાંથી કમાણીના બે રસ્તા",
+  vd_two_b:["મકાન-માલિક · મોડલ 1 અને 2|રિસોર્ટ તરફથી દર મહિને ફિક્સ લીઝ, દર વર્ષે 7.2% વધે. ઓફ-સીઝનમાં ઘટતી નથી.", "પાર્ટનર · મોડલ 3, 4 અને 25 વિલા|રિસોર્ટના નફામાં હિસ્સો, દર ત્રિમાસિક. વધુ શક્યતા, અને વધુ જોખમ."],
+  vd_src:"<b>પૈસા ક્યાંથી આવે છે:</b> મહેમાનોના રોકાણના ભાડામાંથી, વ્યાજમાંથી નહીં. 200 વિલા × ₹25,000 પ્રતિ રાત × 100 નફાની રાતો = ₹50,00,00,000 અંદાજિત વાર્ષિક આવક. પહેલા ખર્ચ નીકળે, બાકીનો નફો વહેંચાય.",
+  vd_villa:"વિલાની અંદર",
+  vd_villa_b:["🛋️|લિવિંગ, ડાઇનિંગ અને ફિટેડ કિચન, પૂલ ડેક અને લોન તરફ ખુલ્લા", "🛏️|4 બેડરૂમ, દરેકમાં એટેચ્ડ બાથરૂમ, + ગેસ્ટ વૉશરૂમ · ગ્રાઉન્ડ ફ્લોર પર વડીલોને અનુકૂળ બેડરૂમ", "🏊|પ્રાઇવેટ 10′ × 20′ પૂલ, ગાર્ડન સીટિંગ અને મોટી L-આકારની બાલ્કની", "🚗|દરેક વિલામાં કાર પાર્કિંગ · EV ચાર્જિંગ પ્લગ", "🏡|ફેમિલી હોલિડે હોમ, આખો વિલા ભાડે કે રૂમ પ્રમાણે ભાડે", "🛕|મહેમાનો માટે મંદિર, બેટ દ્વારકા, નાગેશ્વર અને શિવરાજપુર બીચ સુધી ફ્રી EV બસ"],
+  vd_amen:"રિસોર્ટ સુવિધાઓ",
+  vd_amen_b:["ક્લબહાઉસ અને રિસેપ્શન", "રેસ્ટોરન્ટ", "બેન્ક્વેટ હોલ", "જિમ અને સ્પા", "લગૂન પૂલ", "પૂલ બાર", "ટેમ્પલ વ્યૂ ડેક", "યોગ પેવેલિયન", "સ્પોર્ટ્સ કોર્ટ", "બાળકોનો રમત વિસ્તાર", "ગાર્ડન", "દુકાનો", "24×7 સુરક્ષા", "હાઉસકીપિંગ", "ઇલેક્ટ્રિક બગી"],
+  vd_book:"બુકિંગ કેવી રીતે કરવું",
+  vd_eoi:["₹1,00,000|વિલા EOI · એક કે વધુ વિલા (મોડલ 1 કે 2)", "₹10,00,000|રિસોર્ટ પાર્ટનર EOI · મોડલ 3 કે 4"],
+  vd_eoi_n:"EOI (રસ પત્ર) 100% પરત મળે છે. EOI થી કોઈ હક બનતો નથી; ફાળવણી ઉપલબ્ધતા પ્રમાણે.",
+  vd_steps:["પ્રોજેક્ટ પ્રેઝન્ટેશનમાં આવો", "વિશ્રામ દ્વારકા સાઇટ જુઓ", "તમારું મોડલ પસંદ કરો", "પરત મળે તેવી EOI જમા કરો", "લોન્ચ દસ્તાવેજોની રાહ જુઓ", "કાનૂની પ્રક્રિયા પૂરી કરો", "તમારા મોડલ સાથે આગળ વધો"],
+  vd_faq:"લોકો વારંવાર પૂછે છે",
+  vd_q:["વિલા મારા નામે રજિસ્ટર થશે?|હા. મોડલ 1 અને 2 માં વિલા અને 2,000 ચો. ફૂટ પ્લોટની રજિસ્ટર્ડ સેલ ડીડ: મોડલ 2 માં તરત, મોડલ 1 માં પૂરી ચુકવણી પછી.", "આવક ક્યારે શરૂ થશે?|ઓનરશિપ: પૂરી ચુકવણી, સેલ ડીડ અને હોસ્પિટાલિટી લીઝ કરાર સહી થયા પછી. પાર્ટનરશિપ: દર ત્રિમાસિક.", "રિટર્ન ગેરંટીડ છે?|લીઝ સહી થયા પછી કરાર મુજબ છે. પાર્ટનરશિપ આવક ફિક્સ નથી, રિસોર્ટના ખરેખરા પ્રદર્શન પર આધાર. અહીં દરેક આંકડો અંદાજ છે.", "મારો પરિવાર વિલા વાપરી શકે?|હા: ફેમિલી હોલિડે હોમ, આખો વિલા કે રૂમ ભાડે, અંતિમ દસ્તાવેજો પ્રમાણે.", "સાઇટ ક્યાં છે?|બરડીયા, દ્વારકા–પોરબંદર હાઇવે (NH-51), 52 જિનાલય જૈન તીર્થ પાછળ · જિંજર દ્વારકા 400 મીટર · બરડીયા બીચ આશરે 2 કિમી."],
+  vd_cta:"આ પ્લાન વિશે WhatsApp પર પૂછો →",
+  vd_wa:"નમસ્તે Richwealth, મને વિશ્રામ દ્વારકામાં રસ છે: {p}. કૃપા કરી વિગત અને સાઇટ વિઝિટનો સમય જણાવો.",
+  vd_fine:"આ માત્ર માહિતી માટે કોન્સેપ્ટ ડ્રાફ્ટ છે, કાનૂની ઓફર નથી. લીઝ ભાડું અને નફા-હિસ્સાના આંકડા અંદાજ છે (200 વિલા · ₹25,000 પ્રતિ રાત · 100 નફાની રાતો), ગેરંટી નથી; પાર્ટનરશિપ આવક ઓક્યુપન્સી, ભાવ, ખર્ચ, સીઝન અને રિસોર્ટના પ્રદર્શન પર આધારિત. ચિત્રો, ક્ષેત્રફળ, સુવિધાઓ અને શરતો અંતિમ મંજૂરી, કાનૂની દસ્તાવેજ અને CA/ટેક્સ સમીક્ષાથી બદલાઈ શકે. ટેક્સ લાગુ. માત્ર અંતિમ સહી થયેલ કરાર માન્ય.",
   tb1:"પ્લાન",
   tb3:"દ્વારકા",
   tb4:"અરજી",
@@ -1602,6 +1840,54 @@ $("dplus").onclick = function(){ setDwk(dRs + DWK.step); };
 $("usedwk").addEventListener("click", function(){ $("f-plan").value = "dwk"; $("f-amt").value = num(dRs); syncForm(); });
 
 /* ===================== PRIVÉ + BANKS + TERMS ===================== */
+
+/* ---------- Vishram Dwarka villa plans ---------- */
+var VD_BIG = ["₹90,600", "₹67,950", "₹2,50,00,000", "₹2,50,00,000", "₹3,00,000"];
+var VD_RENT1 = [[90600,1087200],[97123,1165478],[104149,1249792],[111648,1339777],[119687,1436241],[128304,1539651],[137542,1650506],[147445,1769342],[158061,1896735],[169442,2033300]];
+var VD_RENT2 = [[67950,815400],[72842,874109],[78087,937045],[83709,1004512],[89736,1076837],[96197,1154369],[103124,1237483],[110549,1326582],[118508,1422096],[127007,1524087]];
+var VD_SCALE = [[2,"1%",5000000,1250000],[10,"5%",25000000,6250000],[20,"10%",50000000,12500000],[40,"20%",100000000,25000000],[50,"25%",125000000,31250000],[100,"50%",250000000,62500000]];
+var VD_PART = [["22.08%",66240],["24.29%",72864],["26.72%",80150],["29.39%",88165],["32.33%",96982],["35.56%",106680],["39.12%",117348],["43.03%",129083],["47.33%",141991],["52.06%",156191]];
+var vdSel = 0;
+function vdTable(i){
+  var h = t("vd_th"), rows = "", head = "";
+  if (i < 2){
+    var R = i ? VD_RENT2 : VD_RENT1, tot = 0;
+    head = "<tr><th>" + h[0] + "</th><th>" + h[1] + "</th><th>" + h[2] + "</th></tr>";
+    R.forEach(function(r, y){ tot += r[1]; rows += "<tr><td>" + (y + 1) + "</td><td>" + inr(r[0]) + "</td><td>" + inr(r[1]) + "</td></tr>"; });
+    rows += '<tr class="hl"><td>' + h[6] + '</td><td></td><td>' + inr(tot) + "</td></tr>";
+  } else if (i < 4){
+    head = "<tr><th>" + h[3] + "</th><th>%</th><th>" + h[4] + "</th><th>" + h[5] + "</th></tr>";
+    VD_SCALE.forEach(function(r){ rows += "<tr" + (r[0] === 10 ? ' class="hl"' : "") + "><td>" + r[0] + "</td><td>" + r[1] + "</td><td>" + inr(r[2]) + "</td><td>" + inr(r[3]) + "</td></tr>"; });
+  } else {
+    var tot2 = 0;
+    head = "<tr><th>" + h[0] + "</th><th>ROI</th><th>" + h[7] + "</th></tr>";
+    VD_PART.forEach(function(r, y){ tot2 += r[1]; rows += "<tr><td>" + (y + 1) + "</td><td>" + r[0] + "</td><td>" + inr(r[1]) + "</td></tr>"; });
+    rows += '<tr class="hl"><td>' + h[6] + '</td><td></td><td>' + inr(tot2) + "</td></tr>";
+  }
+  return '<details class="vdtbl"><summary>' + t("vd_tb" + (i < 2 ? 1 : i < 4 ? 2 : 3)) + "</summary><table class=\"num-f\">" + head + rows + "</table></details>";
+}
+function vdShow(i){
+  vdSel = i;
+  [].forEach.call($("vdTabs").children, function(b, k){ b.classList.toggle("on", k === i); b.setAttribute("aria-selected", k === i); });
+  var n = i + 1;
+  $("vdPlan").innerHTML = "<h3>" + t("vd_n" + n) + "</h3><p class=\"vdsub\">" + t("vd_s" + n) + "</p>" +
+    '<div class="vdbig"><b class="num-f">' + VD_BIG[i] + "</b><span>" + t("vd_b" + n) + "</span></div>" +
+    '<dl class="vdrows">' + t("vd_r" + n).map(function(x){ var a = x.split("|"); return "<div><dt>" + a[0] + "</dt><dd>" + a[1] + "</dd></div>"; }).join("") + "</dl>" +
+    '<p class="vdbest">★ ' + t("vd_best") + ": " + t("vd_bf" + n) + "</p>" + vdTable(i);
+  $("vdWa").href = "https://wa.me/919913121121?text=" + encodeURIComponent(t("vd_wa").replace("{p}", t("vd_n" + n)));
+}
+function vdBuild(){
+  $("vdFacts").innerHTML = t("vd_f").map(function(x){ var a = x.split("|"); return '<div><b class="num-f">' + a[0] + "</b><span>" + a[1] + "</span></div>"; }).join("");
+  $("vdTabs").innerHTML = t("vd_t").map(function(x, k){ var a = x.split("|"); return '<button type="button" role="tab">' + a[0] + "<small>" + a[1] + "</small></button>"; }).join("");
+  [].forEach.call($("vdTabs").children, function(b, k){ b.addEventListener("click", function(){ vdShow(k); try { b.scrollIntoView({ behavior:"smooth", block:"nearest", inline:"nearest" }); } catch(x){} }); });
+  $("vdTwo").innerHTML = t("vd_two_b").map(function(x){ var a = x.split("|"); return "<div><b>" + a[0] + "</b><span>" + a[1] + "</span></div>"; }).join("");
+  $("vdVilla").innerHTML = t("vd_villa_b").map(function(x){ var a = x.split("|"); return '<div class="why"><i>' + a[0] + "</i><span>" + a[1] + "</span></div>"; }).join("");
+  $("vdAmen").innerHTML = t("vd_amen_b").map(function(x){ return "<span>" + x + "</span>"; }).join("");
+  $("vdEoi").innerHTML = t("vd_eoi").map(function(x){ var a = x.split("|"); return '<div><b class="num-f">' + a[0] + "</b><span>" + a[1] + "</span></div>"; }).join("");
+  $("vdSteps").innerHTML = t("vd_steps").map(function(x){ return "<li>" + x + "</li>"; }).join("");
+  $("vdFaq").innerHTML = t("vd_q").map(function(x){ var a = x.split("|"); return "<details><summary>" + a[0] + "</summary><p>" + a[1] + "</p></details>"; }).join("");
+  vdShow(vdSel);
+}
 function buildStatic(){
   var ic = ["%","①","★","🤝","🏅","🎁"];
   $("bens").innerHTML = [1,2,3,4,5,6].map(function(i){ return '<div class="ben"><i>'+ic[i-1]+'</i><div><b>'+t("b"+i)+'</b><span>'+t("b"+i+"s")+'</span></div></div>'; }).join("");
@@ -1614,6 +1900,7 @@ function buildStatic(){
   $("ogrid").innerHTML = OFFICES.map(function(o){ return '<div class="off"><h3>' + (o[LANG] || o.en) + '</h3><p>' + o.a + '</p></div>'; }).join("");
   $("soon").innerHTML = "<b>" + t("o_soon") + "</b>" + SOON.map(function(c){ return "<span>" + (c[LANG] || c.en) + "</span>"; }).join("");
   dShow();
+  vdBuild();
   $("terms").innerHTML = [1,2,3,4,5,6].map(function(i){ return "<li>"+t("t"+i)+"</li>"; }).join("");
   var bx = $("banks"); bx.innerHTML = "";
   BANKS.forEach(function(B){
