@@ -311,6 +311,12 @@
   .vdfaq p{margin:6px 0 0; font-size:13.5px; color:#dce8e3}
   .exits b.num-f{color:#f1dfa6; font-size:17px}
 
+  .vdpay{margin:14px 0 0; padding:10px 12px; border-radius:12px; background:rgba(241,223,166,.1); border:1px solid rgba(241,223,166,.4); font-size:13.5px; line-height:1.5; color:#dce8e3}
+  .vdpay b{color:#fff}
+  .dwk .btn.vdwa2{background:transparent; color:#f1dfa6; border:1.5px solid #d9c27c; margin-top:10px; font-size:15.5px; padding:13px 16px}
+  #f-plan.k-vd{background-color:#163c3f; border-color:#2c5a5c; color:#f1dfa6}
+  .plantag.k-vd{background:#163c3f; color:#f1dfa6}
+
   /* steps / tracker */
   .steps{list-style:none; margin:14px 0 0; padding:0; text-align:left; counter-reset:st}
   .steps li{position:relative; padding:0 0 14px 40px; color:#4d4838; font-size:15px; counter-increment:st}
@@ -708,7 +714,9 @@
     <h3 class="dsub" data-t="vd_faq"></h3>
     <div class="vdfaq" id="vdFaq"></div>
     </details>
-    <a class="btn" id="vdWa" href="#" target="_blank" rel="noopener" data-t="vd_cta"></a>
+    <p class="vdpay" data-t="vd_pay"></p>
+    <a class="btn" href="#apply" id="vdApply" data-t="vd_apply"></a>
+    <a class="btn vdwa2" id="vdWa" href="#" target="_blank" rel="noopener" data-t="vd_cta"></a>
     <p class="fine" data-t="vd_fine"></p>
   </section>
 
@@ -1147,7 +1155,7 @@ var ENDPOINT = "https://script.google.com/macros/s/AKfycbzSZUWjn-1WeG0ilSSMO5Tmk
 /* Official receiving accounts. Leave a value "" to show "to be confirmed". */
 var BANKS = [
   /* from YES Bank statements: RW Investments 10 May-10 Aug 2026.pdf / RW Prive 09 May-06 Aug 2026.pdf */
-  { k:"inv",   forPlans:["std_m","pre_m","std_a","pre_a","dwk"], name:"RICHWEALTH INVESTMENTS", bank:"YES Bank", acc:"053363700000537", ifsc:"YESB0000533", branch:"Jamnagar (Park Colony)" },
+  { k:"inv",   forPlans:["std_m","pre_m","std_a","pre_a","dwk","vd1","vd2","vd3","vd4","vd25"], name:"RICHWEALTH INVESTMENTS", bank:"YES Bank", acc:"053363700000537", ifsc:"YESB0000533", branch:"Jamnagar (Park Colony)" },
   { k:"prive", forPlans:["prv_m","prv_a","fee"],          name:"RICHWEALTH PRIVE",       bank:"YES Bank", acc:"053327000000661", ifsc:"YESB0000533", branch:"Jamnagar (Park Colony)" }
 ];
 var PLANS = {
@@ -1160,6 +1168,12 @@ var PLANS = {
 };
 var ORDER = ["std_m","pre_m","std_a","pre_a","prv_m","prv_a"];
 var DWK = { rate:400, min:400000, step:400000 };   // Dwarka Opportunity Land
+// Vishram Dwarka villa plans: min = EOI, def = amount pre-filled from the plan card; all paid ONLY into RI YES
+var VDP = { vd1:{ n:1, min:100000, def:5100000 }, vd2:{ n:2, min:100000, def:11325000 }, vd3:{ n:3, min:1000000, def:113250000 },
+            vd4:{ n:4, min:1000000, def:151000000 }, vd25:{ n:5, min:300000, step:300000, def:300000 } };
+var VD_KEYS = ["vd1","vd2","vd3","vd4","vd25"];
+function isDw(p){ return p === "dwk" || !!VDP[p]; }
+function vdAmtBad(p, rs){ var V = VDP[p]; return rs < V.min || rs % (V.step || 1) !== 0; }
 var OFFICES = [
   { en:"Jamnagar",  hi:"जामनगर",  gu:"જામનગર",  a:"Opp. Ranmal Lake, Gate No. 1, Jamnagar – 361005" },
   { en:"Ahmedabad", hi:"अहमदाबाद", gu:"અમદાવાદ", a:"A-2207, 22nd Floor, Privilon, Iscon Cross Roads, Ahmedabad – 380054" },
@@ -1172,6 +1186,15 @@ var TDS = 0.10, MAX_EDGE = 1700, JPEG_Q = 0.82, MAX_RAW = 6 * 1024 * 1024;
 /* ===================== TEXT ===================== */
 var T = {
 en:{
+  pg_dwkg:"Dwarka plans (Land & Villas) · pay only into RI YES Bank",
+  vd_opt:["Vishram Model 1 · Flexible (pay in parts)", "Vishram Model 2 · Premium (25% benefit)", "Vishram Model 3 · Resort Partnership", "Vishram Model 4 · Founding Ownership", "Vishram 25 Villa · ₹3,00,000 participation"],
+  vd_bank:"For all Dwarka plans — pay ONLY into this account",
+  vd_famt:["Booking ₹51,00,000 (villa ₹1,51,00,000). You can start with the Villa EOI, from ₹1,00,000.", "Full price ₹1,13,25,000 (after the 25% benefit). You can start with the Villa EOI, from ₹1,00,000.", "10 villas: ₹11,32,50,000. You can start with the Resort Partner EOI, from ₹10,00,000.", "10 villas: ₹15,10,00,000. You can start with the Resort Partner EOI, from ₹10,00,000.", "₹3,00,000 per participation, in multiples of ₹3,00,000."],
+  vd_sum_h:"Your Dwarka plan",
+  vd_parts:"participation(s)",
+  vd_rcpt:"investment receipt for your interest",
+  vd_pay:"<b>Pay only into the Richwealth Investments YES Bank account</b> (A/c 053363700000537 · IFSC YESB0000533). For every Dwarka plan you get an investment receipt for your interest.",
+  vd_apply:"Apply & pay for this plan →",
   vd_j1:"Opportunity Land",
   vd_j2:"Villa Plans",
   vd_eye:"Vishram Dwarka · Villa resort",
@@ -1358,6 +1381,15 @@ en:{
   foot2:"Your documents are stored privately and used only for KYC, certificates and payouts."
 },
 hi:{
+  pg_dwkg:"द्वारका प्लान (ज़मीन और विला) · भुगतान केवल RI YES Bank में",
+  vd_opt:["विश्राम मॉडल 1 · फ़्लेक्सिबल (किस्तों में)", "विश्राम मॉडल 2 · प्रीमियम (25% लाभ)", "विश्राम मॉडल 3 · रिसॉर्ट पार्टनरशिप", "विश्राम मॉडल 4 · फ़ाउंडिंग ओनरशिप", "विश्राम 25 विला · ₹3,00,000 भागीदारी"],
+  vd_bank:"सभी द्वारका प्लान — केवल इसी खाते में भुगतान करें",
+  vd_famt:["बुकिंग ₹51,00,000 (विला ₹1,51,00,000)। आप ₹1,00,000 से विला EOI के साथ शुरू कर सकते हैं।", "पूरी कीमत ₹1,13,25,000 (25% लाभ के बाद)। आप ₹1,00,000 से विला EOI के साथ शुरू कर सकते हैं।", "10 विला: ₹11,32,50,000। आप ₹10,00,000 से रिसॉर्ट पार्टनर EOI के साथ शुरू कर सकते हैं।", "10 विला: ₹15,10,00,000। आप ₹10,00,000 से रिसॉर्ट पार्टनर EOI के साथ शुरू कर सकते हैं।", "₹3,00,000 प्रति भागीदारी, ₹3,00,000 के गुणक में।"],
+  vd_sum_h:"आपका द्वारका प्लान",
+  vd_parts:"भागीदारी",
+  vd_rcpt:"आपकी रुचि की इन्वेस्टमेंट रसीद",
+  vd_pay:"<b>भुगतान केवल Richwealth Investments के YES Bank खाते में करें</b> (A/c 053363700000537 · IFSC YESB0000533)। हर द्वारका प्लान पर आपको आपकी रुचि की इन्वेस्टमेंट रसीद मिलेगी।",
+  vd_apply:"इस प्लान के लिए आवेदन और भुगतान करें →",
   vd_j1:"ऑपर्च्युनिटी लैंड",
   vd_j2:"विला प्लान",
   vd_eye:"विश्राम द्वारका · विला रिसॉर्ट",
@@ -1544,6 +1576,15 @@ hi:{
   foot2:"आपके दस्तावेज़ निजी रूप से रखे जाते हैं और केवल KYC, सर्टिफ़िकेट और भुगतान के लिए उपयोग होते हैं।"
 },
 gu:{
+  pg_dwkg:"દ્વારકા પ્લાન (જમીન અને વિલા) · ચુકવણી માત્ર RI YES Bank માં",
+  vd_opt:["વિશ્રામ મોડલ 1 · ફ્લેક્સિબલ (હપ્તામાં)", "વિશ્રામ મોડલ 2 · પ્રીમિયમ (25% લાભ)", "વિશ્રામ મોડલ 3 · રિસોર્ટ પાર્ટનરશિપ", "વિશ્રામ મોડલ 4 · ફાઉન્ડિંગ ઓનરશિપ", "વિશ્રામ 25 વિલા · ₹3,00,000 ભાગીદારી"],
+  vd_bank:"બધા દ્વારકા પ્લાન — માત્ર આ જ ખાતામાં ચુકવણી કરો",
+  vd_famt:["બુકિંગ ₹51,00,000 (વિલા ₹1,51,00,000). તમે ₹1,00,000 થી વિલા EOI સાથે શરૂ કરી શકો.", "પૂરી કિંમત ₹1,13,25,000 (25% લાભ પછી). તમે ₹1,00,000 થી વિલા EOI સાથે શરૂ કરી શકો.", "10 વિલા: ₹11,32,50,000. તમે ₹10,00,000 થી રિસોર્ટ પાર્ટનર EOI સાથે શરૂ કરી શકો.", "10 વિલા: ₹15,10,00,000. તમે ₹10,00,000 થી રિસોર્ટ પાર્ટનર EOI સાથે શરૂ કરી શકો.", "₹3,00,000 પ્રતિ ભાગીદારી, ₹3,00,000 ના ગુણાંકમાં."],
+  vd_sum_h:"તમારો દ્વારકા પ્લાન",
+  vd_parts:"ભાગીદારી",
+  vd_rcpt:"તમારા રસની ઇન્વેસ્ટમેન્ટ રસીદ",
+  vd_pay:"<b>ચુકવણી માત્ર Richwealth Investments ના YES Bank ખાતામાં જ કરો</b> (A/c 053363700000537 · IFSC YESB0000533). દરેક દ્વારકા પ્લાન પર તમને તમારા રસની ઇન્વેસ્ટમેન્ટ રસીદ મળશે.",
+  vd_apply:"આ પ્લાન માટે અરજી અને ચુકવણી કરો →",
   vd_j1:"ઓપોર્ચ્યુનિટી લેન્ડ",
   vd_j2:"વિલા પ્લાન",
   vd_eye:"વિશ્રામ દ્વારકા · વિલા રિસોર્ટ",
@@ -1837,6 +1878,7 @@ function stepsHTML(stage){ return t("st").map(function(x, i){ var n = i + 1; ret
 $("damt").addEventListener("blur", function(){ setDwk(Math.floor(rupees("damt") / DWK.step) * DWK.step); });
 $("dminus").onclick = function(){ setDwk(dRs - DWK.step); };
 $("dplus").onclick = function(){ setDwk(dRs + DWK.step); };
+$("vdApply").addEventListener("click", function(){ var k = VD_KEYS[vdSel]; $("f-plan").value = k; $("f-amt").value = num(VDP[k].def); syncForm(); });
 $("usedwk").addEventListener("click", function(){ $("f-plan").value = "dwk"; $("f-amt").value = num(dRs); syncForm(); });
 
 /* ===================== PRIVÉ + BANKS + TERMS ===================== */
@@ -1917,12 +1959,12 @@ function buildStatic(){
   highlightBank();
 }
 function highlightBank(){
-  var p = ($("f-plan") && $("f-plan").value) || plan, dw = p === "dwk";
+  var p = ($("f-plan") && $("f-plan").value) || plan, dw = isDw(p);
   BANKS.forEach(function(B){
     var el = $("bank-" + B.k); if (!el) return;
     el.classList.toggle("on", B.forPlans.indexOf(p) >= 0);
     el.classList.toggle("hide", dw && B.forPlans.indexOf("dwk") < 0);      // Dwarka: only the RI account is shown
-    var h = el.querySelector("h3"); if (h) h.textContent = dw && B.k === "inv" ? t("dk_bank") : t("bk_" + B.k);
+    var h = el.querySelector("h3"); if (h) h.textContent = dw && B.k === "inv" ? t(p === "dwk" ? "dk_bank" : "vd_bank") : t("bk_" + B.k);
   });
 }
 
@@ -2004,12 +2046,13 @@ function buildSelects(){
   fillSelect("f-rtype", rtEn.map(function(v, i){ return [v, rt[i] || v]; }), true);
   var cur = $("f-plan").value || plan;
   var ps = $("f-plan"); ps.innerHTML = "";
-  [["g-std", "pg_std", ["std_m","pre_m","std_a","pre_a"]], ["g-pv", "pg_pv", ["prv_m","prv_a","fee"]], ["g-dwk", "pg_dwk", ["dwk"]]].forEach(function(g){
+  [["g-std", "pg_std", ["std_m","pre_m","std_a","pre_a"]], ["g-pv", "pg_pv", ["prv_m","prv_a","fee"]], ["g-dwk", "pg_dwkg", ["dwk"].concat(VD_KEYS)]].forEach(function(g){
     var og = document.createElement("optgroup"); og.label = t(g[1]); og.className = g[0];
     g[2].forEach(function(k){
       var op = document.createElement("option"); op.value = k; op.className = "o-" + g[0].slice(2);
       if (k === "fee") op.textContent = t("fee_only");
       else if (k === "dwk") op.textContent = t("dwk") + " · ₹400";
+      else if (VDP[k]) op.textContent = t("vd_opt")[VDP[k].n - 1];
       else { var P = PLANS[k]; op.textContent = t(k) + " — " + P.r + "% " + (P.m ? t("per_m") : t("per_y")); }
       og.appendChild(op);
     });
@@ -2021,16 +2064,17 @@ function syncForm(){
   var p = $("f-plan").value, pv = p === "fee" || (PLANS[p] && PLANS[p].pv);
   $("mshipField").classList.toggle("hide", !pv);
   $("insField").classList.toggle("hide", p !== "dwk");
-  var kind = p === "dwk" ? "k-dwk" : p === "fee" ? "k-fee" : (PLANS[p] && PLANS[p].pv) ? "k-pv" : "k-std";
+  var kind = p === "dwk" ? "k-dwk" : VDP[p] ? "k-vd" : p === "fee" ? "k-fee" : (PLANS[p] && PLANS[p].pv) ? "k-pv" : "k-std";
   $("f-plan").className = "in " + kind;
   $("plantag").className = "plantag " + kind;
-  $("plantag").textContent = t(kind === "k-dwk" ? "pg_dwk" : kind === "k-std" ? "pg_std" : "pg_pv");
+  $("plantag").textContent = t(kind === "k-dwk" ? "pg_dwk" : kind === "k-vd" ? "vd_h" : kind === "k-std" ? "pg_std" : "pg_pv");
   $("f-amt").closest(".field").classList.toggle("hide", p === "fee");
   var rs = rupees("f-amt"), L = rs / 100000;
-  $("f-amt").closest(".field").querySelector(".hint").textContent = p === "dwk" ? t("dk_famt_h") : t("famt_h");
-  $("fsum").previousElementSibling.textContent = p === "dwk" ? t("dk_area") : t("est_h");
+  $("f-amt").closest(".field").querySelector(".hint").textContent = p === "dwk" ? t("dk_famt_h") : VDP[p] ? t("vd_famt")[VDP[p].n - 1] : t("famt_h");
+  $("fsum").previousElementSibling.textContent = p === "dwk" ? t("dk_area") : VDP[p] ? t("vd_sum_h") : t("est_h");
   if (p === "fee"){ $("fsum").innerHTML = "<b>Privé</b> — ₹2,500 / ₹10,000"; }
   else if (p === "dwk"){ $("fsum").innerHTML = rs >= DWK.min ? "<b>" + num(rs / DWK.rate) + "</b> " + t("sqft") + (/^Yes/.test(radio("ins")) ? " · " + t("dk_pay") + ": <b>" + inr(rs * 1.1) + "</b>" : "") : "—"; }
+  else if (VDP[p]){ $("fsum").innerHTML = vdAmtBad(p, rs) ? "—" : (p === "vd25" ? "<b>" + num(rs / 300000) + "</b> " + t("vd_parts") + " · " : "") + t("vd_rcpt"); }
   else if (L >= 1){ var r = calc(p, L); $("fsum").innerHTML = "<b>" + inr(r.net) + "</b> " + (r.per === "m" ? t("per_m") : t("per_y")); }
   else $("fsum").textContent = "—";
   highlightBank();
@@ -2178,7 +2222,7 @@ function checkForm(){
   var p = $("f-plan").value, feeOnly = p === "fee", isPv = feeOnly || (PLANS[p] && PLANS[p].pv);
   var paid = radio("paid") === "Paid", rtype = $("f-rtype").value, needRef = rtype && !/Self|Social|Seminar/.test(rtype);
   var rs = rupees("f-amt"), L = rs / 100000, acc = digits(val("f-bacc")), isDwk = p === "dwk", pdiff = radio("psame") === "Different";
-  var amtBad = feeOnly ? false : isDwk ? (rs < DWK.min || rs % DWK.step !== 0) : (rs < 100000 || rs % 100000 !== 0);
+  var amtBad = feeOnly ? false : isDwk ? (rs < DWK.min || rs % DWK.step !== 0) : VDP[p] ? vdAmtBad(p, rs) : (rs < 100000 || rs % 100000 !== 0);
   var ok = [
     mark("fname", val("f-fname").length < 1),
     mark("lname", val("f-lname").length < 1),
@@ -2228,7 +2272,7 @@ form.addEventListener("submit", function(ev){
   if (!ENDPOINT && !PREVIEW){ fail(t("not_open")); return; }
 
   btn.disabled = true; btn.innerHTML = t("saving");
-  var est = feeOnly || isDwk ? null : calc(p, L);
+  var isVd = !!VDP[p], est = feeOnly || isDwk || isVd ? null : calc(p, L);
   var docs = DOCS.concat(paid ? [PAYDOC] : []).map(function(d){ var f = files[d.k]; return { kind:d.k, mime:f.mime, data:f.data }; });
   var payload = {
     action:"submit", token:otpToken, otp_off: otpOff ? "Yes" : "No",
@@ -2237,9 +2281,9 @@ form.addEventListener("submit", function(ev){
     address:val("f-addr"), city:val("f-city"), pin:digits(val("f-pin")), state:val("f-state"),
     perm_same: pdiff ? "No" : "Yes", perm_address: pdiff ? [val("f-paddr"), val("f-pcity"), val("f-pstate"), digits(val("f-ppin"))].join(", ") : "",
     nominee:val("f-nom").toUpperCase(), nominee_rel:$("f-nomrel").value, nominee_mob:digits(val("f-nommob")),
-    plan:p, plan_name: feeOnly ? "Privé membership only" : isDwk ? "Dwarka Opportunity Land" : T.en[p], amount: feeOnly ? 0 : rs,
-    rate: feeOnly ? "" : isDwk ? "Rs 400 per sq ft" : PLANS[p].r + (PLANS[p].m ? "% per month" : "% per year"), tenure: feeOnly || isDwk ? "" : PLANS[p].ten,
-    est_net: isDwk ? num(rs / DWK.rate) + " sq ft" : est ? Math.round(est.net) + (est.per === "m" ? " / month" : " / year") : "",
+    plan:p, plan_name: feeOnly ? "Privé membership only" : isDwk ? "Dwarka Opportunity Land" : isVd ? T.en.vd_opt[VDP[p].n - 1] : T.en[p], amount: feeOnly ? 0 : rs,
+    rate: feeOnly || isVd ? "" : isDwk ? "Rs 400 per sq ft" : PLANS[p].r + (PLANS[p].m ? "% per month" : "% per year"), tenure: feeOnly || isDwk || isVd ? "" : PLANS[p].ten,
+    est_net: isDwk ? num(rs / DWK.rate) + " sq ft" : p === "vd25" ? num(rs / 300000) + " participation(s)" : isVd ? "Investment receipt" : est ? Math.round(est.net) + (est.per === "m" ? " / month" : " / year") : "",
     membership: isPv ? radio("mship") : "", dwk_ins: isDwk ? radio("ins") : "",
     paid: radio("paid"), mode: paid ? $("f-mode").value : "", pay_date: paid ? val("f-pdate") : "", utr: paid ? val("f-utr").toUpperCase() : "", pay_amount: paid ? digits(val("f-pamt")) : "",
     b_holder:val("f-bholder").toUpperCase(), b_name:val("f-bname").toUpperCase(), b_acc:acc, ifsc:val("f-ifsc"),
@@ -2355,6 +2399,7 @@ wzShow(0);
   setLang(ql || saved || "en");
   $("f-plan").value = plan; $("f-amt").value = num(lakhs * 100000); syncForm();
   if (qp === "dwk"){ $("f-plan").value = "dwk"; $("f-amt").value = num(DWK.min); syncForm(); }
+  if (qp && VDP[qp]){ $("f-plan").value = qp; $("f-amt").value = num(VDP[qp].def); syncForm(); }
   if (!(ql || saved)) $("gate").hidden = false;
   var v = null; try { v = JSON.parse(localStorage.getItem("rw_inv_v") || "null"); } catch(e){}
   if (v && v.m && Date.now() - v.at < 3*3600*1000){ otpToken = v.t || ""; otpOff = !!v.off; cc.value = v.cc; $("f-mob").value = v.m; showVerified(); }
